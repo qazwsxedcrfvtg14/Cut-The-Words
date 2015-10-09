@@ -1,0 +1,47 @@
+﻿<Page
+    x:Class="CutTheWords.Views.FindVocPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CutTheWords"
+    xmlns:ctl="using:CutTheWords.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <ctl:PageHeader Grid.ColumnSpan="2">
+            <ctl:PageHeader.HeaderContent>
+                <TextBlock x:ConnectionId='5' x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text="單字搜尋" />
+            </ctl:PageHeader.HeaderContent>
+        </ctl:PageHeader>
+        <!--<StackPanel BorderThickness="0,50,0,0">-->
+        <!--<TextBox x:Name="input_voc" Margin="14,5,15,5"/>-->
+        <TextBox x:ConnectionId='1' Grid.Row="1" x:Name="input_voc" Margin="15,10,5,5"                                                     />
+        <Button x:ConnectionId='2' Grid.Row="1" Grid.Column="1" Margin="5,10,15,5" x:Name="button" Content="搜尋" HorizontalAlignment="Center" VerticalAlignment="Center"                     />
+        <ScrollViewer x:ConnectionId='3' x:Name="scro" Grid.ColumnSpan="2" Grid.Row="2"                  >
+            <ListView x:ConnectionId='4' x:Name="VocList" Header="請輸入字元 a-z, ?, * (? 代替一個字母，* 代替零或多個字母) 來查詢" 
+              EntranceNavigationTransitionInfo.IsTargetElement="True"
+              IsItemClickEnabled="True"
+                                            >
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Margin="12,4" Text="{Binding}"/>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
+            </ListView>
+        </ScrollViewer>
+        <!-- </StackPanel>-->
+    </Grid>
+
+</Page>
+

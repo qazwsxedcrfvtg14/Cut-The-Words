@@ -1,0 +1,989 @@
+acer/acid/acri/acu,bitter 苦/sour 酸/sharp 銳利
+acro,top 頂/height 高/tip 尖/begin 開始
+act,do 做/act 動作/drive 驅動
+acu,sharp 尖銳
+aer/aero/aeri,air 空氣/atmosphere 大氣/aviation 航空
+ag,do 做/act 行動
+agger,stack 堆積
+agi/ig/act,move 移動/go 行動
+agog/agogue,leader 領導者
+agra/agri/agro,farming 農業/fields 田野/soil 土壤
+aholic/oholic,obsession 痴迷於
+alb/albo,white 白色/without 無色素
+alg/algia,pain 疼痛
+alt,high deep 高深
+alter/ali/altern/allo,other 其它/to change 改變狀態
+amble/ambul,walk 步行/move 移動
+amou/amor/ami,love 愛/liking 喜歡
+ana,anew 再次
+andr/andro,man 男人/male 男性
+ang,angular 角
+anim,life 生命/spirit 精神/anger 憤怒
+ann/anni/enn/enni,year 年
+ano,up 起來
+ante,before 前
+anth/antho,flower 花
+anthrop,human 人的
+anti,old 老
+arbor,tree 樹
+arch,chief 首席/rule 統治
+arium/ium,place 地方
+art,skill 技能
+arthr/arthro,joint 關節接頭
+astr/astro/aster,stars 星體/outer space 外太空
+athl/athlet,athlon 運動
+auc/aug/aut,originate 發起/increase 以增加,
+aud/aus/audio/audi,listen 聽,
+auto,self 自我/auto 自動
+avi/avia,bird 鳥
+ban,prohibit 禁止
+bar/baro,weight 重量/pressure 壓力
+bel/bell/belli,war 戰爭
+bene,good 良好/well 好/favorable有利/gentle溫柔
+bibl/bible/bibli/biblio,book 書
+bio,life 生命
+blast/blasto,cell 細胞
+brev,short 短
+burs,pouch 袋/purse 錢包
+caco,bad 壞
+cad,fall 下跌
+cade,procession 遊行
+calc,stone 石
+calor,heat 熱
+cand,發光
+cand,glowing 發光/iridescent 虹彩
+cap/cip/cept,take 拿取;持有
+capit/capt,head 頭
+cardi/cardio,heart 心臟
+carn/carni,flesh;meat 肉
+cas,take 拿/seize 抓住/fall 下跌
+cat/cata/cath,down 下/completely 完全/intensive 集約
+cathar,pure 純潔
+cau/caust/caut,burn 燒/heat 熱
+cause/cuse/cus,cause 原因/motive 動機
+ceas/ced/cede/ceed/cess,move 移動/yield 產量/go 走
+ceive/cept,take 取得/hold 持有
+celeb,famous people 名人
+celer,fast 快
+celest,stial 天空
+cent/centi,hundred 百
+centr/centri,center 中心
+cephal/cephalo,head 頭
+cerebr/cerebro,brain 大腦
+cert,sure 肯定
+chrom/chromo/chromat/chros,color 顏色/pigment 色素
+chron/chrono,time 時間
+chrys/chryso,gold 黃金/yellow 黃色
+cian,specific skill 特殊技能
+cid,發生/降臨
+cide/cise/cis,cut down 切下/kill殺
+cip,take取
+circum,around 周圍
+cit,call 呼叫/start 啟動
+civ,citizen 公民
+clam/claim,cry out 大聲說
+clar,clear 明確
+clin/cline,lean 依賴/bend彎曲
+clud/clus/claus,close;shut 關閉/down 下來/against反對/completely完全
+cogn/cogni/cognoac/gnos/gnosi,know 知道
+cord/chord,rope 繩
+cord/cor/cardi/cour,heart 心
+corn,玉米
+corp/corpus,body 體
+cort,correct 正確
+cosm/cosmo,universe 宇宙/world 世界
+cour,run 運行
+cracy,rule 統治力量
+cranio,skull 頭骨
+crat,擁有權力的人
+cre/cresc/cret/crease/cru,rise 上升/grow 成長
+crea,create 創造
+cred/creed,believe 相信
+crit,separate 分開/choose 選擇
+cruc,cross 交叉
+crusta,shell 殼
+crypt/crypto,hidden 隱藏/secret 秘密
+cule,very small 很小
+culp,guilt 有罪
+cumul,mass 質量/heap 堆
+cur/curs/curr/cour,run 運行
+cura/cure,care關懷
+cycle,循環/週期
+cycle/cyclo,circular 圓/wheel 輪
+deca,ten 十
+dem/demo,people 人民/populace 群眾/population人口
+demi,half 一半/less than 小於
+dendr/dendro/dendri,tree 樹
+dent/dont,tooth 牙齒
+derm/derma,skin 皮膚
+di/diplo,two 二
+dic/dict,speak 說
+dit,give 給
+doc/dokein/doct,teach 教/prove 證明
+domin/domain,master 主控
+don/donat,give 給
+dorm,sleep 睡
+dox,belief 信仰/opinion 觀點
+drome,run 運行/step 步驟
+du/duo,two 二
+duc/duct,tlead 引領/pull 拉
+dura/dur,hard 堅固/lasting 持久
+dynam,power 力量
+dynasthai,be able 能
+ectomy,cutting 切割
+ego,self 自我
+endo,within 內部
+epi,upon 在之上/over 超過/outside外面
+equi/equ,equal 平等
+equip,ship 船
+erg/ergo,work 運轉
+eso,inward;within 內部
+esth/aesth,feeling 感覺/beauty 美
+ethno,race 種族/people 人
+fa/fess,speak 說話
+fac/fact/fec/fect/fas/fea/fic,do 做/make 製作
+fall/fals,deceive 欺騙
+fan/fant,show 展示
+federis,league 聯合/pact 協約
+femto,quadrillionth 千萬億分之一
+fer,carry 帶來/bear 運送
+fic/feign/fain/fit/feat,shape 塑造外型/make fashion 使成形
+fid/fide/feder,faith 信念/trust 信任
+fig/figur,shape 形狀/form 形式
+fila/fili,thread 線
+fin,end 最後/finished 結束
+fix,fix 固定
+fla,吹
+flam/flagr,blaze火焰
+flex/flect,bend 彎
+flict,strike 攻擊
+flor/flora/fleur,flower 花
+flu/fluc/fluv/flux,flowing 流動
+for,completely 完全(加強)
+for/fore,before 前
+form,form 形式/shape 形狀
+fort/forc,strong 強
+fract/frag/frai,break 破
+frater,brother 哥
+fug/fuge,flee 逃跑
+funct,perform work 執行工作
+fuse/fus,pour 倒
+gam/gamy,marriage 婚姻/union 聯盟
+gastr,stomach 胃
+gen/geno/gene/genesis,birth 生育/production 生產/formation 形成/kind 種族
+geo,earth 地球/soil 土壤/global 全球
+ger,old age 晚年
+germ,vital part 生命的部分
+gest,carry 運送
+giga,billion 十億
+gin,careful 小心
+gloss/glot,tongue 舌頭/說話
+glu/glo,bond 結合/glue 膠黏
+glyph,vertical groove 縱溝
+gn/ant/nai/nat/nasc,born 天生/to spring forth 湧現出
+gon/gonic,angle 角
+grad/gress/gree/gred/gor,step 步驟/to gather 收集/to bring together 匯集/go 去
+gran,grain 糧食
+graph/gram,write 寫/draw 畫
+grat/gree,pleasing 愉快;感激
+grav,heavy 重
+greg,herd 群
+gym,naked 裸體
+gyn/gyno/gyne,woman 女人
+hale/heal,make whole 使整個/sound 聲
+heap,liver 肝
+hect/hector/hecat,hundred 百
+helic/helico,spiral 螺旋/circular 循環
+helio,sun/太陽
+hemi,half 一半/partial 部分
+hemo/hema/hem,blood 血
+hept,seven 七
+herbi,grass 草/plant 植物
+here/hes,sticky 黏
+hetero,other 其他/different 不同/mixed 混合/unlike 不像
+hex/ses/sex,six 六
+histo,tissue 薄紗
+holo,whole;entire 整個
+homo/homeo,same 相同
+hum/human,man 人/earth 地球/ground 地面
+hydr/hydra/hydro,water 水/液體
+hygro,moisture 水分/humidity 濕度
+hyper,over 過多
+hypn,sleep/睡/step 步驟/to go 去
+hypo,under 在...下
+iatr/iatro,medical care 醫療保健
+icon/icono,image 圖像
+id,狀態
+idem,the same 相同
+ideo,idea 主意
+idio,peculiar 奇特/personal 個人/distinct 獨特
+ignis,fire 火
+imag,likeness 像
+iso,equal 平等的/identical 相同的
+it,單位/行進
+ject/jac,throw 扔;擲
+join/junct/just/jug,join 加入
+jud/judice,judge 裁判
+juven,young 年輕
+kilo,thousand 千
+kine/kinet/mat,motion 運動/division 分裂
+lab/labor,work 工作
+lact/lacto,milk 牛奶
+later,side 側;邊
+lau/lav/lot/lut,wash 洗
+leag/leg/legis,law 法
+lect,choose 選擇/read 閱讀
+legal,法律上的
+legible,read 閱讀/choose 選
+leuk/leuko/leuc,white 白色/colorless 無色
+levi,light 輕
+lex/lexi,word 字詞/reading 閱讀
+liber/liver,free 自由/book 書
+licen/lic,allow 允許
+lide,strike 觸擊
+lig,choose 選擇
+like,像...一樣
+ling,very small 小的東西
+lingu,language 語言/tongue 舌頭
+lip/lipo,fat 脂肪
+liter,letters 書信;文字
+lith,stone 石頭
+liver,free 自由
+loc/loco/locus,place 地方/area 區域
+log/logue/loqu,locut,字/說
+luc/lus/lust/lum/lun/lumin,light 光
+lude/lud/lus,play 播放;玩
+lun/luna,moon 月亮
+macr/macer,lean 瘦
+macro/magn/magni,large 大/great 偉大
+main,strength 實力/foremost 最重要的
+mal/male,bad 壞的/evil 惡/beyond 之外/ill 生病了/wrong 錯誤
+man/manu,hand 手/do 做
+mand,command 命令
+mania,狂熱
+mar/mari/mer,sea 海
+mate,在一起的人/同伴
+mater/matri,mother 母親
+max,greatest 最大
+medi,half 半/middle/between 中間/halfway 之間
+mega,百萬/great 超大
+melan/melo,black 黑
+mem/memor/memori,remember 記得
+ment,mind 頭腦
+mere,part 部分/segment 線段
+merge/mers,dip 浸/dive 泡/合併
+meso,middle 中間
+meta,change 改變/after 後/beyond 超越/between 之間
+metr,admeasure 配給/apportion 攤派
+metri/meter,measure 測量
+micro,small 小
+mid,middle 中間
+migra/migr,move 移居
+mill/kilo,thousand 千
+milli,One thousandth 千分之一
+min/mini,little 小
+mob/mot/mov,move 移動
+mon,warn 警告/remind 提醒
+monstr,show 顯示
+mor/mort,death 死亡/mortal 凡人
+morph/morpho,shape 形狀/form 形式/structure 結構
+multi,many;much 多
+mun/muni/mune,public 公共/immune 免疫
+mut,change 變化
+my/myo,muscle 肌肉
+nano,billionth 十億
+narr,tell 告訴
+nat/nasc/gn/ant/nai,出身/根源
+nav,ship 船
+necr/necro,dead 死
+neg,no 沒有
+neo,new 新的/recent 最近的
+nephr/nephron,kidney 腎
+neur/neuro,nerve 神經的
+nihil,nothing 不存在
+noble,高貴
+noc,毒害
+noc/nox,hurt 傷害/poison 毒
+nom/nomy,law 法律/order 秩序
+nomen/nonym/onym/nomin,word 字/name 名字
+non,nine 九/no 不/without 沒有
+not,mark 標記
+noun/nounce/nunc,declare 聲明
+nov,new 新
+nox/noct,night 夜晚
+numer,number 號碼
+numisma,coin 硬幣
+ocu,eye 眼
+od,path 路徑
+odonto,tooth 牙齒
+odor,smell 氣味/scent 嗅覺
+oligo,few 幾個/little 小
+ology/logy,theory 理論
+oma,tumor 腫瘤/swelling 腫脹
+omni,all 所有/every 每一個
+on,在...上
+onym,name 名字/word 字
+oper,操作/work 運作
+opia,eye defect 眼部缺陷
+opsy,examination 檢查
+opt,best 最好
+optic,eye 眼/visual 視覺/sight 視察
+or,狀態
+ortho,straight 直的/correct 正確的
+osteo,bone 骨
+pac,peace 和平
+paleo,old 古老
+pan,all 所有
+pater/patr,father 父
+path/pathy,feeling 感覺/suffering 經歷
+pect,看
+ped,腳
+pedia,child 孩子
+pel/peal/pul/puls,drive 推動/urge 催促
+pend/pens/pond,hang 垂/weigh 重
+penta,five 五
+pept/peps,digestion 消化
+phage,eat 吃
+phan/phas/phen/phant, show 展示
+phe,speak 說話
+phil/philo,love 愛
+phlegma,inflammation 炎
+phobia/phobos,fear 恐懼
+phon/phono,sound 聲音
+photo,light 光
+phyll/phyllo,leaf 葉子
+phys,nature 自然/medicine 藥/body 人體
+phyte,plant 植物/to grow 生長
+pico,trillionth 萬億
+pict,paint 油漆/show 表演/draw 畫
+plac/plais,place 和平
+plan,flat 平
+plas/plast/plasm,form 形成/development 發展
+plaud/plod/plaus/plos,approve 贊成/clap 拍手
+ple/plen/plet/pli,full 滿/fill 填滿
+plegia/plegic,paralysis 癱瘓
+pli/plic/ply,fold 重疊;折疊,
+plore,wail 嚎啕
+plu/plur/plus,more 更多
+pnea/pneuma/pneumon,breath 呼吸
+pod,腳
+point,point 點/sharp尖
+polein,sell 賣
+poly,many 許多
+pon/pos/pound,place 地方/put 放置
+pop/popul/publ,people 人
+port,carry 運送/港
+portion,part 部分
+pos,place 地方/put 放置
+post,after 之後/behind 背後
+pot,power 能力
+prehend/prehens,seize;grasp 抓住
+prim/prime/prin/proto,first 第一/原始的
+punct,dot 點
+purg,clean 清潔
+pus,腳
+put/pute,think 思考;認為
+pyr/pyro,fire 火
+quad/quar/quari/quart,four 四
+qual,資格
+quest/quist,seek 尋求/ask 詢問
+quint,five 五
+quir/quer,ask 問
+radic/radix,root 根
+radio,radiation 輻射
+ram/rami,branch 支
+re,again 再次/back 回到/backward 向後
+rect/recti,straighten 弄直
+reg,rule 規則/guide 指導
+retro,backward 落後/back 回
+rhino,nose 鼻子
+rhod/thodo,red 紅
+ri/ridi/risi,laughter笑
+riparia,river 河
+road,road 路
+rog/roga,ask 問
+rrh/rrhea/rrhag,flow 流量/discharge 放電
+rub,red 紅
+rupt,break 打破/burst 爆
+sacr/sanc/secr,sacred 神聖
+salv/salu,safe 安全/healthy 健康
+san,health 健康
+sanct,holy 聖
+sat/satis,enough 夠了
+scend,climb 爬/go 走
+scent,climb 攀登
+schizo,split 分裂;分割
+sci/scien,know/知道
+sciss,cut 切
+sclero,hard 硬
+scope/scopy,see 看/examine 檢查/observe 觀察
+scrib/script,write 寫
+sec/sect,to cut 切
+sed/sid/sess,sit 坐
+self,itself 自身
+semi,half 一半/partial部分
+sen/scen,old 老
+sens/sent,feel 感覺/be aware 要知道
+sept,seven 七
+sequ/secu/sue,follow 跟隨
+sert,join 加入
+serv,save 保存/serve 招待
+sex,six 六
+sign/signi,mark 符號
+simil/simul,same 相同/like像
+sis,act 行為/state 狀態/condition of 條件
+sist/sta/stit,stand 站
+sli,slide 滑
+soci,to join 加盟/companions 同伴
+sol,sun 太陽
+sol/soli,alone 獨
+solv/solu/solut,loosen 放鬆/explain 解釋
+somn/somni/somnus,sleep 睡覺
+son,sound 聲音
+soph/sophy/sophic,wise 明智
+speci,look 外觀/kind 種類
+spect/spec/spic,look;see 看
+sper,render favorable 呈現良好
+sphere,ball;sphere 球體
+spir,breathe 呼吸
+spond/spons,promise 承諾/answer fo 答案
+spont,by one's own force 通過自己的力量
+stand/stant/stab/stat/stan/stin/sti/sta/st/stead,stand 站
+stell,star 明星
+ster,person 人
+string/strict,draw tight 拉緊
+struct/stru/stroy/stry,build 建
+subter,under 下/secret 秘密
+suc/suf/sup/sus/sub,under下/secretly 祕密的/lower than 低於
+sult,leap;jump 跳
+sum,highest 最高
+sume/sump,take;use 取用/waste 廢棄
+sur/super/supra,over 超越/above 上
+sy/sym/syl/sys/syn,together 一起/same 相同
+tact/tang/tag/tig/ting,touch 觸摸
+tang,觸摸
+tax/taxo,arrangement 安排
+techno,technique 技術/skill 技能
+tect/teg,cover 蓋
+tele,far 遙遠/distant 距離/complete 完整
+temp/tempor/tempo,time 時間
+ten/tent/tin/tain,hold 持有/keep 保管
+tend/tent/tens,stretch 伸拉
+ter/trit,rub 摩擦
+tera,trillion 兆,
+term/termina,end 最後/boundary 邊界/limit 限制
+terr/terra/terri,land 土地/earth 地球
+test,to bear witness 見證
+tetra,four 四
+the/theo,god 神
+therm/thermo,heat 熱
+thesis/thet,place;put 放置
+tom/tome/tomy,cut 切
+tor/tors/tort,twist 扭轉
+tox,poison 毒
+tract/tra/trai/treat/tire,drag 拉/draw 拖
+trans,across 跨越/beyond 超越/through 通過/change 改變
+tri,three 三
+trib/tribute,pay 支付/bestow 贈送/give 給
+trophy,nourishment 營養品/growth 生長
+tude,state 狀態
+turbo,disturb 打擾
+typ,print 型
+ular,relating to 關於/resembling 類似於
+ultima,last 最後
+ultra,beyond 超越/extreme 極端/more than 更多
+umber/umbra,shadow 影子
+uni,one 單一
+urb,city 城市
+uro,urine 尿
+utili,useful 有用
+vac,empty 空
+vade,go 去
+vale/vali/valu,worth 值
+van,empty 空
+veh/vect,to carry 攜帶;運送
+ven/vent,come 來
+ver/veri/very,truth 真相
+verb/verv,word 字
+vert/vers,turn 轉
+vi/via/voy,way 辦法;道路
+vic/vicis,change 變化/substitute 替代
+vice,next in rank 接著排名
+vict/vinc,conquer 征服
+vide/vis/view,see 見
+viv/vivi/vit,live 活著/life 生命
+voc/vok,voice 聲音/call 呼叫
+vol/voli/volu,wish 希望/will 意願
+vol/volv/volu/volt/volvo,turn 轉/roll 卷
+volcan,fire 火
+vor/vour,eat 吃
+wait,等待
+ward/wise,direction 方向/manner 方法
+ware,same type 相同類型
+with,against 針對
+xanth,yellow 黃
+xeno,foreign 國外
+xero/xeri,dry 乾燥
+xyl,wood 木
+zo/zoo,animal 動物生命
+zygo,pair 對
+just,公正/join 加入
+gress,go 前進/step 步驟/to gather 收集/to bring together 匯集
+ation,[名尾] 動作狀態的結果
+$ation
+ter,rub 摩擦/terr 土地
+er,執行者、物
+cam,弧形、隆凸
+cam,隆凸、弧形
+can,管子
+cel,天空/升高
+act,act 行動/move 移/do 做/drive 驅動
+sit,安置/位置
+academ,學院
+ion,動作的結果
+lect,choose 選擇/read 閱讀/speak 說
+pan,麵包/all 所有
+cess,go 行進/move 移動/yield 產量
+r,(e)r 做事者、物
+ban,prohibit 禁止/ ban(d) 長凳
+ban,prohibit 禁止/ ban(d) 細繩
+banqu,長凳
+bar,橫木；障礙物/weight 重量/pressure 壓力
+bar,木；障礙物/weight 重量/pressure 壓力
+bar,木；棍棒；障礙物/weight 重量/pressure 壓力
+r,(e)r 做事者、物/重覆：強調
+bar,木；棍棒；障礙物/weight 重量/pressure 壓力/bar(e) 裸、禿
+bas,基礎
+beaut,美
+gin,產生、出生/careful 小心
+fic,do 做/shape 塑造外型/make fashion 使成形
+fit,合適/shape 塑造外型/make fashion 使成形
+st,stand 站/ 最高級 [形尾]
+ing,動作或過程 [動詞]/結果 [名詞]/活動[形容詞]
+ing,動作或過程 [動詞]/的結果 [名詞]/活動[形容詞]
+ing,動作或過程 [動詞]/的結果 [名詞]/活動[形容詞]
+bever,drink 喝
+bev,drink 喝
+$bever
+ware,same type 相同類型/ 小心、當心
+ware,same type 相同類型/ 小心、當心/貨品
+yond,在遠處
+a,一個
+while,一段時間
+awk,反手的、逆的
+aw,畏懼
+a,一個/on 在
+a,一個/on 在/強調
+a,一個/on 在/強調/to 到
+auth,增加/創始
+auth,創始/增加
+en,使成為->[動尾] / 材料->[形容詞]
+aut,自動/self 自力
+prehens,catch 抓住
+hen,catch 抓住
+auth,originate 創始/increase 增加
+ton,打雷
+ton,打雷/噸
+naut,海員
+naut,海員/船
+naus,船/海
+naut,船員/船
+pent,petn(a) 五
+sphere,ball 球體
+mit,send 發送
+medi,half 半/middle 中間/between 之間/halfway 半路
+jan,門口
+ium,place 地方/金屬元素尾
+calc,stone 石/石灰
+ul,小
+cel,天空/升高/格子、細胞
+cel,天空/升高/格子/細胞
+on,在...上/大
+cap,take 拿取;持有/頭
+cap,take 拿取;持有/頭、首
+carbo,碳
+care,小心
+carv,切割
+car,車/運送
+carp,分離、拔
+cart,紙片
+strophe,旋轉
+cat,down 下/completely 完全/intensive 集約/貓
+pil,毛
+gor,step 步驟/collect 收集/go 去
+cav,洞
+caut,burn 燒/heat 熱/警戒
+celebr,聚眾來榮耀
+cel,天空/升高/格子/細胞
+cell,天空/升高/格子/細胞
+cell,天空/升高/格子、蜂巢/細胞
+mony,行動狀態的名詞字尾
+cere,穀類女神席瑞斯 Ceres
+meter,measure 測量/公尺
+empt,拿取
+ampl,拿取
+merg,沈浸
+th,名詞尾
+cent,hundred 百/sing 唱歌
+cens,judge 判斷
+cant,sing 唱歌、宣布
+bas,基礎/低下
+base,基礎/低下
+avi,bird 鳥/desire 渴望
+aqu,water 水
+li,綁住
+lig,choose 選擇/綁住
+logue,locut,字/說
+log,locut 字/說
+logue,locut 字/說
+logue,word 字/speak 說
+log,word 字/speak 說
+loqu,word 字/speak 說
+logu,word 字/speak 說
+lic,allow 允許/引誘
+arium,地方 [名尾]
+ular,關於、類似於 [形尾]
+ic,有關
+end,人、事、物[名詞]
+esc,漸變、進行中
+esce,漸變、進行中
+,
+im,最高級、極端
+eme,最高級、極端
+is,屬於、...的
+es,屬於、....的
+ium,place 地方/金屬元素尾
+$ium
+mony,行動狀態 [名尾]
+mon,warn 警告/remind 提醒/行動狀態 [名尾]
+on,在...上/人、物、地方、大 [名尾]
+sy,一起、相同/ [形尾]/[名尾]
+$th
+ul,小、易、可、有
+wise,方向、方法、樣式 [形、副尾]
+$
+cur,運行=run/關心、照顧=care
+cycl,圓圈、輪轉
+pleas,使高興
+plac,place 和平/平置
+pass,feel 感覺/suffer 遭受/步
+pass,feel 感覺/忍受/步、通過
+pass,feel 感覺/忍受、渴受/步、通過
+$r
+pen,處罰 penalty
+pun,處罰 penalty
+pen,處罰
+the,god 神/這
+$a
+the,god 神/這/放
+pact,緊的 (tastened)
+par,生產/準備/看見
+pear,看見
+rase,消除記憶、破壞、使倒毀
+scal,刻度、等級、階梯
+the,god 神/這/放
+pact,緊的 (tastened)
+par,生產/準備/看見
+pear,看見
+rase,消除記憶、破壞、使倒毀
+scal,刻度、等級、階梯
+stud,勤奮
+put,think 思考;認為/放置
+$quar
+quot,多少
+quant,數量
+rota,旋轉
+spar,散開
+urg,強壓、推進
+metr,admeasure 測量/apportion 分配
+sur,over 超越/above 上/sur(e)確信
+rect,straighten 直
+mut,change 變化/mut(e) 啞
+nutr,營養
+nur,養育
+nuc,果核
+mater,mother 母親/物質材料
+mater,mother 母親/原料、物質
+quir,ask 問/要求
+later,side 側;邊
+lat,bring帶來
+poss,擁有能力
+poss,擁有
+stam,堵住
+mir,驚奇
+chief,頭
+chiev,頭
+test,測試、證據
+test,測試、證明
+tuit,保護、教育
+tut,保護、教育
+vas,go 走
+vade,go 走
+vag,漫遊
+clos,關閉
+clus,關閉/down 下來/against反對/completely完全
+clud,關閉/down 下來/against反對/completely完全
+cours,運行
+toler,容忍
+ton,打雷、聲音/噸
+ton,打雷、聲音、音調/噸
+ori,升起、起源
+merc,交易
+merch,交易
+libr,書
+anx,苦惱
+pract,實行
+ess,to be
+bur,火/覆蓋
+lys,裂開、分解
+lys,裂開、分解
+lys,裂開、分解
+lyz,裂開、分解
+son,sound 聲音/ 罪
+frig,冷
+sult,jump 跳
+rhy,節奏
+rhythm,節奏
+rhy,流動/節奏
+heal,治好/sound 聲
+$heal
+hale,sound 氣聲
+trem,顫抖
+turb,攪動
+ocul,眼睛
+ar,有關的 [形容詞]/人、地、物 [名詞]
+ocul,眼睛
+$ocu
+crimin,罪
+histor,歷史
+tru,真
+tru,true=真/turn=轉
+milit,兵
+miser,可憐
+mus,文藝、音樂
+mus,文藝、音樂/來自希腦神話"繆斯"女神
+ster,person 人/硬的
+chole,膽汁
+polit,國家、城市
+heav,舉起、提高
+sis,act 行為/state 狀態/condition of 條件/病狀
+$heap
+hepat,肝 liver
+esque,...風格
+$esque
+esque,...風格
+$esque
+plast,form 形成/development 發展/cell 細胞
+plasm,form 形成/development 發展/cell 細胞
+plos,clap 拍手/大聲音
+plod,clap 拍手/大聲音
+pli,fold 重疊;折疊/full 滿
+nect,連結
+nex,連結
+neg,no 不、沒
+neg,no 否、沒
+neg,no 否定、沒
+neg,no 否定
+$donat
+par,產生/整個/部分/平等
+par,產生/整個/部分/平等/看見
+par,產生/整個/部分/平等、同等/看見
+cata,down 下/completely 完全/intensive 集約
+gorg,咽喉
+gurg,咽喉
+cris,判斷、分辨
+crit,判斷、分辨
+cuss,搖動
+cyn,狗
+cycle,circular 圓、循環/wheel 輪
+demn,傷害
+dens,濃
+dexter,右
+dexter,右(右手比左手靈活)
+dextr,右手
+di,two 二/日子
+ed,吃
+fend,打擊
+fens,打擊
+fest,節目
+fest,節目/侵擾
+mani,手
+man,hand 手/do 做/人
+man,hand 手/do 做/人/居住、停留
+main,strength 實力/foremost 最重要的/man=停留
+main,strength 實力/foremost 最重要的/=man 停留
+fil,線條
+flat,blow 吹
+foli,樹葉
+fort,strong 強/luck 運氣
+fortu,運氣
+fort,strong 強
+fum,煙
+found,基礎
+fund,基礎
+funct,perform 執行
+$di
+gloss,tongue 舌頭/說話、詞語
+gran,grain 糧食、顆粒
+hal,呼吸
+$hale
+haust,抽水
+mus,文藝、音樂/來自希臘神話"繆斯"女神
+mus,文藝、音樂(繆斯)/來自希臘神話"繆斯"女神
+mus,文藝、音樂(繆斯)/來自希臘神話"繆斯"三女神=唱歌、沈思、記憶
+mus,文藝、音樂(繆斯)/來自希臘神話"繆斯"三女神=唱歌、沈思、記憶/=mouse老鼠
+mus,文藝、音樂(繆斯)/希臘神話"繆斯"三女神=唱歌、沈思、記憶/=mouse 老鼠
+$ar
+mater,mother 母親/物質材料
+mater,mother 母親/原料、物質
+quir,ask 問/要求
+later,side 側;邊
+lat,bring帶來
+poss,擁有能力
+poss,擁有
+stam,堵住
+mir,驚奇
+chief,頭
+chiev,頭
+test,測試、證據
+test,測試、證明
+tuit,保護、教育
+tut,保護、教育
+vas,go 走
+vade,go 走
+vag,漫遊
+clos,關閉
+clus,關閉/down 下來/against反對/completely完全
+clud,關閉/down 下來/against反對/completely完全
+cours,運行
+toler,容忍
+ton,打雷、聲音/噸
+ton,打雷、聲音、音調/噸
+ori,升起、起源
+merc,交易
+merch,交易
+libr,書
+anx,苦惱
+pract,實行
+ess,to be
+bur,火/覆蓋
+lys,裂開、分解
+lys,裂開、分解
+lys,裂開、分解
+lyz,裂開、分解
+son,sound 聲音/ 罪
+frig,冷
+sult,jump 跳
+rhy,節奏
+rhythm,節奏
+rhy,流動/節奏
+heal,治好/sound 聲
+$heal
+hale,sound 氣聲
+trem,顫抖
+turb,攪動
+ocul,眼睛
+ar,有關的 [形容詞]/人、地、物 [名詞]
+ocul,眼睛
+$ocu
+crimin,罪
+histor,歷史
+tru,真
+tru,true=真/turn=轉
+milit,兵
+miser,可憐
+mus,文藝、音樂
+mus,文藝、音樂/來自希腦神話"繆斯"女神
+ster,person 人/硬的
+chole,膽汁
+polit,國家、城市
+heav,舉起、提高
+sis,act 行為/state 狀態/condition of 條件/病狀
+$heap
+hepat,肝 liver
+esque,...風格
+$esque
+esque,...風格
+$esque
+plast,form 形成/development 發展/cell 細胞
+plasm,form 形成/development 發展/cell 細胞
+plos,clap 拍手/大聲音
+plod,clap 拍手/大聲音
+pli,fold 重疊;折疊/full 滿
+nect,連結
+nex,連結
+neg,no 不、沒
+neg,no 否、沒
+neg,no 否定、沒
+neg,no 否定
+$donat
+par,產生/整個/部分/平等
+par,產生/整個/部分/平等/看見
+par,產生/整個/部分/平等、同等/看見
+cata,down 下/completely 完全/intensive 集約
+gorg,咽喉
+gurg,咽喉
+cris,判斷、分辨
+crit,判斷、分辨
+cuss,搖動
+cyn,狗
+cycle,circular 圓、循環/wheel 輪
+demn,傷害
+dens,濃
+dexter,右
+dexter,右(右手比左手靈活)
+dextr,右手
+di,two 二/日子
+ed,吃
+fend,打擊
+fens,打擊
+fest,節目
+fest,節目/侵擾
+mani,手
+man,hand 手/do 做/人
+man,hand 手/do 做/人/居住、停留
+main,strength 實力/foremost 最重要的/man=停留
+main,strength 實力/foremost 最重要的/=man 停留
+fil,線條
+flat,blow 吹
+foli,樹葉
+fort,strong 強/luck 運氣
+fortu,運氣
+fort,strong 強
+fum,煙
+found,基礎
+fund,基礎
+funct,perform 執行
+$di
+gloss,tongue 舌頭/說話、詞語
+gran,grain 糧食、顆粒
+hal,呼吸
+$hale
+haust,抽水
+mus,文藝、音樂/來自希臘神話"繆斯"女神
+mus,文藝、音樂(繆斯)/來自希臘神話"繆斯"女神
+mus,文藝、音樂(繆斯)/來自希臘神話"繆斯"三女神=唱歌、沈思、記憶
+mus,文藝、音樂(繆斯)/來自希臘神話"繆斯"三女神=唱歌、沈思、記憶/=mouse老鼠
+mus,文藝、音樂(繆斯)/希臘神話"繆斯"三女神=唱歌、沈思、記憶/=mouse 老鼠
+ar,有關的 [形容詞]/人、地、物 [名詞]/=air 空氣
+ter,rub 摩擦/terr 土地/管道
+mar,sea 海/ 結婚
+gar,保護
+lic,allow 允許/引誘/leek 蔥
+gar,保護/矛
+sec,to cut 切/跟隨
+umbr,shadow 影子
+$umbra
+pen,處罰/接近
+integr,完整
+es,屬於、....的/=ex=out=出
+on,在...上/人、物、地方、大 [名詞]
+bat,打擊
+cor,heart 心/強調
+cor,heart 心/co=一起+r=強調
+cil,召集
+fabl,說、講
+fabul,講、說
+mens,測量
+meas,測量
+negr,黑

@@ -1,0 +1,208 @@
+﻿<Page x:ConnectionId='1'
+    x:Class="CutTheWords.Views.SingleVocPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CutTheWords.Views"
+    xmlns:ctl="using:CutTheWords.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+                         
+    >
+    <ScrollViewer x:ConnectionId='2' x:Name="scro" VerticalScrollBarVisibility="Auto"                  >
+        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.Resources>
+                <!-- Theme animations like this can use the default behavior like
+                 this example or you could use properties like BeginTime and 
+                 Duration to tweak when and how quickly the animation occures. 
+                 If you want more control over a fade animation (e.g. just partial
+                 fade), you will need to use DoubleAnimation to animate the Opacity 
+                 property of the element you want to fade in or out. -->
+                <Storyboard x:ConnectionId='3' x:Name="FadOutEditPanel">
+                    <DoubleAnimation Duration="00:00:00.1"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="EditPanel"
+                                             From="1" 
+                                             To="0"/>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EditPanel" Storyboard.TargetProperty="Visibility">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.1" Value="Collapsed"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EditList" Storyboard.TargetProperty="IsItemClickEnabled">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.0" Value="False"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EditList2" Storyboard.TargetProperty="IsItemClickEnabled">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.0" Value="False"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard x:ConnectionId='4' x:Name="FadInEditPanel">
+                    <DoubleAnimation Duration="00:00:00.1"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="EditPanel"
+                                             From="0" 
+                                             To="1"/>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EditPanel" Storyboard.TargetProperty="Visibility">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.0" Value="Visible"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EditList" Storyboard.TargetProperty="IsItemClickEnabled">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.1" Value="True"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="EditList2" Storyboard.TargetProperty="IsItemClickEnabled">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.1" Value="True"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard x:ConnectionId='5' x:Name="FadOutDelPanel">
+                    <DoubleAnimation Duration="00:00:00.1"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="DelPanel"
+                                             From="1" 
+                                             To="0"/>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DelPanel" Storyboard.TargetProperty="Visibility">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.1" Value="Collapsed"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DelList" Storyboard.TargetProperty="IsItemClickEnabled">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.0" Value="False"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+                <Storyboard x:ConnectionId='6' x:Name="FadInDelPanel">
+                    <DoubleAnimation Duration="00:00:00.1"
+                                             Storyboard.TargetProperty="Opacity"
+                                             Storyboard.TargetName="DelPanel"
+                                             From="0" 
+                                             To="1"/>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DelPanel" Storyboard.TargetProperty="Visibility">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.0" Value="Visible"/>
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="DelList" Storyboard.TargetProperty="IsItemClickEnabled">
+                        <DiscreteObjectKeyFrame KeyTime="00:00:00.1" Value="True"/>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </Grid.Resources>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <CommandBar x:ConnectionId='7' Grid.ColumnSpan="2" x:Name="topbar" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+                <AppBarButton x:ConnectionId='24' x:Name="fav" Icon="Favorite" Label="最愛"                             />
+                <AppBarButton x:ConnectionId='25' Icon="Edit" Label="編輯"                         />
+                <AppBarButton x:ConnectionId='26' Icon="Delete" Label="刪除"                           />
+                <!--<AppBarSeparator/>
+                <AppBarToggleButton Icon="Sort" Label="Sort"/>
+                <CommandBar.SecondaryCommands>
+                    <AppBarButton Label="Menu Item 1"/>
+                    <AppBarButton Label="Menu Item 2"/>
+                    <AppBarButton Label="Menu Item 3"/>
+                </CommandBar.SecondaryCommands>
+                <CommandBar.Content>
+                    <ctl:PageHeader>
+                        <ctl:PageHeader.HeaderContent>
+                            <TextBlock Text="" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+                        </ctl:PageHeader.HeaderContent>
+                    </ctl:PageHeader>
+                </CommandBar.Content>-->
+            </CommandBar>
+            <TextBlock x:ConnectionId='8' Grid.Row="1" x:Name="tivoc" VerticalAlignment="Center"                            Margin="20" Style="{ThemeResource TitleTextBlockStyle}"/>
+            <Button x:ConnectionId='9' Grid.Row="1" Grid.Column="1" x:Name="play_but" FontFamily="Segoe MDL2 Assets" Content="&#xE767;" Background="Transparent"                          VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,7,0,0" />
+            <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel x:ConnectionId='23' x:Name="expst"  Orientation="Vertical" Margin="20,0,0,0"/>
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel x:ConnectionId='22' x:Name="voc_root" Orientation="Horizontal"/>
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="4" Grid.ColumnSpan="2"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel x:ConnectionId='21' x:Name="voc_croot" Orientation="Horizontal"/>
+            </ScrollViewer>
+            <ScrollViewer x:ConnectionId='10' x:Name="note_view" Grid.Row="5" Grid.ColumnSpan="2"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="6" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <StackPanel x:ConnectionId='20' x:Name="pics"  Orientation="Horizontal" Margin="20,0,0,0"/>
+            </ScrollViewer>
+            <ListView x:ConnectionId='11' Grid.Row="7" Grid.ColumnSpan="2" x:Name="VocList" 
+                  EntranceNavigationTransitionInfo.IsTargetElement="True"
+                  IsItemClickEnabled="True"
+                                                    />
+            <ScrollViewer x:ConnectionId='12'  x:Name="EditPanel" Opacity="0" Visibility="Visible" Grid.Row="3" Grid.RowSpan="5" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                <StackPanel Orientation="Vertical" 
+                        Background="{ThemeResource MenuFlyoutItemFocusedBackgroundThemeBrush}">
+                    <TextBlock Text="應該如何拆解?" Margin="10"/>
+                    <TextBox x:ConnectionId='16' x:Name="block" Margin="20,0,20,10"/>
+                    <ListView x:ConnectionId='17'
+                      x:Name="EditList"
+                      IsItemClickEnabled="False"
+                                                    >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListViewItem>確定</ListViewItem>
+                    </ListView>
+                    <Rectangle Fill="#FF848484" Height="3" Margin="10,20"/>
+                    <TextBlock Text="修改解釋" Margin="10"/>
+                    <TextBox x:ConnectionId='18' x:Name="block2" Margin="20,0,20,10"/>
+
+                    <ListView x:ConnectionId='19'
+                      x:Name="EditList2"
+                      IsItemClickEnabled="False"
+                                                     >
+                        <ListView.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Center" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListViewItem>確定</ListViewItem>
+                        <ListViewItem>取消</ListViewItem>
+                    </ListView>
+                </StackPanel>
+            </ScrollViewer>
+            <StackPanel x:ConnectionId='13' Grid.Row="3" Grid.RowSpan="5" Grid.ColumnSpan="2" Orientation="Vertical" 
+                        x:Name="DelPanel" Opacity="0" Visibility="Visible" 
+                        Background="{ThemeResource MenuFlyoutItemFocusedBackgroundThemeBrush}">
+                <TextBlock Text="確定刪除?" Margin="10" HorizontalAlignment="Center"/>
+                <ListView x:ConnectionId='15'
+                      x:Name="DelList"
+                      IsItemClickEnabled="False"
+                                                            >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListViewItem>確定</ListViewItem>
+                    <ListViewItem>取消</ListViewItem>
+                </ListView>
+
+            </StackPanel>
+            <!--<ctl:NavMenuListView x:Name="navMenuListView" HorizontalAlignment="Left" Height="100" Grid.RowSpan="2" VerticalAlignment="Top" Width="100"/>-->
+            <!--        
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <ctl:PageHeader Grid.ColumnSpan="2">
+                <ctl:PageHeader.HeaderContent>
+                    <TextBlock Text="BASIC SUBPAGE" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
+                </ctl:PageHeader.HeaderContent>
+            </ctl:PageHeader>
+
+            <Grid Grid.Row="1">
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Message}"/>
+            </Grid>
+    -->
+
+            <MediaElement x:ConnectionId='14' x:Name="media" Visibility="Collapsed" AutoPlay="False"/>
+        </Grid>
+    </ScrollViewer>
+</Page>
+

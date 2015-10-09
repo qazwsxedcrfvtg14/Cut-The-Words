@@ -1,0 +1,301 @@
+a,not 不/up 往上/toward 朝向/out 出/強調
+ab/abs/apo,away from 離開/off/強調
+ac,朝向/強調
+acid/acre/acri,苦/酸/鋒利
+acro,頂尖/開始
+act,動作/驅使
+acu,銳
+ad,toward 朝向/強調
+aer/aero,空氣/航空
+af/ag/al/an/ap/ar/as/at/ad/al/all/ali,強調
+ag,做/強調
+agen,代理/do 做
+agi/ig/act,move 移動
+ig,move 移動/not 否定
+agra/agri/agro,farming 農業/fields 田野/soil 土壤
+al,強調；朝向
+alg,pain 疼痛
+ali,other 其他
+allo,不同/變體
+alt,high deep 高深
+alter,change 改變
+am/ami/amor,like 喜歡/love 愛情
+amb/amphi/ambi,around 周圍/both 兩者
+ambi,兩側/末端
+amble/ambul,步行/移動
+america,美國
+ami/amor,喜歡/愛情
+an,not 不/up 往上/強調/在...之前/against 反對
+ana,up 往上
+ang,角
+ant/ante/anti,against 反對/在...之前
+ante,before 前
+anthrop,human 人
+anti,against 反
+ap,強調；朝向
+aqua,water 水
+arch/,leader 領導者/first 開頭
+archa/arche,ancient 原始;古老
+as,強調；朝向
+audio/audit,hear 聽
+aug/auc/aut,originate 發起/ increase 增加
+auto,自動/self 自力
+be,by 在...旁/(使)成為/強調
+bene/ben/bon,good好
+bi/bin/bis,兩個
+bible,book 書
+bio,life 生命
+caco,bad 壞
+cata,下降/完全/靠者/逆向
+cent,百
+centi,百分之一
+cide,kill 殺
+circum,around  周圍
+co/com/con/col,with;together 一起/joint 共同/fully 充分
+constitutus,stand 站
+contr/contra/counter,against;opposite 反對;相反
+corpus/corp,body 體
+cracy,rule 統治
+cred/creed,belief 相信
+de,away 離開/down 下/against 反對/reduce 減少/一再強調
+dec/dign,suitable 合適/ten 十
+dec/deca/deka,ten 十
+deci,one tenth 十分之一
+dem/demo,people 人
+des,apart 分開
+di,double 兩倍/across 跨越
+di/dis/dif,not否定/opposite 對立/apart 分開/away 離開
+dia,across 跨越
+dign,suitable 合適
+divid/divis,separate 分開
+divin/dei,god 上帝
+domin,lord 主控
+dorm,sleep 睡覺
+dox,belief 信仰 /opinion 觀點
+drome,run 運行/step 步驟
+du/duo,two 二
+duc/duct,lead 引領/pull 拉
+dur/dura,harden堅固/to last 持續/lasting 持久
+dynam,power 動力/energy 能源/strength 力量
+dynas/dynam,be able 力
+dynas/dynasthai,be able 能
+dys,bad 壞/abnormal 非正常/difficult 困難/impaired 障礙/unfavorable 不利
+e,not 不/missing 丟失/out 出來/fully 充分/away 離開/computer network 電腦網絡/out 出/away 遠離
+ec,out of出來/outside 外面
+eco,household 家庭/environment 環境/ecology 生態/economy 經濟
+ecto,outside;external 外部
+ego,self 自我
+em/en,into 進入/cover 覆蓋/cause 造成/put into 投入/make 使與/provide with 提供/surround 周圍/in 在
+en,into 進入/towards 朝向/inside 裡面
+end/endo,inside 內
+epi,upon 在之上/over 高
+eu,good 好
+ev/et,time 時間/age 年齡
+ex,out 向外
+exter/extra/extro,outside 以外/beyond 超越
+extra,outside 額外的
+feder,league 聯合/pact 協約
+fore/for,before 前
+frater,brother 兄弟
+geo,earth 地球;土壤
+graph,write 寫/record 記錄
+hetero,unlike 異類;不同的
+homo,same 相同
+hyper,over 過多
+ident,same 相同
+ideo/idea,idea 主意
+idio,unique 獨特
+ig/il/ir,not 否定
+in/en/im,into 進入：後接動詞、名詞/not 否定：後接形容詞
+infra,below 下面
+inter,among 之間
+intro/intra,inside 在...裡面的
+kilo,thousand 千
+legis/leg,law 法
+lexis,word 字
+liber,free 自由/book 書
+loc/loca/loco/locu,place 位置;區域
+macro,large 巨大
+mal,bad 不好的
+mania,obsession 狂熱
+mega,million 百萬
+meter,measure 測量
+micro,small 微小
+mid,middle 中間
+mill,thousand千
+milli,千分之一
+mis,wrong 不對/bad 不好
+mit/miss/mess/mise,send 發送
+mono/mon,one;single 單一
+mort/mori/morb,death 死
+nomin/nomen/onym,name 名字
+non,no 沒
+ob/oc/of/op,toward 朝向/against 反對/in the way 在路上
+oct/octa/octo,eight 八
+olig,few 幾個
+oxi/oxy,sharp 銳
+pac,peace 和平
+pair/pare,arrange 排列/assemblage 組合/two 雙
+paleo,ancient 古/old 老
+palin/pali,back 回來/again 再
+pan,all所有/any任何/everyone 每一
+para,beside 旁邊/protection 保護
+past,後面的
+pat/pass/path/pathy,feel 感覺/emotion情感/suffer 遭受
+pater/patr/patri,father 父
+ped/pede/pod,foot 腳
+per,throughout 遍布/through 通過/intensive 密集
+peri,around 周圍
+phag/phage,eat 吃
+philo,love 愛
+phobia,fear 恐懼
+phon,sound 聲音
+polein,sell 賣
+poli,city 城市
+poly,many 多
+port,carry 運送
+post,after 之後
+prais/preci,value 價值
+pre/pur,before 前
+prin/prim/prime,first 第一
+priv,single 個別/alone 單獨
+pro,before 前/in favor of 有利於...
+propri/proper,one's own 擁有/恰當的
+pros,toward 朝向、in front 在前面
+proto,primitive 原始的/first 第一/chief 首席
+pseudo,wrong 錯誤/false 假
+psych,mind 心靈/soul 精神
+pub/publ/public/popul,people 人
+pugn/pung/pugna,fight 戰鬥
+re,again 再/back 回到
+ripar, river 河
+scope,observe 觀察
+scribe,write 寫
+se,apart 分開/away from 遠離
+semi,half 半
+sol/soli,alone 獨
+sub/sup/suc/suf/sur/sus/subt/subter,under 之下
+super/sur/supra,在之上/超越/超級
+sy/sym/syn/syl/sys,together 一起/with 同
+tele,far 遙遠/distant 距離/complete 完整
+trans,across 跨越/change 改變
+tri,three 三
+un,not否定/opposite對立
+uni,single 單一
+utilis,useful 有用
+vide/view/vis,see 見
+ap,強調/朝向
+ad,朝向/強調
+act,move 移動 /do 動作
+pro,整個/before 前/in favor of 有利於...
+ab,away 離開/from 從/強調
+ex,out 向外/away 離/lack 缺乏
+act,act 行動/move 移動/go 走/drive 趨動
+ac,重覆字首ac /朝向 to/尖刺 ac
+di,not否定/opposite 對立/away 離開/day 每天
+col,together 一起/joint 共同/fully 充分
+col,together 一起/joint 共同/fully 充分
+com,together 一起/joint 共同/fully 充分
+pass,feel 感覺/suffer 遭受
+be,by 在...旁/(使)成為/強調
+bene,good 好
+be,by 在/(使)成為/強調
+auto,自動/self 自力
+$aut
+as,強調；朝向/ex 外
+con,together 一起/joint 共同/fully 充分
+en,進入(後接動詞、名詞)/否定(後接形容詞)/使
+e,not 不/missing 丟失/fully 充分/away 離開/computer network 電腦網絡/out 出
+oc,to 向/against 反對/in the way 在路上/重覆字首=強調
+de,down 下/away 離/against 反對/reduce 減少/一再強調
+a,not 不/up 往上/to 向/out 出/強調
+op,to 向/not 不/against 反/in the way 在路上
+emper,命令、統治
+imper,命令、統治
+im,in 進入/not 否定
+in,進入/not 否定
+ob,to 向/against 反對/way 方向
+prob,證明、驗證
+e,out 出/not 不/missing 丟失/fully 充分/away 離開/computer network 電腦網絡
+re,再/back 回到
+se,apart 分開/away 遠離
+dec,十、10/合適
+ac,重覆字首ac=強調 /朝向 to/尖刺 ac
+advan,前面
+pass,feel 感覺/suffer 遭受/步
+pass,feel 感覺/suffer 遭受/步
+$pass
+past,後面的/粥、糊
+per,每一/通過/intensive 密集
+parl,說話
+e,out 出/not 不/missing 丟失/fully 充分/away 離開/強調/computer network 電腦網絡
+parl,說話
+e,out 出/not 不/missing 丟失/fully 充分/away 離開/強調/computer network 電腦網絡
+ar,強調/弓型
+co,with;together 一起/joint 共同/fully 充分
+preci,value 價值/精確
+suc,之後
+ana,up 往上/再次
+ana,再次/up 往上
+mon,one 單一/警告
+mon,one 單一/警示
+mono,one 單一
+intel,在之中，重覆後字首=強調挑選
+co,together 一起/joint 共同/fully 充分
+de,down 下/away 離/against 反對/reduce 減少/一再強調/完全
+ot,耳朵
+un,not 否定/opposite 對立
+un,not 否定/opposite 對立/un(i) 單一
+un,not 不/opposite 對立/un(i) 單一
+anti,against 反/old 老
+anti,against 反/old 老/ 事先;前
+poe,詩
+discipl,
+discipl,門徒、紀律
+dis,not 不/opposite 對立/apart 分開/away 離開
+odi,恨
+calli,美麗
+cate,down 下/completely 完全/intensive 集約
+in,進入/not 不
+extr,出去
+extr,超出
+con,together 共同/joint 共同/fully 充分
+$mania
+per,每一/通過/intensive 密集/在表面
+di,not否定/opposite 對立/away 離開/day 每天/two 二
+co,with;together 一起/joint 共同/fully 充分
+preci,value 價值/精確
+suc,之後
+ana,up 往上/再次
+ana,再次/up 往上
+mon,one 單一/警告
+mon,one 單一/警示
+mono,one 單一
+intel,在之中，重覆後字首=強調挑選
+co,together 一起/joint 共同/fully 充分
+de,down 下/away 離/against 反對/reduce 減少/一再強調/完全
+ot,耳朵
+un,not 否定/opposite 對立
+un,not 否定/opposite 對立/un(i) 單一
+un,not 不/opposite 對立/un(i) 單一
+anti,against 反/old 老
+anti,against 反/old 老/ 事先;前
+poe,詩
+discipl,
+discipl,門徒、紀律
+dis,not 不/opposite 對立/apart 分開/away 離開
+odi,恨
+calli,美麗
+cate,down 下/completely 完全/intensive 集約
+in,進入/not 不
+extr,出去
+extr,超出
+con,together 共同/joint 共同/fully 充分
+$mania
+per,每一/通過/intensive 密集/在表面
+di,not否定/opposite 對立/away 離開/day 每天/two 二
+ar,強調/弓型/ar=air=空氣
+per,每一/通過/intensive 密集/在表面/完全
+inter,among 之間/完整
+inter,among 之間
+di,not否定/opposite 對立/away 離開/day 每天/two 二/加強

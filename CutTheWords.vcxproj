@@ -1,0 +1,462 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{9cbe04f9-0f67-4a33-b8f9-15e9b36fea79}</ProjectGuid>
+    <RootNamespace>CutTheWords</RootNamespace>
+    <DefaultLanguage>zh-TW</DefaultLanguage>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <AppContainerApplication>true</AppContainerApplication>
+    <ApplicationType>Windows Store</ApplicationType>
+    <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
+    <WindowsTargetPlatformVersion>10.0.10240.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformMinVersion>10.0.10240.0</WindowsTargetPlatformMinVersion>
+    <EnableDotNetNativeCompatibleProfile>true</EnableDotNetNativeCompatibleProfile>
+    <ProjectName>CutTheWords</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|ARM">
+      <Configuration>Debug</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|ARM">
+      <Configuration>Release</Configuration>
+      <Platform>ARM</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <PlatformToolset>v140</PlatformToolset>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <IncludePath>$(VC_IncludePath);$(UniversalCRT_IncludePath);$(WindowsSDK_IncludePath);..\..\..\SharedContent\cpp</IncludePath>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
+    <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
+    <PackageCertificateThumbprint>35E802CAEA756B394A78D0DE2E1499FA220F6FCA</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>CutTheWords_TemporaryKey.pfx</PackageCertificateKeyFile>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions>/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AddVocPage.xaml.h">
+      <DependentUpon>AddVocPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="AppShell.xaml.h">
+      <DependentUpon>AppShell.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="BasicPage.xaml.h">
+      <DependentUpon>BasicPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="BasicSubPage.xaml.h">
+      <DependentUpon>BasicSubPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="CameraPage.xaml.h">
+      <DependentUpon>CameraPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="CommandBarPage.xaml.h">
+      <DependentUpon>CommandBarPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="CppSamplesUtils.h" />
+    <ClInclude Include="DrillInPage.xaml.h">
+      <DependentUpon>DrillInPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="ExamPage.xaml.h">
+      <DependentUpon>ExamPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="FavoritePage.xaml.h">
+      <DependentUpon>FavoritePage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="FindVocPage.xaml.h">
+      <DependentUpon>FindVocPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="Helpers.h" />
+    <ClInclude Include="HistoryPage.xaml.h">
+      <DependentUpon>HistoryPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="LandingPage.xaml.h">
+      <DependentUpon>LandingPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="LoadingPage.xaml.h">
+      <DependentUpon>LoadingPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="NavMenuItem.h" />
+    <ClInclude Include="NavMenuListView.h" />
+    <ClInclude Include="NullPage.xaml.h">
+      <DependentUpon>NullPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="opencc\Lexicon.hpp" />
+    <ClInclude Include="PageHeader.xaml.h">
+      <DependentUpon>PageHeader.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="App.xaml.h">
+      <DependentUpon>App.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PicPage.xaml.h">
+      <DependentUpon>PicPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="PlugInFilter.h" />
+    <ClInclude Include="SearchRootPage.xaml.h">
+      <DependentUpon>SearchRootPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="SearchVocPage.xaml.h">
+      <DependentUpon>SearchVocPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="SettingPage.xaml.h">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="SingleRootPage.xaml.h">
+      <DependentUpon>SingleRootPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="SingleVocPage.xaml.h">
+      <DependentUpon>SingleVocPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="Voc.h" />
+    <ClInclude Include="WordOverlay.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="AddVocPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="AppShell.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BasicPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="BasicSubPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CameraPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CommandBarPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="DrillInPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ExamPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FavoritePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="FindVocPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="HistoryPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LandingPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="LoadingPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="NullPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PageHeader.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="PicPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SearchRootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SearchVocPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SettingPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SingleRootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SingleVocPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles.xaml">
+      <DeploymentContent>true</DeploymentContent>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="AddVocPage.xaml.cpp">
+      <DependentUpon>AddVocPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="App.xaml.cpp">
+      <DependentUpon>App.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="AppShell.xaml.cpp">
+      <DependentUpon>AppShell.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="BasicPage.xaml.cpp">
+      <DependentUpon>BasicPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="BasicSubPage.xaml.cpp">
+      <DependentUpon>BasicSubPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="CameraPage.xaml.cpp">
+      <DependentUpon>CameraPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="CommandBarPage.xaml.cpp">
+      <DependentUpon>CommandBarPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="DrillInPage.xaml.cpp">
+      <DependentUpon>DrillInPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="ExamPage.xaml.cpp">
+      <DependentUpon>ExamPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="FavoritePage.xaml.cpp">
+      <DependentUpon>FavoritePage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="FindVocPage.xaml.cpp">
+      <DependentUpon>FindVocPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Helpers.cpp" />
+    <ClCompile Include="HistoryPage.xaml.cpp">
+      <DependentUpon>HistoryPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="LandingPage.xaml.cpp">
+      <DependentUpon>LandingPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="LoadingPage.xaml.cpp">
+      <DependentUpon>LoadingPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="NavMenuItem.cpp" />
+    <ClCompile Include="NavMenuListView.cpp" />
+    <ClCompile Include="NullPage.xaml.cpp">
+      <DependentUpon>NullPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="opencc\BinaryDict.cpp" />
+    <ClCompile Include="opencc\Config.cpp" />
+    <ClCompile Include="opencc\Conversion.cpp" />
+    <ClCompile Include="opencc\ConversionChain.cpp" />
+    <ClCompile Include="opencc\Converter.cpp" />
+    <ClCompile Include="opencc\DartsDict.cpp" />
+    <ClCompile Include="opencc\Dict.cpp" />
+    <ClCompile Include="opencc\DictEntry.cpp" />
+    <ClCompile Include="opencc\DictGroup.cpp" />
+    <ClCompile Include="opencc\MaxMatchSegmentation.cpp" />
+    <ClCompile Include="opencc\PhraseExtract.cpp" />
+    <ClCompile Include="opencc\SimpleConverter.cpp" />
+    <ClCompile Include="opencc\TextDict.cpp" />
+    <ClCompile Include="opencc\UTF8StringSlice.cpp" />
+    <ClCompile Include="opencc\UTF8Util.cpp" />
+    <ClCompile Include="PageHeader.xaml.cpp">
+      <DependentUpon>PageHeader.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|ARM'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="PicPage.xaml.cpp">
+      <DependentUpon>PicPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="PlugInFilter.cpp" />
+    <ClCompile Include="SearchRootPage.xaml.cpp">
+      <DependentUpon>SearchRootPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="SearchVocPage.xaml.cpp">
+      <DependentUpon>SearchVocPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="SettingPage.xaml.cpp">
+      <DependentUpon>SettingPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="SingleRootPage.xaml.cpp">
+      <DependentUpon>SingleRootPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="SingleVocPage.xaml.cpp">
+      <DependentUpon>SingleVocPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="Voc.cpp" />
+    <ClCompile Include="WordOverlay.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\11427168_842256742527606_5925701683251163477_n.jpg" />
+    <Image Include="Assets\adj.JPG" />
+    <Image Include="Assets\adv.JPG" />
+    <Image Include="Assets\cut-150.png" />
+    <Image Include="Assets\cut-24.png" />
+    <Image Include="Assets\cut-310.png" />
+    <Image Include="Assets\cut-310x150.png" />
+    <Image Include="Assets\cut-44.png" />
+    <Image Include="Assets\cut-50.png" />
+    <Image Include="Assets\cut-620x300.png" />
+    <Image Include="Assets\cut-71.png" />
+    <Image Include="Assets\cut.png" />
+    <Image Include="Assets\examine.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\n.JPG" />
+    <Image Include="Assets\pr.JPG" />
+    <Image Include="Assets\smalltile-sdk.png" />
+    <Image Include="Assets\splash-sdk.png" />
+    <Image Include="Assets\squaretile-sdk.png" />
+    <Image Include="Assets\storelogo-sdk.png" />
+    <Image Include="Assets\StoreLogo.scale-100.png" />
+    <Image Include="Assets\tile-sdk.png" />
+    <Image Include="Assets\v-150.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\v-44.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\v-50.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
+    <Image Include="Assets\v.JPG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="favorite.txt" />
+    <Text Include="prefix.txt" />
+    <Text Include="root.txt" />
+    <Text Include="setting.txt" />
+    <Text Include="STCharacters.txt" />
+    <Text Include="STPhrases.txt" />
+    <Text Include="suffix.txt" />
+    <Text Include="TWPhrases.txt" />
+    <Text Include="TWVariants.txt" />
+    <Text Include="words.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="CutTheWords_TemporaryKey.pfx" />
+    <None Include="NavigationMenu_TemporaryKey.pfx" />
+    <None Include="s2t.json">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="s2tw.json">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+    <None Include="s2twp.json">
+      <DeploymentContent>true</DeploymentContent>
+    </None>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets" />
+</Project>
