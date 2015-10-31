@@ -111,10 +111,10 @@ void SingleVocPage::Init(wstring data) {
 		//ShowMsg(ws);
 		//HideLoading();
 		auto be = s.find(L"http://static.sfdict.com/staticrep/dictaudio");
-		if (be == std::wstring::npos) { ShowMsg(L"解析錯誤!(0x00000001)");  return; }
+		if (be == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000001)");*/  return; }
 		s = s.substr(be);
 		auto ed = s.find(L".mp3");
-		if (ed == std::wstring::npos) { ShowMsg(L"解析錯誤!(0x00000002)"); return; }
+		if (ed == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000002)");*/ return; }
 		s = s.substr(0, ed + 4);
 		while (1) {
 			auto pos = s.substr(1).find(L"http://static.sfdict.com/staticrep/dictaudio");

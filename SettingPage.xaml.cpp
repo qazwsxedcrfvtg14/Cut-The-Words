@@ -226,7 +226,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		set_list->Items->Append("單字庫選項");
 	}
 	else if (str == "關於") {
-		ShowMsg(L"版本號:ver 1.0.14");
+		ShowMsg(L"版本號:ver 1.0.15");
 	}
 	else if (str == "Test") {
 
