@@ -99,6 +99,7 @@ wstring s2w(string s);
 void ShowMsg(wstring msg);
 //template<typename Fnc>
 void post(wstring url, wstring data, function<void(wstring)> fnc, function<void()> fnc2);
+void get(wstring url, function<void(wstring)> fnc, function<void()> fnc2);
 void post(wstring url, HttpMultipartFormDataContent^ data, function<void(wstring)> fnc, function<void()> fnc2);
 //void post2(wstring url, wstring data, function<void(wstring)> fnc, function<void(wstring)> fnc2);
 void ShowLoading();
@@ -117,5 +118,3 @@ std::wstring utf8_decode(const std::string &str);
 wstring s2t(wstring s);
 
 extern bool scroll_load_not_finish;
-
-extern wstring website;

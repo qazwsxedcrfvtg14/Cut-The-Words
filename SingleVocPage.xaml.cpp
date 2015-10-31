@@ -106,15 +106,15 @@ void SingleVocPage::Init(wstring data) {
 	wds = GetExp(words[data]);
 	Explanation = ref new String(wds.f.c_str());
 	ExpStack();
-	post(L"http://dictionary.reference.com/browse/" + data, L"", [=](wstring s) {
+	get(L"http://dictionary.reference.com/browse/" + data, [=](wstring s) {
 		//ShowMsg(s);
 		//ShowMsg(ws);
 		//HideLoading();
 		auto be = s.find(L"http://static.sfdict.com/staticrep/dictaudio");
-		if (be == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000001)"),*/  return; }
+		if (be == std::wstring::npos) { ShowMsg(L"解析錯誤!(0x00000001)");  return; }
 		s = s.substr(be);
 		auto ed = s.find(L".mp3");
-		if (ed == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000002)"),*/ return; }
+		if (ed == std::wstring::npos) { ShowMsg(L"解析錯誤!(0x00000002)"); return; }
 		s = s.substr(0, ed + 4);
 		while (1) {
 			auto pos = s.substr(1).find(L"http://static.sfdict.com/staticrep/dictaudio");
@@ -125,7 +125,7 @@ void SingleVocPage::Init(wstring data) {
 		media->Source = ref new Uri(ref new String(s.c_str()));
 		play_but->Visibility = Windows::UI::Xaml::Visibility::Visible;
 	}, [=] {});
-	post(L"https://www.bing.com/images/search?q=" + data, L"", [=](wstring s) {
+	get(L"https://www.bing.com/images/search?q=" + data, [=](wstring s) {
 		//ShowMsg(s);
 		//ShowMsg(ws);
 		//HideLoading();

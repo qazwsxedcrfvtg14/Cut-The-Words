@@ -101,6 +101,7 @@ void PicPage::OnNavigatedTo(NavigationEventArgs^ e)
 		UpdateAvailableLanguages();
 		LoadSampleImage();
 	}
+	Page::OnNavigatedTo(e);
 }
 
 void PicPage::OnNavigatedFrom(NavigationEventArgs^ e)

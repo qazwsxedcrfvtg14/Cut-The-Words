@@ -722,6 +722,29 @@ void post(wstring url, wstring data, function<void(wstring)> fnc, function<void(
 		}
 	});
 }
+void get(wstring url, function<void(wstring)> fnc, function<void()> fnc2) {
+	Uri^ resourceAddress = ref new Uri(ref new String(url.c_str()));
+	auto httpClient = Helpers::CreateHttpClient();
+	create_task(httpClient->GetAsync(resourceAddress)).
+		then([=](HttpResponseMessage^ response) {
+		task<String^> readAsStringTask(response->Content->ReadAsStringAsync());
+		return readAsStringTask.then([=](String^ responseBodyAsText) {
+			wstring ws = responseBodyAsText->Data();
+			fnc(ws);
+			return response;
+		});
+	}).
+		then([=](task<HttpResponseMessage^> previousTask) {
+		try {
+			previousTask.get();
+		}
+		catch (const task_canceled&) {
+		}
+		catch (Exception^ ex) {
+			fnc2();
+		}
+	});
+}
 
 void post(wstring url, HttpMultipartFormDataContent^ data, function<void(wstring)> fnc, function<void()> fnc2) {
 	Uri^ resourceAddress = ref new Uri(ref new String(url.c_str()));
@@ -887,4 +910,3 @@ void insert_db(string dbn, wstring data) {
 */
 
 bool scroll_load_not_finish = 0;
-wstring website = L"http://localhost/words";

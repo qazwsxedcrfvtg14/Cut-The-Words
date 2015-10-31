@@ -93,8 +93,8 @@ void CameraPage::OnNavigatedTo(NavigationEventArgs^ e)
 	//orientationChangedEventToken = displayInformation->OrientationChanged += ref new Windows::Foundation::TypedEventHandler<Windows::Graphics::Display::DisplayInformation ^, Platform::Object ^>(this, &SDKTemplate::CameraPage::DisplayInformation_OrientationChanged);
 
 	ocrLanguage = ref new Windows::Globalization::Language("en");
-	//auto nav = dynamic_cast<Media::ImageSource^>(CameraPage_Navigate_Obj1);
-	auto nav = nullptr;
+	auto nav = dynamic_cast<Media::ImageSource^>(CameraPage_Navigate_Obj1);
+	//auto nav = nullptr;
 	if (nav != nullptr) {
 		PreviewImage->Source = nav;
 		ImageGrid->Visibility = Windows::UI::Xaml::Visibility::Visible;
@@ -149,6 +149,8 @@ void CameraPage::OnNavigatedTo(NavigationEventArgs^ e)
 			}));
 		});
 	}
+
+	Page::OnNavigatedTo(e);
 }
 
 /// <summary>

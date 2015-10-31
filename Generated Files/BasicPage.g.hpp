@@ -25,8 +25,16 @@ void ::CutTheWords::Views::BasicPage::InitializeComponent()
 
 void ::CutTheWords::Views::BasicPage::Connect(int __connectionId, ::Platform::Object^ __target)
 {
-    __connectionId;         // unreferenced 
-    __target;               // unreferenced
+    switch (__connectionId)
+    {
+        case 1:
+            {
+                this->host_name = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(this->host_name))->TextChanged += ref new ::Windows::UI::Xaml::Controls::TextChangedEventHandler(this, (void (::CutTheWords::Views::BasicPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::Controls::TextChangedEventArgs^))&BasicPage::host_name_TextChanged);
+            }
+            break;
+    }
     _contentLoaded = true;
 }
 

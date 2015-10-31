@@ -109,16 +109,16 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		if (!inited) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
 		ShowLoading();
 		loading_cnt = 0;
-		post(website+L"/words.php", FileToStr(L"words.txt") + FileToStr(L"words_user.txt"), [=](wstring s) {
+		post(setting[L"website"] +L"/words.php", FileToStr(L"words.txt") + FileToStr(L"words_user.txt"), [=](wstring s) {
 			loading_cnt++;
 		}, [=] {ShowMsg(L"Upload Words Error!");loading_cnt++;});
-		post(website+L"/prefix.php", FileToStr(L"prefix.txt") + FileToStr(L"prefix_user.txt"), [=](wstring s) {
+		post(setting[L"website"] +L"/prefix.php", FileToStr(L"prefix.txt") + FileToStr(L"prefix_user.txt"), [=](wstring s) {
 			loading_cnt++;
 		}, [=] {ShowMsg(L"Upload Prefix Error!");loading_cnt++;});
-		post(website+L"/suffix.php", FileToStr(L"suffix.txt") + FileToStr(L"suffix_user.txt"), [=](wstring s) {
+		post(setting[L"website"] +L"/suffix.php", FileToStr(L"suffix.txt") + FileToStr(L"suffix_user.txt"), [=](wstring s) {
 			loading_cnt++;
 		}, [=] {ShowMsg(L"Upload Suffix Error!");loading_cnt++;});
-		post(website+L"/root.php", FileToStr(L"root.txt") + FileToStr(L"root_user.txt"), [=](wstring s) {
+		post(setting[L"website"] +L"/root.php", FileToStr(L"root.txt") + FileToStr(L"root_user.txt"), [=](wstring s) {
 			loading_cnt++;
 		}, [=] {ShowMsg(L"Upload Root Error!");loading_cnt++;});
 		Windows::UI::Xaml::DispatcherTimer^ tempdispatchertime = ref new DispatcherTimer();
@@ -139,7 +139,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		if (!inited) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
 		ShowLoading();
 		loading_cnt = 0;
-		post(website+L"/words.php", L"", [=](wstring s) {
+		post(setting[L"website"] +L"/words.php", L"", [=](wstring s) {
 			StrToFile(s, L"words.txt");
 			get_doc(L"words.txt", words, ok_words);
 			vocs.clear();
@@ -151,17 +151,17 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 			}
 			loading_cnt++;
 		}, [=] {ShowMsg(L"Download Words Error!");loading_cnt++;});
-		post(website+L"/prefix.php", L"", [=](wstring s) {
+		post(setting[L"website"] +L"/prefix.php", L"", [=](wstring s) {
 			StrToFile(s, L"prefix.txt");
 			get_doc(L"prefix.txt", prefix, nil_words1);
 			loading_cnt++;
 		}, [=] {ShowMsg(L"Download Prefix Error!");loading_cnt++;});
-		post(website+L"/suffix.php", L"", [=](wstring s) {
+		post(setting[L"website"] +L"/suffix.php", L"", [=](wstring s) {
 			StrToFile(s, L"suffix.txt");
 			get_doc(L"suffix.txt", suffix, nil_words2);
 			loading_cnt++;
 		}, [=] {ShowMsg(L"Download Suffix Error!");loading_cnt++;});
-		post(website+L"/root.php", L"", [=](wstring s) {
+		post(setting[L"website"] +L"/root.php", L"", [=](wstring s) {
 			StrToFile(s, L"root.txt");
 			get_doc(L"root.txt", root, nil_words3);
 			loading_cnt++;

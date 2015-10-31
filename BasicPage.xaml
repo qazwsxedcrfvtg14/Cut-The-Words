@@ -11,6 +11,10 @@
           EntranceNavigationTransitionInfo.IsTargetElement="True">
         <StackPanel>
             <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Home" Margin="20" FontSize="32"/>
+            <TextBlock Margin="30,0">
+                Host
+            </TextBlock>
+            <TextBox x:Name="host_name" Margin="30" TextChanged="host_name_TextChanged"/>
         </StackPanel>
     </Grid>
 </Page>

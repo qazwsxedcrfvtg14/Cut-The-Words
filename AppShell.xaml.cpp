@@ -61,7 +61,7 @@ namespace CutTheWords
 		navlist = ref new Vector<NavMenuItem^>();
 		navlist->Append(
 			ref new NavMenuItem(
-				"Home",
+				"家",
 				Symbol::Home,
 				TypeName(Views::BasicPage::typeid)));
 		navlist->Append(

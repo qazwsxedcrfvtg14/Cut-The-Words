@@ -43,6 +43,8 @@ App::App()
 		Application::RequestedTheme = ApplicationTheme::Light;
 	if (setting[L"theme"] == L"dark")
 		Application::RequestedTheme = ApplicationTheme::Dark;
+	if (setting[L"website"] == L"")
+		setting[L"website"] = L"http://localhost/words";
 	InitializeComponent();
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words.txt")) == nullptr) {
 		DumpAppFile(L"words.txt");

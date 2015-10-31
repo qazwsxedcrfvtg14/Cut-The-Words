@@ -19,6 +19,8 @@ namespace CutTheWords
         {
         public:
             BasicPage();
-        };
+		private:
+			void host_name_TextChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::TextChangedEventArgs^ e);
+		};
     }
 }

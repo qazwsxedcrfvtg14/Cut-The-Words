@@ -7,6 +7,15 @@
 //------------------------------------------------------------------------------
 
 
+namespace Windows {
+    namespace UI {
+        namespace Xaml {
+            namespace Controls {
+                ref class TextBox;
+            }
+        }
+    }
+}
 
 namespace CutTheWords
 {
@@ -25,6 +34,7 @@ namespace CutTheWords
         private:
             bool _contentLoaded;
         
+            private: ::Windows::UI::Xaml::Controls::TextBox^ host_name;
         };
     }
 }
