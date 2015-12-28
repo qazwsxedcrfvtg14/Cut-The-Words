@@ -250,18 +250,18 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 	}
 	else if (str == "聲音選項") {
 		set_list->Items->Clear();
-		set_list->Items->Append("自動撥放開啟");
-		set_list->Items->Append("自動撥放關閉");
+		set_list->Items->Append("自動播放開啟");
+		set_list->Items->Append("自動播放關閉");
 		set_list->Items->Append("回設定主頁");
 	}
-	else if (str == "自動撥放開啟") {
+	else if (str == "自動播放開啟") {
 		setting[L"auto_play"] = L"On";
 		wstring out;
 		for (auto &x : setting)
 			out += x.f + L"," + x.s + L"\n";
 		StrToFile(out, L"setting.txt");
 	}
-	else if (str == "自動撥放關閉") {
+	else if (str == "自動播放關閉") {
 		setting[L"auto_play"] = L"Off";
 		wstring out;
 		for (auto &x : setting)
@@ -269,7 +269,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		StrToFile(out, L"setting.txt");
 	}
 	else if (str == "關於") {
-		ShowMsg(L"版本號:ver 1.0.18");
+		ShowMsg(L"版本號:ver 1.0.19");
 	}
 	else if (str == "Test") {
 

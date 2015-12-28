@@ -184,12 +184,15 @@ private:
 
     void DependencyPropertyChanged(::Windows::UI::Xaml::DependencyObject^ sender, Windows::UI::Xaml::DependencyProperty^ prop)
     {
-        if (this->cacheDPC_AppFrame_CanGoBack != nullptr && this->cacheDPC_AppFrame_CanGoBack->Equals(sender) && ::Windows::UI::Xaml::Controls::Frame::CanGoBackProperty->Equals(prop))
+        if (sender != nullptr)
         {
-            ::Windows::UI::Xaml::Controls::Frame^ obj = safe_cast<::Windows::UI::Xaml::Controls::Frame^>(sender);
-            if (obj != nullptr)
+            if (sender->Equals(this->cacheDPC_AppFrame_CanGoBack) && ::Windows::UI::Xaml::Controls::Frame::CanGoBackProperty->Equals(prop))
             {
-                this->Update_AppFrame_CanGoBack(obj->CanGoBack, DATA_CHANGED);
+                ::Windows::UI::Xaml::Controls::Frame^ obj = safe_cast<::Windows::UI::Xaml::Controls::Frame^>(sender);
+                if (obj != nullptr)
+                {
+                    this->Update_AppFrame_CanGoBack(obj->CanGoBack, DATA_CHANGED);
+                }
             }
         }
     }

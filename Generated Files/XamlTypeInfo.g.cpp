@@ -59,6 +59,520 @@
 #include "SingleRootPage.g.hpp"
 #include "SingleVocPage.g.hpp"
 
+template<typename T>
+::Platform::Object^ ActivateType()
+{
+    return ref new T;
+}
+
+template<typename TInstance, typename TItem>
+void CollectionAdd(::Platform::Object^ instance, ::Platform::Object^ item)
+{
+    safe_cast<TInstance^>(instance)->Append((TItem)item);
+}
+
+template<typename TInstance, typename TKey, typename TItem>
+void DictionaryAdd(::Platform::Object^ instance, ::Platform::Object^ key, ::Platform::Object^ item)
+{
+    safe_cast<TInstance^>(instance)->Insert((TKey)key, (TItem)item);
+}
+
+template<typename T>
+::Platform::Object^ FromStringConverter(::XamlTypeInfo::InfoProvider::XamlUserType^ userType, ::Platform::String^ input)
+{
+    return ref new ::Platform::Box<T>((T)userType->CreateEnumUIntFromString(input));
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_WordHeight(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->WordHeight);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_WordWidth(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->WordWidth);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_WordPosition(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->WordPosition);
+}
+
+template<typename TDeclaringType>
+::Platform::Object^ GetReferenceTypeMember_HeaderContent(::Platform::Object^ instance)
+{
+    return safe_cast<TDeclaringType^>(instance)->HeaderContent;
+}
+
+template<typename TDeclaringType>
+::Platform::Object^ GetReferenceTypeMember_AppFrame(::Platform::Object^ instance)
+{
+    return safe_cast<TDeclaringType^>(instance)->AppFrame;
+}
+
+template<typename TDeclaringType>
+::Platform::Object^ GetReferenceTypeMember_AppTopFrame(::Platform::Object^ instance)
+{
+    return safe_cast<TDeclaringType^>(instance)->AppTopFrame;
+}
+
+template<typename TDeclaringType>
+::Platform::Object^ GetReferenceTypeMember_Message(::Platform::Object^ instance)
+{
+    return safe_cast<TDeclaringType^>(instance)->Message;
+}
+
+template<typename TDeclaringType>
+::Platform::Object^ GetReferenceTypeMember_Vocabulary(::Platform::Object^ instance)
+{
+    return safe_cast<TDeclaringType^>(instance)->Vocabulary;
+}
+
+template<typename TDeclaringType>
+::Platform::Object^ GetReferenceTypeMember_Explanation(::Platform::Object^ instance)
+{
+    return safe_cast<TDeclaringType^>(instance)->Explanation;
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetReferenceTypeMember_HeaderContent(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->HeaderContent = safe_cast<TValue^>(value);
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetReferenceTypeMember_Message(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->Message = safe_cast<TValue^>(value);
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetReferenceTypeMember_Vocabulary(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->Vocabulary = safe_cast<TValue^>(value);
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetReferenceTypeMember_Explanation(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->Explanation = safe_cast<TValue^>(value);
+}
+
+struct TypeInfo
+{
+    PCWSTR  typeName;
+    PCWSTR contentPropertyName;
+    ::Platform::Object^ (*activator)();
+    void (*collectionAdd)(::Platform::Object^, ::Platform::Object^);
+    void (*dictionaryAdd)(::Platform::Object^, ::Platform::Object^, ::Platform::Object^);
+    ::Platform::Object^ (*fromStringConverter)(::XamlTypeInfo::InfoProvider::XamlUserType^, ::Platform::String^);
+    int     baseTypeIndex;
+    int     firstMemberIndex;
+    int     firstEnumValueIndex;
+    ::Windows::UI::Xaml::Interop::TypeKind kindofType;
+    bool    isLocalType;
+    bool    isSystemType;
+    bool    isReturnTypeStub;
+    bool    isBindable;
+};
+
+TypeInfo TypeInfos[] = 
+{
+    //   0
+    L"String", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //   1
+    L"Object", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //   2
+    L"Double", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //   3
+    L"CutTheWords.AppShell", L"",
+    &ActivateType<::CutTheWords::AppShell>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //   4
+    L"CutTheWords.ExamPage", L"",
+    &ActivateType<::CutTheWords::ExamPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    2, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //   5
+    L"CutTheWords.WordOverlay", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    1, // Object
+    2, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, true, 
+    //   6
+    L"CutTheWords.Views.MAPage", L"",
+    &ActivateType<::CutTheWords::Views::MAPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //   7
+    L"Windows.UI.Xaml.UIElement", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //   8
+    L"CutTheWords.Views.PicPage", L"",
+    &ActivateType<::CutTheWords::Views::PicPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //   9
+    L"Windows.UI.Xaml.Thickness", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //  10
+    L"CutTheWords.Views.NullPage", L"",
+    &ActivateType<::CutTheWords::Views::NullPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  11
+    L"CutTheWords.Views.BasicPage", L"",
+    &ActivateType<::CutTheWords::Views::BasicPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  12
+    L"CutTheWords.Views.AddVocPage", L"",
+    &ActivateType<::CutTheWords::Views::AddVocPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  13
+    L"CutTheWords.Views.CameraPage", L"",
+    &ActivateType<::CutTheWords::Views::CameraPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  14
+    L"Windows.UI.Xaml.Controls.Page", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //  15
+    L"CutTheWords.Views.DrillInPage", L"",
+    &ActivateType<::CutTheWords::Views::DrillInPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  16
+    L"CutTheWords.Views.FindVocPage", L"",
+    &ActivateType<::CutTheWords::Views::FindVocPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  17
+    L"CutTheWords.Views.HistoryPage", L"",
+    &ActivateType<::CutTheWords::Views::HistoryPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  18
+    L"CutTheWords.Views.LandingPage", L"",
+    &ActivateType<::CutTheWords::Views::LandingPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  19
+    L"CutTheWords.Views.LoadingPage", L"",
+    &ActivateType<::CutTheWords::Views::LoadingPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  20
+    L"CutTheWords.Views.MALoginPage", L"",
+    &ActivateType<::CutTheWords::Views::MALoginPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  21
+    L"CutTheWords.Views.SettingPage", L"",
+    &ActivateType<::CutTheWords::Views::SettingPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  22
+    L"Windows.UI.Xaml.Controls.Frame", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //  23
+    L"CutTheWords.Views.BasicSubPage", L"",
+    &ActivateType<::CutTheWords::Views::BasicSubPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  24
+    L"CutTheWords.Views.FavoritePage", L"",
+    &ActivateType<::CutTheWords::Views::FavoritePage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    6, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  25
+    L"CutTheWords.Controls.PageHeader", L"",
+    &ActivateType<::CutTheWords::Controls::PageHeader>, nullptr, nullptr, nullptr,
+    32, // Windows.UI.Xaml.Controls.UserControl
+    6, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  26
+    L"CutTheWords.Views.SearchVocPage", L"",
+    &ActivateType<::CutTheWords::Views::SearchVocPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    7, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  27
+    L"CutTheWords.Views.SingleVocPage", L"",
+    &ActivateType<::CutTheWords::Views::SingleVocPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    7, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  28
+    L"CutTheWords.Views.CommandBarPage", L"",
+    &ActivateType<::CutTheWords::Views::CommandBarPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  29
+    L"CutTheWords.Views.SearchRootPage", L"",
+    &ActivateType<::CutTheWords::Views::SearchRootPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  30
+    L"CutTheWords.Views.SingleRootPage", L"",
+    &ActivateType<::CutTheWords::Views::SingleRootPage>, nullptr, nullptr, nullptr,
+    14, // Windows.UI.Xaml.Controls.Page
+    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  31
+    L"Windows.UI.Xaml.Controls.ListView", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    10, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //  32
+    L"Windows.UI.Xaml.Controls.UserControl", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    10, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //  33
+    L"CutTheWords.Controls.NavMenuListView", L"",
+    &ActivateType<::CutTheWords::Controls::NavMenuListView>, nullptr, nullptr, nullptr,
+    31, // Windows.UI.Xaml.Controls.ListView
+    10, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  34
+    L"Windows.UI.Xaml.Controls.ItemsControl", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    10, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //  Last type here is for padding
+    L"", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1, 
+    10, 0,::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    false, false, false, false,
+};
+
+UINT TypeInfoLookup[] = { 
+      0,   //   0
+      0,   //   1
+      0,   //   2
+      0,   //   3
+      0,   //   4
+      0,   //   5
+      1,   //   6
+      3,   //   7
+      3,   //   8
+      3,   //   9
+      3,   //  10
+      3,   //  11
+      3,   //  12
+      3,   //  13
+      3,   //  14
+      3,   //  15
+      3,   //  16
+      3,   //  17
+      3,   //  18
+      3,   //  19
+      3,   //  20
+      5,   //  21
+      5,   //  22
+      5,   //  23
+      6,   //  24
+      7,   //  25
+     10,   //  26
+     11,   //  27
+     12,   //  28
+     14,   //  29
+     22,   //  30
+     25,   //  31
+     28,   //  32
+     31,   //  33
+     32,   //  34
+     32,   //  35
+     32,   //  36
+     34,   //  37
+     35,   //  38
+};
+
+struct MemberInfo 
+{
+    PCWSTR shortName;
+    ::Platform::Object^ (*getter)(::Platform::Object^);
+    void (*setter)(::Platform::Object^, ::Platform::Object^);
+    int typeIndex;
+    int targetTypeIndex;
+    bool isReadOnly;
+    bool isDependencyProperty;
+    bool isAttachable;
+};
+
+MemberInfo MemberInfos[] = 
+{
+    //   0 - CutTheWords.AppShell.AppFrame
+    L"AppFrame",
+    &GetReferenceTypeMember_AppFrame<::CutTheWords::AppShell>,
+    nullptr,
+    22, // Windows.UI.Xaml.Controls.Frame
+    -1,
+    true,  false, false,
+    //   1 - CutTheWords.AppShell.AppTopFrame
+    L"AppTopFrame",
+    &GetReferenceTypeMember_AppTopFrame<::CutTheWords::AppShell>,
+    nullptr,
+    22, // Windows.UI.Xaml.Controls.Frame
+    -1,
+    true,  false, false,
+    //   2 - CutTheWords.WordOverlay.WordHeight
+    L"WordHeight",
+    &GetValueTypeMember_WordHeight<::CutTheWords::WordOverlay, ::default::float64>,
+    nullptr,
+    2, // Double
+    -1,
+    true,  false, false,
+    //   3 - CutTheWords.WordOverlay.WordWidth
+    L"WordWidth",
+    &GetValueTypeMember_WordWidth<::CutTheWords::WordOverlay, ::default::float64>,
+    nullptr,
+    2, // Double
+    -1,
+    true,  false, false,
+    //   4 - CutTheWords.WordOverlay.WordPosition
+    L"WordPosition",
+    &GetValueTypeMember_WordPosition<::CutTheWords::WordOverlay, ::Windows::UI::Xaml::Thickness>,
+    nullptr,
+    9, // Windows.UI.Xaml.Thickness
+    -1,
+    true,  false, false,
+    //   5 - CutTheWords.Views.BasicSubPage.Message
+    L"Message",
+    &GetReferenceTypeMember_Message<::CutTheWords::Views::BasicSubPage>,
+    &SetReferenceTypeMember_Message<::CutTheWords::Views::BasicSubPage, ::Platform::String>,
+    0, // String
+    -1,
+    false, false, false,
+    //   6 - CutTheWords.Controls.PageHeader.HeaderContent
+    L"HeaderContent",
+    &GetReferenceTypeMember_HeaderContent<::CutTheWords::Controls::PageHeader>,
+    &SetReferenceTypeMember_HeaderContent<::CutTheWords::Controls::PageHeader, ::Windows::UI::Xaml::UIElement>,
+    7, // Windows.UI.Xaml.UIElement
+    -1,
+    false, true,  false,
+    //   7 - CutTheWords.Views.SingleVocPage.Explanation
+    L"Explanation",
+    &GetReferenceTypeMember_Explanation<::CutTheWords::Views::SingleVocPage>,
+    &SetReferenceTypeMember_Explanation<::CutTheWords::Views::SingleVocPage, ::Platform::String>,
+    0, // String
+    -1,
+    false, false, false,
+    //   8 - CutTheWords.Views.SingleVocPage.Vocabulary
+    L"Vocabulary",
+    &GetReferenceTypeMember_Vocabulary<::CutTheWords::Views::SingleVocPage>,
+    &SetReferenceTypeMember_Vocabulary<::CutTheWords::Views::SingleVocPage, ::Platform::String>,
+    0, // String
+    -1,
+    false, false, false,
+    //   9 - CutTheWords.Views.SingleRootPage.Vocabulary
+    L"Vocabulary",
+    &GetReferenceTypeMember_Vocabulary<::CutTheWords::Views::SingleRootPage>,
+    &SetReferenceTypeMember_Vocabulary<::CutTheWords::Views::SingleRootPage, ::Platform::String>,
+    0, // String
+    -1,
+    false, false, false,
+};
+
+PCWSTR GetShortName(PCWSTR longName)
+{
+    PCWSTR separator = wcsrchr(longName, '.');
+    return separator != nullptr ? separator + 1: longName;
+}
+
+TypeInfo* GetTypeInfo(::Platform::String^ typeName)
+{
+    int typeNameLength = typeName->Length();
+    if (typeNameLength < _countof(TypeInfoLookup) - 1)
+    {
+        for (UINT i = TypeInfoLookup[typeNameLength]; i < TypeInfoLookup[typeNameLength+1]; i++)
+        {
+            if (typeName == ::Platform::StringReference(TypeInfos[i].typeName))
+            {
+                return &TypeInfos[i];
+            }
+        }
+    }
+    return nullptr;
+}
+
+MemberInfo* GetMemberInfo(::Platform::String^ longMemberName)
+{
+    for (int lastDotIndex = longMemberName->Length(); lastDotIndex >= 0; lastDotIndex--)
+    {
+        if (longMemberName->Data()[lastDotIndex] == '.')
+        {
+            TypeInfo* pTypeInfo = GetTypeInfo(ref new ::Platform::String(longMemberName->Data(), lastDotIndex));
+            TypeInfo* pNextTypeInfo = pTypeInfo + 1;
+            if (pTypeInfo)
+            {
+                PCWSTR shortMemberName = GetShortName(longMemberName->Data());
+                for (int i = pTypeInfo->firstMemberIndex; i < pNextTypeInfo->firstMemberIndex; i++)
+                {
+                    if (wcscmp(shortMemberName, MemberInfos[i].shortName) == 0)
+                    {
+                        return &MemberInfos[i];
+                    }
+                }
+            }
+            break;
+        }
+    }
+    return nullptr;
+}
 
 ::Platform::Collections::Vector<::Windows::UI::Xaml::Markup::IXamlMetadataProvider^>^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::OtherProviders::get()
 {
@@ -70,614 +584,60 @@
     return _otherProviders;
 }
 
-::Windows::UI::Xaml::Markup::IXamlType^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::CheckOtherMetadataProvidersForName(::Platform::String^ typeName)
-{
-    ::Windows::UI::Xaml::Markup::IXamlType^ foundXamlType = nullptr;
-    for (unsigned int i = 0; i < OtherProviders->Size; i++)
-    {
-        auto xamlType = OtherProviders->GetAt(i)->GetXamlType(typeName);
-        if(xamlType != nullptr)
-        {
-            if(xamlType->IsConstructible)    // not Constructible means it might be a Return Type Stub
-            {
-                return xamlType;
-            }
-            foundXamlType = xamlType;
-        }
-    }
-    return foundXamlType;
-}
-
-::Windows::UI::Xaml::Markup::IXamlType^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::CheckOtherMetadataProvidersForType(::Windows::UI::Xaml::Interop::TypeName t)
-{
-    ::Windows::UI::Xaml::Markup::IXamlType^ foundXamlType = nullptr;
-    for (unsigned int i = 0; i < OtherProviders->Size; i++)
-    {
-        auto xamlType = OtherProviders->GetAt(i)->GetXamlType(t);
-        if(xamlType != nullptr)
-        {
-            if(xamlType->IsConstructible)    // not Constructible means it might be a Return Type Stub
-            {
-                return xamlType;
-            }
-            foundXamlType = xamlType;
-        }
-    }
-    return foundXamlType;
-}
-
 ::Windows::UI::Xaml::Markup::IXamlType^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::CreateXamlType(::Platform::String^ typeName)
 {
-    if (typeName == L"Windows.UI.Xaml.Controls.UserControl")
+    TypeInfo* pTypeInfo = GetTypeInfo(typeName);
+    TypeInfo* pNextTypeInfo = pTypeInfo + 1;
+    if (pTypeInfo == nullptr || pNextTypeInfo == nullptr)
     {
-        return ref new XamlSystemBaseType(typeName);
+        return nullptr;
     }
-    if (typeName == L"Windows.UI.Xaml.UIElement")
+    else if (pTypeInfo->isSystemType)
     {
-        return ref new XamlSystemBaseType(typeName);
+        return ref new ::XamlTypeInfo::InfoProvider::XamlSystemBaseType(typeName);
     }
-    if (typeName == L"Windows.UI.Xaml.Controls.Page")
+    else
     {
-        return ref new XamlSystemBaseType(typeName);
-    }
-    if (typeName == L"Windows.UI.Xaml.Controls.ListView")
-    {
-        return ref new XamlSystemBaseType(typeName);
-    }
-    if (typeName == L"Windows.UI.Xaml.Controls.ItemsControl")
-    {
-        return ref new XamlSystemBaseType(typeName);
-    }
-    if (typeName == L"Windows.UI.Xaml.Controls.Frame")
-    {
-        return ref new XamlSystemBaseType(typeName);
-    }
-    if (typeName == L"String")
-    {
-        return ref new XamlSystemBaseType(typeName);
-    }
-    if (typeName == L"Object")
-    {
-        return ref new XamlSystemBaseType(typeName);
-    }
-    if (typeName == L"Double")
-    {
-        return ref new XamlSystemBaseType(typeName);
-    }
-    if (typeName == L"Windows.UI.Xaml.Thickness")
-    {
-        return ref new XamlSystemBaseType(typeName);
-    }
-    if (typeName == L"CutTheWords.Controls.PageHeader")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Controls.PageHeader", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.UserControl"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Controls::PageHeader(); 
-            };
-        userType->AddMemberName(L"HeaderContent");
-        userType->SetIsLocalType();
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(
+            this, 
+            ::Platform::StringReference(pTypeInfo->typeName), 
+            this->GetXamlTypeByName(::Platform::StringReference(pTypeInfo->baseTypeIndex >= 0 ? TypeInfos[pTypeInfo->baseTypeIndex].typeName : L"")));
+        userType->KindOfType = pTypeInfo->kindofType;
+        userType->Activator = pTypeInfo->activator;
+        userType->CollectionAdd = pTypeInfo->collectionAdd;
+        userType->DictionaryAdd = pTypeInfo->dictionaryAdd;
+        userType->FromStringConverter = pTypeInfo->fromStringConverter;
+        userType->ContentPropertyName = ::Platform::StringReference(pTypeInfo->contentPropertyName);
+        userType->IsLocalType = pTypeInfo->isLocalType;
+        userType->IsReturnTypeStub = pTypeInfo->isReturnTypeStub;
+        userType->IsBindable = pTypeInfo->isBindable;
+        int nextMemberIndex = pTypeInfo->firstMemberIndex;
+        for (int i=pTypeInfo->firstMemberIndex; i < pNextTypeInfo->firstMemberIndex; i++)
+        {
+            userType->AddMemberName(::Platform::StringReference(MemberInfos[i].shortName));
+            nextMemberIndex++;
+        }
         return userType;
     }
-
-
-    if (typeName == L"CutTheWords.Views.AddVocPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.AddVocPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::AddVocPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Controls.NavMenuListView")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Controls.NavMenuListView", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.ListView"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Controls::NavMenuListView(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.AppShell")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.AppShell", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::AppShell(); 
-            };
-        userType->AddMemberName(L"AppFrame");
-        userType->AddMemberName(L"AppTopFrame");
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.BasicPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.BasicPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::BasicPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.BasicSubPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.BasicSubPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::BasicSubPage(); 
-            };
-        userType->AddMemberName(L"Message");
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.CameraPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.CameraPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::CameraPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.CommandBarPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.CommandBarPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::CommandBarPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.DrillInPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.DrillInPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::DrillInPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.ExamPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.ExamPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::ExamPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.FavoritePage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.FavoritePage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::FavoritePage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.FindVocPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.FindVocPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::FindVocPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.HistoryPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.HistoryPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::HistoryPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.LandingPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.LandingPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::LandingPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.LoadingPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.LoadingPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::LoadingPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.MALoginPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.MALoginPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::MALoginPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.MAPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.MAPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::MAPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.NullPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.NullPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::NullPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.PicPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.PicPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::PicPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.SearchRootPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.SearchRootPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::SearchRootPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.SearchVocPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.SearchVocPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::SearchVocPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.SettingPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.SettingPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::SettingPage(); 
-            };
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.SingleRootPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.SingleRootPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::SingleRootPage(); 
-            };
-        userType->AddMemberName(L"Vocabulary");
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.Views.SingleVocPage")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.SingleVocPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->Activator =
-            []() -> ::Platform::Object^ 
-            {
-                return ref new ::CutTheWords::Views::SingleVocPage(); 
-            };
-        userType->AddMemberName(L"Explanation");
-        userType->AddMemberName(L"Vocabulary");
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    if (typeName == L"CutTheWords.WordOverlay")
-    {
-        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.WordOverlay", this->GetXamlTypeByName(L"Object"));
-        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
-        userType->AddMemberName(L"WordHeight");
-        userType->AddMemberName(L"WordWidth");
-        userType->AddMemberName(L"WordPosition");
-        userType->SetIsBindable();
-        userType->SetIsLocalType();
-        return userType;
-    }
-
-
-    return nullptr;
-    }
+}
 
 ::Windows::UI::Xaml::Markup::IXamlMember^ ::XamlTypeInfo::InfoProvider::XamlTypeInfoProvider::CreateXamlMember(::Platform::String^ longMemberName)
 {
-    if (longMemberName == L"CutTheWords.Controls.PageHeader.HeaderContent")
+    ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = nullptr;
+    MemberInfo* pMemberInfo = GetMemberInfo(longMemberName);
+    if (pMemberInfo != nullptr)
     {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"HeaderContent", L"Windows.UI.Xaml.UIElement");
-        xamlMember->SetIsDependencyProperty();
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::Controls::PageHeader^)instance;
-                return that->HeaderContent;
-            };
-
-        xamlMember->Setter =
-            [](::Platform::Object^ instance, ::Platform::Object^ value) -> void
-            {
-                auto that = (::CutTheWords::Controls::PageHeader^)instance;
-                that->HeaderContent = (::Windows::UI::Xaml::UIElement^)value;
-            };
-        return xamlMember;
+        xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(
+            this,
+            ::Platform::StringReference(pMemberInfo->shortName),
+            ::Platform::StringReference(TypeInfos[pMemberInfo->typeIndex].typeName));
+        xamlMember->Getter = pMemberInfo->getter;
+        xamlMember->Setter = pMemberInfo->setter;
+        xamlMember->TargetTypeName = pMemberInfo->targetTypeIndex >= 0 ? ::Platform::StringReference(TypeInfos[pMemberInfo->targetTypeIndex].typeName) : L"";
+        xamlMember->IsReadOnly = pMemberInfo->isReadOnly;
+        xamlMember->IsDependencyProperty = pMemberInfo->isDependencyProperty;
+        xamlMember->IsAttachable = pMemberInfo->isAttachable;
     }
-
-    if (longMemberName == L"CutTheWords.AppShell.AppFrame")
-    {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"AppFrame", L"Windows.UI.Xaml.Controls.Frame");
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::AppShell^)instance;
-                return that->AppFrame;
-            };
-
-        xamlMember->SetIsReadOnly();
-        return xamlMember;
-    }
-
-    if (longMemberName == L"CutTheWords.AppShell.AppTopFrame")
-    {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"AppTopFrame", L"Windows.UI.Xaml.Controls.Frame");
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::AppShell^)instance;
-                return that->AppTopFrame;
-            };
-
-        xamlMember->SetIsReadOnly();
-        return xamlMember;
-    }
-
-    if (longMemberName == L"CutTheWords.Views.BasicSubPage.Message")
-    {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"Message", L"String");
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::Views::BasicSubPage^)instance;
-                return that->Message;
-            };
-
-        xamlMember->Setter =
-            [](::Platform::Object^ instance, ::Platform::Object^ value) -> void
-            {
-                auto that = (::CutTheWords::Views::BasicSubPage^)instance;
-                that->Message = (::Platform::String^)value;
-            };
-        return xamlMember;
-    }
-
-    if (longMemberName == L"CutTheWords.Views.SingleRootPage.Vocabulary")
-    {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"Vocabulary", L"String");
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::Views::SingleRootPage^)instance;
-                return that->Vocabulary;
-            };
-
-        xamlMember->Setter =
-            [](::Platform::Object^ instance, ::Platform::Object^ value) -> void
-            {
-                auto that = (::CutTheWords::Views::SingleRootPage^)instance;
-                that->Vocabulary = (::Platform::String^)value;
-            };
-        return xamlMember;
-    }
-
-    if (longMemberName == L"CutTheWords.Views.SingleVocPage.Explanation")
-    {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"Explanation", L"String");
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::Views::SingleVocPage^)instance;
-                return that->Explanation;
-            };
-
-        xamlMember->Setter =
-            [](::Platform::Object^ instance, ::Platform::Object^ value) -> void
-            {
-                auto that = (::CutTheWords::Views::SingleVocPage^)instance;
-                that->Explanation = (::Platform::String^)value;
-            };
-        return xamlMember;
-    }
-
-    if (longMemberName == L"CutTheWords.Views.SingleVocPage.Vocabulary")
-    {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"Vocabulary", L"String");
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::Views::SingleVocPage^)instance;
-                return that->Vocabulary;
-            };
-
-        xamlMember->Setter =
-            [](::Platform::Object^ instance, ::Platform::Object^ value) -> void
-            {
-                auto that = (::CutTheWords::Views::SingleVocPage^)instance;
-                that->Vocabulary = (::Platform::String^)value;
-            };
-        return xamlMember;
-    }
-
-    if (longMemberName == L"CutTheWords.WordOverlay.WordHeight")
-    {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"WordHeight", L"Double");
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::WordOverlay^)instance;
-                auto value = ref new ::Platform::Box<::default::float64>(that->WordHeight);
-                return value;
-            };
-
-        xamlMember->SetIsReadOnly();
-        return xamlMember;
-    }
-
-    if (longMemberName == L"CutTheWords.WordOverlay.WordWidth")
-    {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"WordWidth", L"Double");
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::WordOverlay^)instance;
-                auto value = ref new ::Platform::Box<::default::float64>(that->WordWidth);
-                return value;
-            };
-
-        xamlMember->SetIsReadOnly();
-        return xamlMember;
-    }
-
-    if (longMemberName == L"CutTheWords.WordOverlay.WordPosition")
-    {
-       ::XamlTypeInfo::InfoProvider::XamlMember^ xamlMember = ref new ::XamlTypeInfo::InfoProvider::XamlMember(this, L"WordPosition", L"Windows.UI.Xaml.Thickness");
-        xamlMember->Getter =
-            [](::Platform::Object^ instance) -> ::Platform::Object^
-            {
-                auto that = (::CutTheWords::WordOverlay^)instance;
-                auto value = ref new ::Platform::Box<::Windows::UI::Xaml::Thickness>(that->WordPosition);
-                return value;
-            };
-
-        xamlMember->SetIsReadOnly();
-        return xamlMember;
-    }
-
-    return nullptr;
+    return xamlMember;
 }
 

@@ -119,6 +119,13 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
             // final launch steps after the restore is complete
 
         }
+		if (!e->PrelaunchActivated)
+		{
+			// TODO: Restore the saved session state only when appropriate, scheduling the
+			// final launch steps after the restore is complete
+
+		}
+		
     }
 	//
     // Place our app shell in the current Window
