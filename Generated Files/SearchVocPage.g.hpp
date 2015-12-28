@@ -31,7 +31,7 @@ void ::CutTheWords::Views::SearchVocPage::Connect(int __connectionId, ::Platform
             {
                 this->input_voc = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(this->input_voc))->TextChanged += ref new ::Windows::UI::Xaml::Controls::TextChangedEventHandler(this, (void (::CutTheWords::Views::SearchVocPage::*)
-                    (::Platform::Object^, ::Windows::UI::Xaml::Controls::TextChangedEventArgs^))&SearchVocPage::UpdateVocList);
+                    (::Platform::Object^, ::Windows::UI::Xaml::Controls::TextChangedEventArgs^))&SearchVocPage::UpdateVocList_sync);
                 (safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(this->input_voc))->KeyDown += ref new ::Windows::UI::Xaml::Input::KeyEventHandler(this, (void (::CutTheWords::Views::SearchVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Input::KeyRoutedEventArgs^))&SearchVocPage::TextBoxKeyDown);
             }

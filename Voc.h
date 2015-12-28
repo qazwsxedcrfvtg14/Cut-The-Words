@@ -142,3 +142,4 @@ void Read_Json(wstring s, Json_Node & now);
 
 extern wstring key_main;
 void kalisin(wstring path, wstring snd = L"", bool show_error = 1, function<void(wstring)> fnc = [](wstring s) {});
+void SavingSetting();

@@ -33,6 +33,7 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
 	/*auto param = dynamic_cast<String^>(e->Parameter);
 	input_voc->Text = ref new String(param->Data());*/
+	running_target = 0;
 	auto svp = dynamic_cast<String^>(SearchVocPage_Navigate_Obj);
 	if (svp != nullptr) {
 		input_voc->Text = svp;
@@ -43,8 +44,21 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 	match(q + L"*", ve);
 	VocList->Items->Clear();
 	int cnt = 0;
-	for (auto x : ve)
-		VocList->Items->Append(ref new String(x.c_str()));
+	for (auto x : ve) {
+		auto stp = ref new StackPanel();
+		stp->Orientation = Orientation::Horizontal;
+		auto tmp = ref new TextBlock();
+		tmp->Text = ref new String(x.c_str());
+		stp->Children->Append(tmp);
+		tmp = ref new TextBlock();
+		int len = (int)x.length();
+		wstring _exp= GetExp(words[x]).f;
+		_exp = trim(_exp);
+		tmp->Text = ref new String(_exp.c_str());
+		tmp->Margin = Thickness(20, 0, 0, 0);
+		stp->Children->Append(tmp);
+		VocList->Items->Append(stp);
+	}
 	if (ve.size())
 		scroll_load_not_finish = 1;
 	else
@@ -61,24 +75,52 @@ void SearchVocPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventA
 {
 	Frame->Navigate(
 		TypeName(SingleVocPage::typeid),
-		e->ClickedItem,
+		((TextBlock^)(((StackPanel^)(e->ClickedItem))->Children->GetAt(0)))->Text,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }
 
-
-void SearchVocPage::UpdateVocList(Platform::Object^ sender, ItemClickEventArgs^ e)
+void SearchVocPage::UpdateVocList_sync(Platform::Object^ sender, ItemClickEventArgs^ e) {
+	if (!running_target) {
+		running_target = 1;
+		Windows::UI::Xaml::DispatcherTimer^ tempdispatchertime = ref new DispatcherTimer();
+		auto timerDelegate = [tempdispatchertime,this](Object^ e, Object^ ags) {
+			UpdateVocList();
+			tempdispatchertime->Stop();
+		};
+		tempdispatchertime->Tick += ref new EventHandler<Object^>(timerDelegate);
+		tempdispatchertime->Start();
+	}
+}
+void SearchVocPage::UpdateVocList()
 {
-	wstring q = input_voc->Text->Data();
-	vector<wstring> ve;
-	match(q + L"*", ve);
-	VocList->Items->Clear();
-	int cnt = 0;
-	for (auto x : ve) 
-		VocList->Items->Append(ref new String(x.c_str()));
-	if (ve.size())
-		scroll_load_not_finish = 1;
-	else
-		scroll_load_not_finish = 0;
+	while (target != input_voc->Text->Data()) {
+		target = input_voc->Text->Data();
+		wstring q = input_voc->Text->Data();
+		vector<wstring> ve;
+		match(q + L"*", ve);
+		VocList->Items->Clear();
+		int cnt = 0;
+		for (auto x : ve) {
+			auto stp = ref new StackPanel();
+			stp->Orientation = Orientation::Horizontal;
+			auto tmp = ref new TextBlock();
+			tmp->Text = ref new String(x.c_str());
+			stp->Children->Append(tmp);
+			tmp = ref new TextBlock();
+			int len = (int)x.length();
+			wstring _exp = GetExp(words[x]).f;
+			_exp = trim(_exp);
+			tmp->Text = ref new String(_exp.c_str());
+			tmp->Margin = Thickness(20, 0, 0, 0);
+			stp->Children->Append(tmp);
+			VocList->Items->Append(stp);
+		}
+		if (ve.size())
+			scroll_load_not_finish = 1;
+		else
+			scroll_load_not_finish = 0;
+	}
+	running_target = 0;
 }
 void SearchVocPage::TextBoxKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e) {
 	if (e->Key == Windows::System::VirtualKey::Enter&&input_voc->Text!="") {
@@ -90,13 +132,25 @@ void SearchVocPage::TextBoxKeyDown(Object^ sender, Windows::UI::Xaml::Input::Key
 }
 void SearchVocPage::upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^ e) {
 	if(scro->VerticalOffset >= scro->ScrollableHeight -100 && scroll_load_not_finish){
-
 		wstring q = input_voc->Text->Data();
 		vector<wstring> ve;
-		match(q + L"*", ve,((String^)VocList->Items->GetAt(VocList->Items->Size-1))->Data());
+		match(q + L"*", ve, ((TextBlock^)(((StackPanel^)(VocList->Items->GetAt(VocList->Items->Size - 1)))->Children->GetAt(0)))->Text->Data());
 		int cnt = 0;
-		for (auto x : ve) 
-			VocList->Items->Append(ref new String(x.c_str()));
+		for (auto x : ve) {
+			auto stp = ref new StackPanel();
+			stp->Orientation = Orientation::Horizontal;
+			auto tmp = ref new TextBlock();
+			tmp->Text = ref new String(x.c_str());
+			stp->Children->Append(tmp);
+			tmp = ref new TextBlock();
+			int len = (int)x.length();
+			wstring _exp = GetExp(words[x]).f;
+			_exp = trim(_exp);
+			tmp->Text = ref new String(_exp.c_str());
+			tmp->Margin = Thickness(20, 0, 0, 0);
+			stp->Children->Append(tmp);
+			VocList->Items->Append(stp);
+		}
 		if (ve.size())
 			scroll_load_not_finish = 1;
 		else

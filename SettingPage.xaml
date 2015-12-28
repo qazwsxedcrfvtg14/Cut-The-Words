@@ -28,7 +28,7 @@
             <ListViewItem>聲音選項</ListViewItem>
             <ListViewItem>單字庫選項</ListViewItem>
             <ListViewItem>關於</ListViewItem>
-            <ListViewItem>Test</ListViewItem>
+            <!--<ListViewItem>Test</ListViewItem>-->
         </ListView>
 
 

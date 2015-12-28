@@ -8,7 +8,7 @@
 using namespace Platform;
 
 #include "SearchVocPage.g.h"
-
+#include "Voc.h"
 namespace CutTheWords
 {
 	namespace Views
@@ -25,8 +25,11 @@ namespace CutTheWords
 			virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 			virtual void OnNavigatedFrom(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 		private:
+			wstring target;
+			bool running_target=0;
 			void ListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
-			void UpdateVocList(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
+			void UpdateVocList();
+			void UpdateVocList_sync(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void TextBoxKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e);
 			void upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^ e);
 		};

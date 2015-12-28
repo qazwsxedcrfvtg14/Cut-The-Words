@@ -106,18 +106,18 @@ void SingleVocPage::Init(wstring data) {
 	wds = GetExp(words[data]);
 	Explanation = ref new String(wds.f.c_str());
 	ExpStack();
-	get(L"http://dictionary.reference.com/browse/" + data, [=](wstring s) {
+	get(setting[L"sound_url"] + data, [=](wstring s) {
 		//ShowMsg(s);
 		//ShowMsg(ws);
 		//HideLoading();
-		auto be = s.find(L"http://static.sfdict.com/staticrep/dictaudio");
+		auto be = s.find(setting[L"sound_url2"]);
 		if (be == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000001)");*/  return; }
 		s = s.substr(be);
-		auto ed = s.find(L".mp3");
+		auto ed = s.find(setting[L"sound_type"]);
 		if (ed == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000002)");*/ return; }
 		s = s.substr(0, ed + 4);
 		while (1) {
-			auto pos = s.substr(1).find(L"http://static.sfdict.com/staticrep/dictaudio");
+			auto pos = s.substr(1).find(setting[L"sound_url2"]);
 			if (pos == wstring::npos)break;
 			s = s.substr(pos + 1);
 			//break;
@@ -265,7 +265,7 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 		}
 		else {
 			ShowLoading();
-			get(L"http://cn.bing.com/dict/search?q=" + (wstring)pa, [=](wstring web) {
+			get(L"http://cn.bing.com/dict/search?mkt=zh-cn&q=" + (wstring)pa, [=](wstring web) {
 				wstring disc,nt;
 				auto betip = web.find(L"<div class=\"in_tip\">");
 				if (betip != std::wstring::npos) {

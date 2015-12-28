@@ -45,6 +45,13 @@ App::App()
 		Application::RequestedTheme = ApplicationTheme::Dark;
 	if (setting[L"website"] == L"")
 		setting[L"website"] = L"http://localhost/words";
+	if (setting[L"sound_url"] == L"")
+		setting[L"sound_url"] = L"http://dictionary.reference.com/browse/";
+	if (setting[L"sound_url2"] == L"")
+		setting[L"sound_url2"] = L"http://static.sfdict.com/staticrep/dictaudio";
+	if (setting[L"sound_type"] == L"")
+		setting[L"sound_type"] = L".mp3";
+	SavingSetting();
 	InitializeComponent();
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words.txt")) == nullptr) {
 		DumpAppFile(L"words.txt");

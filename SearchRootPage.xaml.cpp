@@ -40,8 +40,24 @@ void SearchRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 	vector<wstring> ve;
 	match_rot(q + L"*", ve);
 	VocList->Items->Clear();
-	for (auto x : ve) 
-		VocList->Items->Append(ref new String(x.c_str()));
+	for (auto x : ve) {
+		auto stp = ref new StackPanel();
+		stp->Orientation = Orientation::Horizontal;
+		auto tmp = ref new TextBlock();
+		tmp->Text = ref new String(x.c_str());
+		stp->Children->Append(tmp);
+		tmp = ref new TextBlock();
+		int len = (int)x.length();
+		wstring _exp;
+		if (x[0] == '-'&&x[len - 1] == '-')_exp = root[x.substr(1, len - 2)];
+		else if (x[0] == '-')_exp = suffix[x.substr(1)];
+		else if (x[len - 1] == '-')_exp = prefix[x.substr(0, len - 1)];
+		_exp = trim(_exp);
+		tmp->Text = ref new String(_exp.c_str());
+		tmp->Margin = Thickness(20, 0, 0, 0);
+		stp->Children->Append(tmp);
+		VocList->Items->Append(stp);
+	}
 	if (ve.size())
 		scroll_load_not_finish = 1;
 	else
@@ -55,9 +71,10 @@ void SearchRootPage::OnNavigatedFrom(NavigationEventArgs^ e)
 }
 void SearchRootPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArgs^ e)
 {
+	(ref new StackPanel)->Children;
 	Frame->Navigate(
 		TypeName(SingleRootPage::typeid),
-		e->ClickedItem,
+		((TextBlock^)(((StackPanel^)(e->ClickedItem))->Children->GetAt(0)))->Text,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }
 
@@ -68,8 +85,24 @@ void SearchRootPage::UpdateVocList(Platform::Object^ sender, ItemClickEventArgs^
 	vector<wstring> ve;
 	match_rot(q + L"*", ve);
 	VocList->Items->Clear();
-	for (auto x : ve)
-		VocList->Items->Append(ref new String(x.c_str()));
+	for (auto x : ve) {
+		auto stp = ref new StackPanel();
+		stp->Orientation = Orientation::Horizontal;
+		auto tmp = ref new TextBlock();
+		tmp->Text = ref new String(x.c_str());
+		stp->Children->Append(tmp);
+		tmp = ref new TextBlock();
+		int len = (int)x.length();
+		wstring _exp;
+		if (x[0] == '-'&&x[len - 1] == '-')_exp = root[x.substr(1, len - 2)];
+		else if (x[0] == '-')_exp = suffix[x.substr(1)];
+		else if (x[len - 1] == '-')_exp = prefix[x.substr(0, len - 1)];
+		_exp = trim(_exp);
+		tmp->Text = ref new String(_exp.c_str());
+		tmp->Margin = Thickness(20, 0, 0, 0);
+		stp->Children->Append(tmp);
+		VocList->Items->Append(stp);
+	}
 	if (ve.size())
 		scroll_load_not_finish = 1;
 	else
@@ -79,7 +112,7 @@ void SearchRootPage::TextBoxKeyDown(Object^ sender, Windows::UI::Xaml::Input::Ke
 	if (e->Key == Windows::System::VirtualKey::Enter&&VocList->Items->Size) {
 		Frame->Navigate(
 			TypeName(SingleRootPage::typeid),
-			VocList->Items->GetAt(0),
+			((TextBlock^)(((StackPanel^)(VocList->Items->GetAt(0)))->Children->GetAt(0)))->Text,
 			ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 	}
 }
@@ -90,8 +123,24 @@ void SearchRootPage::upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollView
 		wstring q = input_voc->Text->Data();
 		vector<wstring> ve;
 		match_rot(q + L"*", ve, ((String^)VocList->Items->GetAt(VocList->Items->Size - 1))->Data());
-		for (auto x : ve)
-			VocList->Items->Append(ref new String(x.c_str()));
+		for (auto x : ve){
+			auto stp = ref new StackPanel();
+			stp->Orientation = Orientation::Horizontal;
+			auto tmp = ref new TextBlock();
+			tmp->Text = ref new String(x.c_str());
+			stp->Children->Append(tmp);
+			tmp = ref new TextBlock();
+			int len = (int)x.length();
+			wstring _exp;
+			if (x[0] == '-'&&x[len - 1] == '-')_exp = root[x.substr(1, len - 2)];
+			else if (x[0] == '-')_exp = suffix[x.substr(1)];
+			else if (x[len - 1] == '-')_exp = prefix[x.substr(0, len - 1)];
+			_exp = trim(_exp);
+			tmp->Text = ref new String(_exp.c_str());
+			tmp->Margin = Thickness(20, 0, 0, 0);
+			stp->Children->Append(tmp);
+			VocList->Items->Append(stp);
+		}
 		if (ve.size())
 			scroll_load_not_finish = 1;
 		else

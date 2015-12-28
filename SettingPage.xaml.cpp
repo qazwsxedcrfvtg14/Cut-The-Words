@@ -26,6 +26,7 @@ SettingPage::SettingPage()
 	InitializeComponent();
 }
 
+
 void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArgs^ e)
 {
 	auto str=dynamic_cast<String^>(e->ClickedItem);
@@ -214,18 +215,12 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 	}
 	else if (str == "設定為淡色主題") {
 		setting[L"theme"] = L"light";
-		wstring out;
-		for (auto &x : setting)
-			out += x.f + L"," + x.s + L"\n";
-		StrToFile(out, L"setting.txt");
+		SavingSetting();
 		ShowMsg(L"設定完成，重開應用程式後生效");
 	}
 	else if (str == "設定為深色主題") {
 		setting[L"theme"] = L"dark";
-		wstring out;
-		for (auto &x : setting)
-			out += x.f + L"," + x.s + L"\n";
-		StrToFile(out, L"setting.txt");
+		SavingSetting();
 		ShowMsg(L"設定完成，重開應用程式後生效");
 	}
 	else if (str == "單字庫選項") {
@@ -252,27 +247,46 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		set_list->Items->Clear();
 		set_list->Items->Append("自動播放開啟");
 		set_list->Items->Append("自動播放關閉");
+		set_list->Items->Append("發音:Dictionary.com");
+		set_list->Items->Append("發音:Bing 美國");
+		set_list->Items->Append("發音:Bing 英國");
 		set_list->Items->Append("回設定主頁");
 	}
 	else if (str == "自動播放開啟") {
 		setting[L"auto_play"] = L"On";
-		wstring out;
-		for (auto &x : setting)
-			out += x.f + L"," + x.s + L"\n";
-		StrToFile(out, L"setting.txt");
+		SavingSetting();
+		ShowMsg(L"設定成功");
 	}
 	else if (str == "自動播放關閉") {
 		setting[L"auto_play"] = L"Off";
-		wstring out;
-		for (auto &x : setting)
-			out += x.f + L"," + x.s + L"\n";
-		StrToFile(out, L"setting.txt");
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "發音:Dictionary.com") {
+		setting[L"sound_url"] = L"http://dictionary.reference.com/browse/";
+		setting[L"sound_url2"] = L"http://static.sfdict.com/staticrep/dictaudio";
+		setting[L"sound_type"] = L".mp3";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "發音:Bing 美國") {
+		setting[L"sound_url"] = L"http://cn.bing.com/dict/search?mkt=zh-cn&q=";
+		setting[L"sound_url2"] = L"https://dictionary.blob.core.chinacloudapi.cn/media/audio/tom";
+		setting[L"sound_type"] = L".mp3";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "發音:Bing 英國") {
+		setting[L"sound_url"] = L"http://cn.bing.com/dict/search?mkt=zh-cn&q=";
+		setting[L"sound_url2"] = L"https://dictionary.blob.core.chinacloudapi.cn/media/audio/george";
+		setting[L"sound_type"] = L".mp3";
+		SavingSetting();
+		ShowMsg(L"設定成功");
 	}
 	else if (str == "關於") {
-		ShowMsg(L"版本號:ver 1.0.19");
+		ShowMsg(L"版本號:ver 1.0.20");
 	}
 	else if (str == "Test") {
-
 		auto ocrLanguage = ref new Windows::Globalization::Language("en");
 		auto ocrEngine = Windows::Media::Ocr::OcrEngine::TryCreateFromLanguage(ocrLanguage);
 	}
