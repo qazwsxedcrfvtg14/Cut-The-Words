@@ -1,0 +1,1 @@
+MainPackage=D:\joe_data\Documents\GitHub\Cut The Words\x64\Release\CutTheWords\CutTheWords_1.0.18.0_x64.appx

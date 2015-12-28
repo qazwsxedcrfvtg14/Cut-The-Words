@@ -123,9 +123,12 @@ void SingleVocPage::Init(wstring data) {
 			//break;
 		}
 		media->Source = ref new Uri(ref new String(s.c_str()));
+		if(setting[L"auto_play"]==L"On")
+			media->AutoPlay = 1;
 		play_but->Visibility = Windows::UI::Xaml::Visibility::Visible;
+		
 	}, [=] {});
-	get(L"https://www.bing.com/images/search?q=" + data, [=](wstring s) {
+	get(L"https://www.bing.com/images/search?mkt=zh-cn&q=" + data, [=](wstring s) {
 		//ShowMsg(s);
 		//ShowMsg(ws);
 		//HideLoading();
@@ -149,6 +152,22 @@ void SingleVocPage::Init(wstring data) {
 			pics->Children->Append(tmp);
 		}
 	}, [=] {});
+	get(L"http://tw.dictionary.search.yahoo.com/search?p=" + (wstring)data, [=](wstring web) {
+		int len = int(web.length());
+		auto beg = web.find(L">KK[");
+		if (beg == wstring::npos)return;
+		web = web.substr(beg);
+		//ShowMsg(web);
+		beg = web.find(L"[");
+		if (beg == wstring::npos)return;
+		web = web.substr(beg);
+		beg = web.find(L"]");
+		if (beg == wstring::npos)return;
+		web = web.substr(0,beg+1);
+		kk->Text = ref new String(web.c_str());
+		
+	}, [] {});
+
 	auto ve = Show(data);
 	vector<ComboBox^> tp;
 	vector<TextBlock^> tmp;
@@ -246,7 +265,7 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 		}
 		else {
 			ShowLoading();
-			post(L"http://cn.bing.com/dict/search?q=" + (wstring)pa, L"", [=](wstring web) {
+			get(L"http://cn.bing.com/dict/search?q=" + (wstring)pa, [=](wstring web) {
 				wstring disc,nt;
 				auto betip = web.find(L"<div class=\"in_tip\">");
 				if (betip != std::wstring::npos) {
@@ -351,7 +370,7 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 				vocs.insert(w2s(pa));
 
 				if (nt != L"")
-					note[pa] = nt, AppendStrToFile(pa + L"," + nt + L"\n", L"note.txt");
+					note[pa] = nt, AppendStrToFile(pa + L"," + nt + L"\n", L"note_user.txt");
 				AppendStrToFile(pa + L"," + disc + L"\n", L"words_user.txt");
 				if (voc_root == nullptr)return;
 				Init(pa);
@@ -709,7 +728,7 @@ void CutTheWords::Views::SingleVocPage::OnLostFocus(Platform::Object ^sender, Wi
 		else if (x == '*')out += L"＊";
 		else out += x;
 	if(out!=L"")
-		note[s] = out,AppendStrToFile(s+L","+out + L"\n", L"note.txt");
+		note[s] = out,AppendStrToFile(s+L","+out + L"\n", L"note_user.txt");
 	auto tb = ref new TextBlock();
 	if (note.find(s) != note.end())
 		tb->Text = ref new String(note[s].c_str());

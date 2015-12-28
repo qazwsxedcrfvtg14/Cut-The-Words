@@ -47,9 +47,19 @@ using namespace Windows::Web;
 using namespace Windows::Web::Http;
 using namespace Windows::Web::Http::Filters;
 using namespace Windows::Web::Http::Headers;
-
-extern map<wstring, wstring> ok_words, nil_words, nil_words1, nil_words2, nil_words3;
-extern map<wstring, wstring> words, prefix, suffix, root, favorite,setting,note;
+using namespace Concurrency;
+using namespace Platform;
+using namespace Windows::ApplicationModel::Core;
+using namespace Windows::Foundation;
+using namespace Windows::Networking;
+using namespace Windows::Networking::Sockets;
+using namespace Windows::Storage::Streams;
+using namespace Windows::UI::Core;
+using namespace Windows::UI::Xaml;
+using namespace Windows::UI::Xaml::Controls;
+using namespace Windows::UI::Xaml::Navigation;
+extern map<wstring, wstring> ok_words;
+extern map<wstring, wstring> words, prefix, suffix, root, favorite, setting, note;
 extern set<string> vocs;
 
 template <class TResult>
@@ -83,9 +93,10 @@ void AppendStrToFile(wstring ws, wstring fil);
 inline std::wstring &ltrim(std::wstring &s);
 inline std::wstring &rtrim(std::wstring &s);
 inline std::wstring trim(std::wstring s);
-void get_doc(wstring inp, map<wstring, wstring> &words, map<wstring, wstring> &ok,bool user=1);
+void get_doc(wstring inp, map<wstring, wstring> &words, map<wstring, wstring> &ok, bool user = 1);
+void get_doc(wstring inp, map<wstring, wstring> &words, bool user = 1);
 wstring make_tail(wstring org, wstring tail);
-void match(wstring match, vector<wstring>& ve,wstring beg=L"");
+void match(wstring match, vector<wstring>& ve, wstring beg = L"");
 void  match_rot(wstring match, vector<wstring>&ve, wstring beg = L"");
 vector<wstring> match_via_reg(wstring match);
 vector<pair<wstring, wstring>> Show(wstring s);
@@ -118,3 +129,16 @@ std::wstring utf8_decode(const std::string &str);
 wstring s2t(wstring s);
 
 extern bool scroll_load_not_finish;
+struct Json_Node {
+	int type;
+	wstring data;
+	map<wstring, Json_Node>child;
+	vector<Json_Node>ary;
+};
+extern Json_Node user_data;
+Json_Node Read_Json(wstring s);
+void Read_Json(wstring s, Json_Node & now);
+
+
+extern wstring key_main;
+void kalisin(wstring path, wstring snd = L"", bool show_error = 1, function<void(wstring)> fnc = [](wstring s) {});

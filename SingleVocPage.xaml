@@ -113,6 +113,7 @@
             </CommandBar>
             <TextBlock Grid.Row="1" x:Name="tivoc" VerticalAlignment="Center" Text="{x:Bind Vocabulary}" Margin="20" Style="{ThemeResource TitleTextBlockStyle}"/>
             <Button Grid.Row="1" Grid.Column="1" x:Name="play_but" FontFamily="Segoe MDL2 Assets" Content="&#xE767;" Background="Transparent" Click="PlayButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,7,0,0" />
+            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="kk" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="40,7,0,0" />
             <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                 <StackPanel x:Name="expst"  Orientation="Vertical" Margin="20,0,0,0"/>
             </ScrollViewer>

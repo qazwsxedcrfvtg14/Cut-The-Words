@@ -68,6 +68,8 @@
     <ClCompile Include="WordOverlay.cpp" />
     <ClCompile Include="CameraPage.xaml.cpp" />
     <ClCompile Include="PicPage.xaml.cpp" />
+    <ClCompile Include="MALoginPage.xaml.cpp" />
+    <ClCompile Include="MAPage.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -103,6 +105,8 @@
     <ClInclude Include="WordOverlay.h" />
     <ClInclude Include="CameraPage.xaml.h" />
     <ClInclude Include="PicPage.xaml.h" />
+    <ClInclude Include="MALoginPage.xaml.h" />
+    <ClInclude Include="MAPage.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -170,6 +174,12 @@
       <Filter>Views</Filter>
     </Page>
     <Page Include="PicPage.xaml">
+      <Filter>Views</Filter>
+    </Page>
+    <Page Include="MAPage.xaml">
+      <Filter>Views</Filter>
+    </Page>
+    <Page Include="MALoginPage.xaml">
       <Filter>Views</Filter>
     </Page>
   </ItemGroup>

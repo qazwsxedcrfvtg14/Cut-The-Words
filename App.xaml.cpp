@@ -38,7 +38,7 @@ App::App()
 {
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"setting.txt")) == nullptr)
 		DumpAppFile(L"setting.txt");
-	get_doc(L"setting.txt", setting, nil_words);
+	get_doc(L"setting.txt", setting);
 	if (setting[L"theme"] == L"light")
 		Application::RequestedTheme = ApplicationTheme::Light;
 	if (setting[L"theme"] == L"dark")
@@ -61,15 +61,15 @@ App::App()
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"root_user.txt")) == nullptr)
 		StrToFile(L"", L"root_user.txt");
 	get_doc(L"words.txt", words, ok_words);
-	get_doc(L"prefix.txt", prefix, nil_words);
-	get_doc(L"suffix.txt", suffix, nil_words);
-	get_doc(L"root.txt", root, nil_words);
+	get_doc(L"prefix.txt", prefix);
+	get_doc(L"suffix.txt", suffix);
+	get_doc(L"root.txt", root);
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"favorite.txt")) == nullptr)
 		DumpAppFile(L"favorite.txt");
-	get_doc(L"favorite.txt", favorite, nil_words);
+	get_doc(L"favorite.txt", favorite);
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"note.txt")) == nullptr)
 		DumpAppFile(L"note.txt");
-	get_doc(L"note.txt", note, nil_words);
+	get_doc(L"note.txt", note);
 	for (auto x : words)
 		vocs.insert(w2s(x.f));
 

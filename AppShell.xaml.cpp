@@ -21,6 +21,8 @@
 #include "CameraPage.xaml.h"
 #include "PicPage.xaml.h"
 #include "AppShell.xaml.h"
+#include "MAPage.xaml.h"
+#include "MALoginPage.xaml.h"
 
 using namespace Platform;
 using namespace Windows::UI::Core;
@@ -114,7 +116,18 @@ namespace CutTheWords
 				"設定",
 				Symbol::Setting,
 				TypeName(Views::SettingPage::typeid)));
-
+		if (setting[L"website"] == L"BMA") {
+			navlist->Append(
+				ref new NavMenuItem(
+					"MAHome",
+					Symbol::Setting,
+					TypeName(Views::MALoginPage::typeid)));
+			navlist->Append(
+				ref new NavMenuItem(
+					"MA",
+					Symbol::Setting,
+					TypeName(Views::MAPage::typeid)));
+		}
 		NavMenuList->ItemsSource = navlist;
 	}
 

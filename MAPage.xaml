@@ -1,0 +1,38 @@
+﻿<Page
+    x:Class="CutTheWords.Views.MAPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CutTheWords"
+    xmlns:ctl="using:CutTheWords.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ctl:PageHeader>
+            <ctl:PageHeader.HeaderContent>
+                <TextBlock x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text="家查詢" />
+            </ctl:PageHeader.HeaderContent>
+        </ctl:PageHeader>
+        <!--<StackPanel BorderThickness="0,50,0,0">-->
+        <!--<TextBox x:Name="input_voc" Margin="14,5,15,5"/>-->
+        <ScrollViewer Grid.Row="1">
+            <StackPanel>
+                <StackPanel x:Name="stp"/>
+                <TextBox x:Name="tb" Width="100"/>
+                <Button Content="Start" Click="button_Click" Margin="30"/>
+                <Button Content="End" Click="button_Click_1" Margin="30"/>
+                <Button Content="Walk Start" Click="Button_Click_2"  Margin="30"/>
+                <Button Content="Walk End" Click="Button_Click_3"  Margin="30"/>
+                <StackPanel x:Name="stp2"/>
+            </StackPanel>
+        </ScrollViewer>
+        <!-- </StackPanel>-->
+    </Grid>
+
+</Page>

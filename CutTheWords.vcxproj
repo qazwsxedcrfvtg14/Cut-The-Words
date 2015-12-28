@@ -104,6 +104,7 @@
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
     <PackageCertificateThumbprint>35E802CAEA756B394A78D0DE2E1499FA220F6FCA</PackageCertificateThumbprint>
     <PackageCertificateKeyFile>CutTheWords_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
     <ClCompile>
@@ -189,6 +190,12 @@
     <ClInclude Include="LoadingPage.xaml.h">
       <DependentUpon>LoadingPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="MALoginPage.xaml.h">
+      <DependentUpon>MALoginPage.xaml</DependentUpon>
+    </ClInclude>
+    <ClInclude Include="MAPage.xaml.h">
+      <DependentUpon>MAPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="NavMenuItem.h" />
     <ClInclude Include="NavMenuListView.h" />
     <ClInclude Include="NullPage.xaml.h">
@@ -267,6 +274,12 @@
     <Page Include="LoadingPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MALoginPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MAPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="NullPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -343,6 +356,12 @@
     </ClCompile>
     <ClCompile Include="LoadingPage.xaml.cpp">
       <DependentUpon>LoadingPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="MALoginPage.xaml.cpp">
+      <DependentUpon>MALoginPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="MAPage.xaml.cpp">
+      <DependentUpon>MAPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="NavMenuItem.cpp" />
     <ClCompile Include="NavMenuListView.cpp" />

@@ -22,6 +22,8 @@
 #include "HistoryPage.xaml.h"
 #include "LandingPage.xaml.h"
 #include "LoadingPage.xaml.h"
+#include "MALoginPage.xaml.h"
+#include "MAPage.xaml.h"
 #include "NullPage.xaml.h"
 #include "PageHeader.xaml.h"
 #include "App.xaml.h"
@@ -45,6 +47,8 @@
 #include "HistoryPage.g.hpp"
 #include "LandingPage.g.hpp"
 #include "LoadingPage.g.hpp"
+#include "MALoginPage.g.hpp"
+#include "MAPage.g.hpp"
 #include "NullPage.g.hpp"
 #include "PageHeader.g.hpp"
 #include "App.g.hpp"
@@ -352,6 +356,34 @@
             []() -> ::Platform::Object^ 
             {
                 return ref new ::CutTheWords::Views::LoadingPage(); 
+            };
+        userType->SetIsLocalType();
+        return userType;
+    }
+
+
+    if (typeName == L"CutTheWords.Views.MALoginPage")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.MALoginPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> ::Platform::Object^ 
+            {
+                return ref new ::CutTheWords::Views::MALoginPage(); 
+            };
+        userType->SetIsLocalType();
+        return userType;
+    }
+
+
+    if (typeName == L"CutTheWords.Views.MAPage")
+    {
+        ::XamlTypeInfo::InfoProvider::XamlUserType^ userType = ref new ::XamlTypeInfo::InfoProvider::XamlUserType(this, L"CutTheWords.Views.MAPage", this->GetXamlTypeByName(L"Windows.UI.Xaml.Controls.Page"));
+        userType->KindOfType = ::Windows::UI::Xaml::Interop::TypeKind::Custom;
+        userType->Activator =
+            []() -> ::Platform::Object^ 
+            {
+                return ref new ::CutTheWords::Views::MAPage(); 
             };
         userType->SetIsLocalType();
         return userType;

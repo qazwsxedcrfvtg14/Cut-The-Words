@@ -64,6 +64,7 @@ namespace CutTheWords
             private: ::Windows::UI::Xaml::Controls::CommandBar^ topbar;
             private: ::Windows::UI::Xaml::Controls::TextBlock^ tivoc;
             private: ::Windows::UI::Xaml::Controls::Button^ play_but;
+            private: ::Windows::UI::Xaml::Controls::TextBlock^ kk;
             private: ::Windows::UI::Xaml::Controls::ScrollViewer^ note_view;
             private: ::Windows::UI::Xaml::Controls::ListView^ VocList;
             private: ::Windows::UI::Xaml::Controls::ScrollViewer^ EditPanel;

@@ -1,0 +1,2 @@
+MainPackage=D:\joe_data\Documents\GitHub\Cut The Words\ARM\Release\CutTheWords\CutTheWords_1.0.18.0_ARM.appx
+ResourcePack=D:\joe_data\Documents\GitHub\Cut The Words\ARM\Release\CutTheWords\CutTheWords_1.0.18.0_scale-100.appx

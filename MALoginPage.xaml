@@ -1,0 +1,31 @@
+﻿<Page
+    x:Class="CutTheWords.Views.MALoginPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CutTheWords.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          EntranceNavigationTransitionInfo.IsTargetElement="True">
+        <ScrollViewer>
+            <StackPanel>
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Home" Margin="20" FontSize="32"/>
+                <TextBlock Margin="30,0">uuid</TextBlock>
+                <TextBox x:Name="uuid" Margin="30"/>
+                <TextBlock Margin="30,0">hash_token</TextBlock>
+                <TextBox x:Name="hash_token" Margin="30"/>
+                <TextBlock Margin="30,0">token</TextBlock>
+                <TextBox x:Name="token" Margin="30"/>
+                <TextBlock Margin="30,0">os</TextBlock>
+                <TextBox x:Name="device_os" Margin="30"/>
+                <TextBlock Margin="30,0">client version</TextBlock>
+                <TextBox x:Name="clver" Margin="30"/>
+                <TextBlock Margin="30,0">market</TextBlock>
+                <TextBox x:Name="market" Margin="30"/>
+                <Button Click="Button_Click" Content="Go" Margin="30"/>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
