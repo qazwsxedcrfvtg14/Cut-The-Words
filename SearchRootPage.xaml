@@ -22,8 +22,8 @@
         </ctl:PageHeader>
         <!--<StackPanel BorderThickness="0,50,0,0">-->
         <!--<TextBox x:Name="input_voc" Margin="14,5,15,5"/>-->
-        <TextBox Grid.Row="1" x:Name="input_voc" Margin="15,10,15,5" TextChanged="UpdateVocList" KeyDown="TextBoxKeyDown"/>
-        <ScrollViewer x:Name="scro" Grid.Row="2" ViewChanged="upd">
+        <TextBox Grid.Row="1" x:Name="input_voc" Margin="15,10,15,5" KeyDown="TextBoxKeyDown"/>
+        <ScrollViewer x:Name="scro" Grid.Row="2" HorizontalScrollMode="Disabled">
             <ListView x:Name="VocList" Header="輸入單字來查詢" 
                   EntranceNavigationTransitionInfo.IsTargetElement="True"
                   IsItemClickEnabled="True"

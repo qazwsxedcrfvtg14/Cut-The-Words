@@ -30,8 +30,6 @@ void ::CutTheWords::Views::SearchRootPage::Connect(int __connectionId, ::Platfor
         case 1:
             {
                 this->input_voc = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(__target);
-                (safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(this->input_voc))->TextChanged += ref new ::Windows::UI::Xaml::Controls::TextChangedEventHandler(this, (void (::CutTheWords::Views::SearchRootPage::*)
-                    (::Platform::Object^, ::Windows::UI::Xaml::Controls::TextChangedEventArgs^))&SearchRootPage::UpdateVocList);
                 (safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(this->input_voc))->KeyDown += ref new ::Windows::UI::Xaml::Input::KeyEventHandler(this, (void (::CutTheWords::Views::SearchRootPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Input::KeyRoutedEventArgs^))&SearchRootPage::TextBoxKeyDown);
             }
@@ -39,8 +37,6 @@ void ::CutTheWords::Views::SearchRootPage::Connect(int __connectionId, ::Platfor
         case 2:
             {
                 this->scro = safe_cast<::Windows::UI::Xaml::Controls::ScrollViewer^>(__target);
-                (safe_cast<::Windows::UI::Xaml::Controls::ScrollViewer^>(this->scro))->ViewChanged += ref new ::Windows::Foundation::EventHandler<::Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^>(this, (void (::CutTheWords::Views::SearchRootPage::*)
-                    (::Platform::Object^, ::Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^))&SearchRootPage::upd);
             }
             break;
         case 3:

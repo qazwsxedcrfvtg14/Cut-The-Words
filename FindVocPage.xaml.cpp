@@ -47,6 +47,7 @@ void FindVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 	if (svp != nullptr) {
 		input_voc->Text = svp;
 		input_voc->SelectAll();
+		target = input_voc->Text->Data();
 	}
 	auto svp2= dynamic_cast<ListView^>(SearchRootPage_Navigate_Obj2);
 	if (svp2 != nullptr) {
@@ -60,7 +61,6 @@ void FindVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 }
 void FindVocPage::OnNavigatedFrom(NavigationEventArgs^ e)
 {
-	
 	SearchRootPage_Navigate_Obj1 = input_voc->Text;
 	SearchRootPage_Navigate_Obj2 = VocList;
 	Page::OnNavigatedFrom(e);
@@ -104,8 +104,7 @@ void FindVocPage::TextBoxKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRo
 
 void FindVocPage::upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^ e) {
 	auto scro = (ScrollViewer^)sender;
-	if (scro->VerticalOffset >= scro->ScrollableHeight - 100 && scroll_load_not_finish) {
-
+	if (scro->VerticalOffset >= scro->ScrollableHeight - 200 && scroll_load_not_finish) {
 		if (!match_running) {
 			match_running = 1;
 			wstring q = input_voc->Text->Data(),qq= ((String^)VocList->Items->GetAt(VocList->Items->Size - 1))->Data();
@@ -128,7 +127,4 @@ void FindVocPage::upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerV
 			}, task_continuation_context::use_current());
 		}
 	}
-	//auto x = ;
-	//scro->Height
-	//ShowMsg(IntToStr(scro->VerticalOffset) + L" " + IntToStr(scro->ScrollableHeight) + L" " + IntToStr(scro->ActualHeight));
 }

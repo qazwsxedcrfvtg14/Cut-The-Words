@@ -107,9 +107,6 @@ void SingleVocPage::Init(wstring data) {
 	Explanation = ref new String(wds.f.c_str());
 	ExpStack();
 	get(setting[L"sound_url"] + data, [=](wstring s) {
-		//ShowMsg(s);
-		//ShowMsg(ws);
-		//HideLoading();
 		auto be = s.find(setting[L"sound_url2"]);
 		if (be == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000001)");*/  return; }
 		s = s.substr(be);
@@ -120,7 +117,6 @@ void SingleVocPage::Init(wstring data) {
 			auto pos = s.substr(1).find(setting[L"sound_url2"]);
 			if (pos == wstring::npos)break;
 			s = s.substr(pos + 1);
-			//break;
 		}
 		media->Source = ref new Uri(ref new String(s.c_str()));
 		if(setting[L"auto_play"]==L"On")
@@ -129,9 +125,6 @@ void SingleVocPage::Init(wstring data) {
 		
 	}, [=] {});
 	get(L"https://www.bing.com/images/search?mkt=zh-cn&q=" + data, [=](wstring s) {
-		//ShowMsg(s);
-		//ShowMsg(ws);
-		//HideLoading();
 		pics->Children->Clear();
 		for (int i = 0;i < 4;i++){
 			auto be = s.find(L".mm.bing.net/");
@@ -140,10 +133,8 @@ void SingleVocPage::Init(wstring data) {
 			be = s.find(L"http");
 			if (be == std::wstring::npos) {/* ShowMsg(L"解析錯誤!(0x00000003)");  */return; }
 			s = s.substr(be);
-			//ShowMsg(IntToStr(s[0]) + L" " + IntToStr(s[1]) + L" " + IntToStr(s[2]) + L" " + IntToStr(s[3]) + L"$" + s);
 			auto ed = s.find(L"\"");
 			if (ed == std::wstring::npos) {/* ShowMsg(L"解析錯誤!(0x00000002)");*/ return; }
-			//ShowMsg(s);
 			auto tmp = ref new Image;
 			tmp->Source = ref new Media::Imaging::BitmapImage(ref new Uri(ref new String(s.substr(0, ed).c_str())));
 			s=s.substr(ed);

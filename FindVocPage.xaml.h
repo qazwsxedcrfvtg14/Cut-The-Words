@@ -25,6 +25,8 @@ namespace CutTheWords
 			virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 			virtual void OnNavigatedFrom(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 		private:
+			wstring target;
+			Windows::UI::Xaml::DispatcherTimer^ tempdispatchertime_upd_sync;
 			void ListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void UpdateVocList(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void TextBoxKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e);
