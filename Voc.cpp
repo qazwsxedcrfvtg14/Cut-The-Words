@@ -848,6 +848,11 @@ pair<wstring, vector<int>> GetExp(wstring s) {
 	while (str >> i)ve.push_back(i);
 	return make_pair(s.substr(0, pos), ve);
 }
+wstring GetExpSimple(wstring s) {
+	auto pos = s.find(L",");
+	if (pos == wstring::npos)return s;
+	return s.substr(0, pos);
+}
 vector<wstring> CutExp(wstring s) {
 	s = GetExp(s).f;
 	wstring s2 = s;

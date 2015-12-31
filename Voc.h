@@ -117,6 +117,7 @@ void ShowLoading();
 void HideLoading();
 
 pair<wstring, vector<int>> GetExp(wstring s);
+wstring GetExpSimple(wstring s);
 vector<wstring> CutExp(wstring s);
 wstring MakeExp(pair<wstring, vector<int>> p);
 wstring MergeExp(vector<wstring> v);

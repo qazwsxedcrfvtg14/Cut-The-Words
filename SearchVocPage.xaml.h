@@ -27,9 +27,8 @@ namespace CutTheWords
 		private:
 			wstring target;
 			bool running_target=0;
+			Windows::UI::Xaml::DispatcherTimer^ tempdispatchertime_upd_sync;
 			void ListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
-			void UpdateVocList();
-			void UpdateVocList_sync(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void TextBoxKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e);
 			void upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^ e);
 		};
