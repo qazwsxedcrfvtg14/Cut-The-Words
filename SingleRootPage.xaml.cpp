@@ -80,7 +80,19 @@ void SingleRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 			VocList->Items->Clear();
 			int cnt = 0;
 			for (auto &x : rt[s]) {
-				VocList->Items->Append(ref new String(x.c_str()));
+				auto stp = ref new StackPanel();
+				stp->Orientation = Orientation::Horizontal;
+				auto tmp = ref new TextBlock();
+				tmp->Text = ref new String(x.c_str());
+				stp->Children->Append(tmp);
+				tmp = ref new TextBlock();
+				int len = (int)x.length();
+				wstring _exp = GetExpSimple(words[x]);
+				_exp = trim(_exp);
+				tmp->Text = ref new String(_exp.c_str());
+				tmp->Margin = Thickness(20, 0, 0, 0);
+				stp->Children->Append(tmp);
+				VocList->Items->Append(stp);
 				if (++cnt == 50)break;
 			}
 			VocList->IsItemClickEnabled = true;
@@ -91,7 +103,19 @@ void SingleRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 					VocList->Items->Clear();
 					int cnt = 0;
 					for (auto &x : rt[s]) {
-						VocList->Items->Append(ref new String(x.c_str()));
+						auto stp = ref new StackPanel();
+						stp->Orientation = Orientation::Horizontal;
+						auto tmp = ref new TextBlock();
+						tmp->Text = ref new String(x.c_str());
+						stp->Children->Append(tmp);
+						tmp = ref new TextBlock();
+						int len = (int)x.length();
+						wstring _exp = GetExpSimple(words[x]);
+						_exp = trim(_exp);
+						tmp->Text = ref new String(_exp.c_str());
+						tmp->Margin = Thickness(20, 0, 0, 0);
+						stp->Children->Append(tmp);
+						VocList->Items->Append(stp);
 						if (++cnt == 50)break;
 					}
 					VocList->IsItemClickEnabled = true;
@@ -233,6 +257,6 @@ void SingleRootPage::VocListView_ItemClick(Platform::Object^ sender, ItemClickEv
 {
 	Frame->Navigate(
 		TypeName(SingleVocPage::typeid),
-		e->ClickedItem,
+		((TextBlock^)(((StackPanel^)(e->ClickedItem))->Children->GetAt(0)))->Text,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }

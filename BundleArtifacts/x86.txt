@@ -1,2 +1,2 @@
-MainPackage=D:\joe_data\Documents\GitHub\Cut The Words\Release\CutTheWords\CutTheWords_1.0.21.0_Win32.appx
-SymbolPackage=D:\joe_data\Documents\GitHub\Cut The Words\AppPackages\CutTheWords\CutTheWords_1.0.21.0_Test\CutTheWords_1.0.21.0_Win32.appxsym
+MainPackage=D:\joe_data\Documents\GitHub\Cut The Words\Release\CutTheWords\CutTheWords_1.0.22.0_Win32.appx
+SymbolPackage=D:\joe_data\Documents\GitHub\Cut The Words\AppPackages\CutTheWords\CutTheWords_1.0.22.0_Test\CutTheWords_1.0.22.0_Win32.appxsym

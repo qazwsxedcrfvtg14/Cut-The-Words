@@ -284,7 +284,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		ShowMsg(L"設定成功");
 	}
 	else if (str == "關於") {
-		ShowMsg(L"版本號:ver 1.0.21");
+		ShowMsg(L"版本號:ver 1.0.22");
 	}
 	else if (str == "Test") {
 		auto ocrLanguage = ref new Windows::Globalization::Language("en");

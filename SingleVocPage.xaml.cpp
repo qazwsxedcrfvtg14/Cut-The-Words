@@ -124,7 +124,7 @@ void SingleVocPage::Init(wstring data) {
 		play_but->Visibility = Windows::UI::Xaml::Visibility::Visible;
 		
 	}, [=] {});
-	get(L"https://www.bing.com/images/search?mkt=zh-cn&q=" + data, [=](wstring s) {
+	get(L"https://www.bing.com/images/search?q=" + data, [=](wstring s) {
 		pics->Children->Clear();
 		for (int i = 0;i < 4;i++){
 			auto be = s.find(L".mm.bing.net/");
@@ -200,16 +200,42 @@ void SingleVocPage::Init(wstring data) {
 	VocList->Items->Append("讀取中...");
 	if (inited) {
 		VocList->Items->Clear();
-		for (auto &x : rt[data])
-			VocList->Items->Append(ref new String(x.c_str()));
+		for (auto &x : rt[data]) {
+			auto stp = ref new StackPanel();
+			stp->Orientation = Orientation::Horizontal;
+			auto tmp = ref new TextBlock();
+			tmp->Text = ref new String(x.c_str());
+			stp->Children->Append(tmp);
+			tmp = ref new TextBlock();
+			int len = (int)x.length();
+			wstring _exp = GetExpSimple(words[x]);
+			_exp = trim(_exp);
+			tmp->Text = ref new String(_exp.c_str());
+			tmp->Margin = Thickness(20, 0, 0, 0);
+			stp->Children->Append(tmp);
+			VocList->Items->Append(stp);
+		}
 		VocList->IsItemClickEnabled = true;
 	}
 	else {
 		auto timerDelegate = [=](Object^ e, Object^ ags) {
 			if (inited) {
 				VocList->Items->Clear();
-				for (auto &x : rt[data])
-					VocList->Items->Append(ref new String(x.c_str()));
+				for (auto &x : rt[data]) {
+					auto stp = ref new StackPanel();
+					stp->Orientation = Orientation::Horizontal;
+					auto tmp = ref new TextBlock();
+					tmp->Text = ref new String(x.c_str());
+					stp->Children->Append(tmp);
+					tmp = ref new TextBlock();
+					int len = (int)x.length();
+					wstring _exp = GetExpSimple(words[x]);
+					_exp = trim(_exp);
+					tmp->Text = ref new String(_exp.c_str());
+					tmp->Margin = Thickness(20, 0, 0, 0);
+					stp->Children->Append(tmp);
+					VocList->Items->Append(stp);
+				}
 				VocList->IsItemClickEnabled = true;
 				tempdispatchertime->Stop();
 			}
@@ -227,7 +253,6 @@ void SingleVocPage::Init(wstring data) {
 	tb->Tapped += ref new Windows::UI::Xaml::Input::TappedEventHandler(this, &CutTheWords::Views::SingleVocPage::OnTapped2);
 	note_view->Content = tb;
 	note_bool = 0;
-	//note->Content->Text
 }
 void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
@@ -240,12 +265,6 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 	param=ref new String(trim(param->Data()).c_str());
 	if (param != nullptr)
 	{
-		//std::wstring msg(param->Data());
-		//const wchar_t* format = L"Clicked on %s";
-		//wchar_t buffer[75];
-		//swprintf_s(buffer, 75, format, msg.c_str());
-
-		//Vocabulary = ref new String(buffer);
 		wstring pa(param->Data());
 		for (auto &x : pa)
 			x |= 32;
@@ -278,7 +297,7 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 					if (be == std::wstring::npos || be + 18 >= web.size()) { break; }
 					web = web.substr(be + 18);
 					auto ed = web.find(L"</span><span class=\"def\"><span>");
-					if (ed == std::wstring::npos || be + 31 >= web.size()) { break; }
+					if (ed == std::wstring::npos || ed + 31 >= web.size()) { break; }
 					disc += L"[" + web.substr(0, ed) + L"]";
 					web = web.substr(ed + 31);
 					if (ed == std::wstring::npos) { break; }
@@ -298,7 +317,7 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 					if (be == std::wstring::npos || be + 22 >= web.size()) { break; }
 					web = web.substr(be + 22);
 					auto ed = web.find(L"</span><span class=\"def\"><span>");
-					if (ed == std::wstring::npos || be + 31 >= web.size()) { break; }
+					if (ed == std::wstring::npos || ed + 31 >= web.size()) { break; }
 					disc += L"[" + web.substr(0, ed) + L"]";
 					web = web.substr(ed + 31);
 					if (ed == std::wstring::npos) { break; }
@@ -326,35 +345,6 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 						disc2 += x;
 
 				if (disc2 == L"") { HideLoading();ShowMsg(L"查無此字");return; }
-
-				/*
-				HttpMultipartFormDataContent^ post_data = ref new HttpMultipartFormDataContent();
-				post_data->Add(ref new HttpStringContent(ref new String(disc2.c_str())), "text");
-				post_data->Add(ref new HttpStringContent("s2twp.json"), "config");
-				post_data->Add(ref new HttpStringContent("0"), "precise");
-				post(L"http://opencc.byvoid.com/convert", post_data, [=](wstring disc_utf8) {
-					HideLoading();
-					wstring disc=disc2;
-					if (disc_utf8[0] == '[')
-						disc = utf8_decode(w2s(disc_utf8));
-					words[pa] = disc;
-					vocs.insert(w2s(pa));
-
-					if (nt != L"")
-						note[pa] = nt, AppendStrToFile(pa + L"," + nt + L"\n", L"note.txt");
-					AppendStrToFile(pa + L"," + disc + L"\n", L"words_user.txt");
-					if (voc_root == nullptr)return;
-					Init(pa);
-				}, [=] {
-					HideLoading();
-					words[pa] = disc2;
-					vocs.insert(w2s(pa));
-					if (nt != L"")
-						note[pa] = nt, AppendStrToFile(pa + L"," + nt + L"\n", L"note.txt");
-					AppendStrToFile(pa + L"," + disc2 + L"\n", L"words_user.txt");
-					if (voc_root == nullptr)return;
-					Init(pa);
-				});*/
 				HideLoading();
 				disc = s2t(disc2);
 				words[pa] = disc;
@@ -451,9 +441,6 @@ void SingleVocPage::PlayButton_Click(Object^ sender, Windows::UI::Xaml::Controls
 	media->Play();
 }
 
-
-//<ListViewItem>確定< / ListViewItem>
-//<ListViewItem>取消< / ListViewItem>
 void SingleVocPage::ListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e) {
 	auto str = dynamic_cast<String^>(e->ClickedItem);
 	if (str == "確定") {
@@ -518,7 +505,6 @@ void SingleVocPage::ListView2_ItemClick(Object^ sender, Windows::UI::Xaml::Contr
 				b += c[i];
 		Explanation = ref new String(b.c_str());
 		ExpStack();
-		//tiexp->Text = ref new String(b.c_str());
 		wds.first = b.c_str();
 		words[a] = MakeExp(wds);
 		wstring out;
@@ -561,27 +547,6 @@ void SingleVocPage::ListView2_ItemClick(Object^ sender, Windows::UI::Xaml::Contr
 	else if (str == "取消")
 		EditButton_Click(sender, e);
 }
-/*
-void SingleVocPage::ListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e) {
-	auto str = dynamic_cast<String^>(e->ClickedItem);
-	if (str == "確定") {
-		wstring a(Vocabulary->Data()), b(block->Text->Data());
-		words[a] = b;
-		vocs.insert(w2s(a));
-		wstring out;
-		if (ok_words.find(a) != ok_words.end())
-			out += L"*" + ok_words[a] + L"," + b + L"\n";
-		else
-			out += a + L"," + b + L"\n";
-		AppendStrToFile(out, L"words_user.txt");
-		if (Frame != nullptr && Frame->CanGoBack)
-			Frame->GoBack(ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
-		Frame->Navigate(
-			TypeName(SingleVocPage::typeid),
-			Vocabulary,
-			ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
-	}
-}*/
 void SingleVocPage::DelPanelListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e) {
 	auto str = dynamic_cast<String^>(e->ClickedItem);
 	if (str == "確定") {
@@ -617,19 +582,7 @@ void SingleVocPage::PageKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRou
 	else if (e->Key == Windows::System::VirtualKey::Enter&&!DelPanelVis&&!EditPanelVis&&note_bool) {
 			dynamic_cast<TextBox^>(note_view->Content)->IsEnabled = false;
 			dynamic_cast<TextBox^>(note_view->Content)->IsEnabled = true;
-		//tivoc->Focus(Windows::UI::Xaml::FocusState::Programmatic);
-		//dynamic_cast<TextBox^>(note_view->Content)->Focus(Windows::UI::Xaml::FocusState::Unfocused);
-	}/*
-	else if(e->Key>= Windows::System::VirtualKey::A&&e->Key <= Windows::System::VirtualKey::Z){
-		if (Frame != nullptr && Frame->CanGoBack)
-			Frame->GoBack(ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
-		else
-			Frame->Navigate(
-				TypeName(SearchVocPage::typeid),
-				Vocabulary,
-				ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
-
-	}*/
+	}
 }
 void SingleVocPage::OnSelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs^ e) {
 	ComboBox^ senderComboBox = dynamic_cast<ComboBox^>(sender);
@@ -688,7 +641,7 @@ void SingleVocPage::VocListView_ItemClick(Platform::Object^ sender, ItemClickEve
 {
 	Frame->Navigate(
 		TypeName(SingleVocPage::typeid),
-		e->ClickedItem,
+		((TextBlock^)(((StackPanel^)(e->ClickedItem))->Children->GetAt(0)))->Text,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }
 

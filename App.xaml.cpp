@@ -52,13 +52,14 @@ App::App()
 	if (setting[L"sound_type"] == L"")
 		setting[L"sound_type"] = L".mp3";
 	SavingSetting();
-	InitializeComponent();
-	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words.txt")) == nullptr) {
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words.txt")) == nullptr) 
 		DumpAppFile(L"words.txt");
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"prefix.txt")) == nullptr)
 		DumpAppFile(L"prefix.txt");
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"suffix.txt")) == nullptr)
 		DumpAppFile(L"suffix.txt");
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"root.txt")) == nullptr)
 		DumpAppFile(L"root.txt");
-	}
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words_user.txt")) == nullptr)
 		StrToFile(L"", L"words_user.txt");
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"prefix_user.txt")) == nullptr)
@@ -67,6 +68,10 @@ App::App()
 		StrToFile(L"", L"suffix_user.txt");
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"root_user.txt")) == nullptr)
 		StrToFile(L"", L"root_user.txt");
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"note_user.txt")) == nullptr)
+		StrToFile(L"", L"note_user.txt");
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"note.txt")) == nullptr)
+		DumpAppFile(L"note.txt");
 	get_doc(L"words.txt", words, ok_words);
 	get_doc(L"prefix.txt", prefix);
 	get_doc(L"suffix.txt", suffix);
@@ -74,8 +79,6 @@ App::App()
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"favorite.txt")) == nullptr)
 		DumpAppFile(L"favorite.txt");
 	get_doc(L"favorite.txt", favorite);
-	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"note.txt")) == nullptr)
-		DumpAppFile(L"note.txt");
 	get_doc(L"note.txt", note);
 	for (auto x : words)
 		vocs.insert(w2s(x.f));
@@ -90,6 +93,7 @@ App::App()
 		}
 		inited = 1;
 	});
+	InitializeComponent();
 	Suspending += ref new SuspendingEventHandler(this, &App::OnSuspending);
 }
 

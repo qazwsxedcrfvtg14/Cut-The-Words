@@ -33,7 +33,7 @@ void FindVocPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 
 	Frame->Navigate(
 		TypeName(SingleVocPage::typeid),
-		e->ClickedItem,
+		((TextBlock^)(((StackPanel^)(e->ClickedItem))->Children->GetAt(0)))->Text,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }
 
@@ -49,12 +49,12 @@ void FindVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 		input_voc->SelectAll();
 		target = input_voc->Text->Data();
 	}
-	auto svp2= dynamic_cast<ListView^>(SearchRootPage_Navigate_Obj2);
-	if (svp2 != nullptr) {
-		for (int i = 0;i < (int)(svp2->Items->Size);i++){
-			VocList->Items->Append(svp2->Items->GetAt(i));
-		}
-	}
+	//auto svp2= dynamic_cast<ListView^>(SearchRootPage_Navigate_Obj2);
+	//if (svp2 != nullptr) {
+		//for (int i = 0;i < (int)(svp2->Items->Size);i++){
+			//VocList->Items->Append(svp2->Items->GetAt(i));
+		//}
+	//}
 	match_running = 0;
 	scroll_load_not_finish = 0;
 	Page::OnNavigatedTo(e);
@@ -62,7 +62,7 @@ void FindVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 void FindVocPage::OnNavigatedFrom(NavigationEventArgs^ e)
 {
 	SearchRootPage_Navigate_Obj1 = input_voc->Text;
-	SearchRootPage_Navigate_Obj2 = VocList;
+	//SearchRootPage_Navigate_Obj2 = VocList;
 	Page::OnNavigatedFrom(e);
 }
 void FindVocPage::UpdateVocList(Platform::Object^ sender, ItemClickEventArgs^ e)
@@ -77,15 +77,27 @@ void FindVocPage::button_Click(Platform::Object^ sender, Windows::UI::Xaml::Rout
 		wstring q = input_voc->Text->Data();
 		//vector<wstring> ve;
 		//match(q, ve);
-		auto tmp = VocList->Items;
 		create_task([q] {
 			vector<wstring> ve;
 			match(q, ve);
 			return ve;
-		}).then([tmp](vector<wstring>ve) {
-			tmp->Clear();
-			for (auto x : ve) 
-				tmp->Append(ref new String(x.c_str()));
+		}).then([this](vector<wstring>ve) {
+			VocList->Items->Clear();
+			for (auto x : ve) {
+				auto stp = ref new StackPanel();
+				stp->Orientation = Orientation::Horizontal;
+				auto tmp = ref new TextBlock();
+				tmp->Text = ref new String(x.c_str());
+				stp->Children->Append(tmp);
+				tmp = ref new TextBlock();
+				int len = (int)x.length();
+				wstring _exp = GetExpSimple(words[x]);
+				_exp = trim(_exp);
+				tmp->Text = ref new String(_exp.c_str());
+				tmp->Margin = Thickness(20, 0, 0, 0);
+				stp->Children->Append(tmp);
+				VocList->Items->Append(stp);
+			}
 			if (ve.size())
 				scroll_load_not_finish = 1;
 			else
@@ -115,9 +127,22 @@ void FindVocPage::upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerV
 				vector<wstring> ve;
 				match(q, ve,qq);
 				return ve;
-			}).then([tmp](vector<wstring>ve) {
-				for (auto x : ve) 
-					tmp->Append(ref new String(x.c_str()));
+			}).then([this](vector<wstring>ve) {
+				for (auto x : ve) {
+					auto stp = ref new StackPanel();
+					stp->Orientation = Orientation::Horizontal;
+					auto tmp = ref new TextBlock();
+					tmp->Text = ref new String(x.c_str());
+					stp->Children->Append(tmp);
+					tmp = ref new TextBlock();
+					int len = (int)x.length();
+					wstring _exp = GetExpSimple(words[x]);
+					_exp = trim(_exp);
+					tmp->Text = ref new String(_exp.c_str());
+					tmp->Margin = Thickness(20, 0, 0, 0);
+					stp->Children->Append(tmp);
+					VocList->Items->Append(stp);
+				}
 				if (ve.size())
 					scroll_load_not_finish = 1;
 				else
