@@ -119,7 +119,7 @@ void FindVocPage::upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerV
 	if (scro->VerticalOffset >= scro->ScrollableHeight - 200 && scroll_load_not_finish) {
 		if (!match_running) {
 			match_running = 1;
-			wstring q = input_voc->Text->Data(),qq= ((String^)VocList->Items->GetAt(VocList->Items->Size - 1))->Data();
+			wstring q = input_voc->Text->Data(), qq = ((String^)(((TextBlock^)(((StackPanel^)(VocList->Items->GetAt(VocList->Items->Size - 1)))->Children->GetAt(0)))->Text))->Data();
 			//vector<wstring> ve;
 			//match(q, ve);
 			auto tmp = VocList->Items;
