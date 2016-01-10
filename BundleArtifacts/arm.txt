@@ -1,3 +1,3 @@
-MainPackage=D:\joe_data\Documents\GitHub\Cut The Words\ARM\Release\CutTheWords\CutTheWords_1.0.22.0_ARM.appx
-SymbolPackage=D:\joe_data\Documents\GitHub\Cut The Words\AppPackages\CutTheWords\CutTheWords_1.0.22.0_Test\CutTheWords_1.0.22.0_ARM.appxsym
-ResourcePack=D:\joe_data\Documents\GitHub\Cut The Words\ARM\Release\CutTheWords\CutTheWords_1.0.22.0_scale-100.appx
+MainPackage=C:\Users\qazws\Documents\GitHub\Cut-The-Words\ARM\Release\CutTheWords\CutTheWords_1.0.23.0_ARM.appx
+SymbolPackage=C:\Users\qazws\Documents\GitHub\Cut-The-Words\AppPackages\CutTheWords\CutTheWords_1.0.23.0_Test\CutTheWords_1.0.23.0_ARM.appxsym
+ResourcePack=C:\Users\qazws\Documents\GitHub\Cut-The-Words\ARM\Release\CutTheWords\CutTheWords_1.0.23.0_scale-100.appx
