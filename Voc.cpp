@@ -125,8 +125,9 @@ void get_doc(wstring inp, map<wstring, wstring> &words, bool user) {
 		wstring b, d;
 		int tag = 0, l = (int)s.length(), star = 0, dis = 0;
 		for (int i = 0;i < l;i++)
-			if (s[i] == L'=')break;
-			else if (tag)b += s[i];
+			//if (s[i] == L'=')break;
+			//else 
+			if (tag)b += s[i];
 			else if (s[i] == L'$')dis = 1;
 			else if (s[i] == L'*')star = 1;
 			else if (star&&s[i] == L' ')d += L' ';
