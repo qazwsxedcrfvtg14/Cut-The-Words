@@ -22,6 +22,8 @@ using namespace Windows::UI::Xaml::Navigation;
 MALoginPage::MALoginPage()
 {
 	InitializeComponent();
+	uuid->Text = ref new String(setting[L"uuid"].c_str());
+	hash_token->Text = ref new String(setting[L"hash_token"].c_str());
 	//host_name->Text = ref new String(setting[L"website"].c_str());
 }
 
@@ -29,7 +31,9 @@ MALoginPage::MALoginPage()
 
 void CutTheWords::Views::MALoginPage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-
+	setting[L"uuid"] = uuid->Text->Data();
+	setting[L"hash_token"] = hash_token->Text->Data();
+	SavingSetting();
 	post(L"https://app.login.kairisei-ma.jp/Auth/login.php", (wstring)L"{\"uuid\":\""+uuid->Text->Data()+L"\",\"hash_token\":\""+ hash_token->Text->Data()+L"\",\"clver\":\""+ clver->Text->Data()+L"\",\"os\":"+device_os->Text->Data()+L",\"carrier\":1,\"market\":2,\"lang\":0,\"device\":\"MIT Droid4X-WIN\",\"token\":\""+token->Text->Data()+L"\",\"os_ver\":\"Android OS 4.2.2 / API-17 (JDQ39E / eng.work.20150928.114211)\"}", [=](wstring s) {
 		ShowMsg(s);
 		user_data = Read_Json(s);

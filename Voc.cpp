@@ -237,7 +237,7 @@ void  match(wstring match, vector<wstring>&ve, wstring beg) {
 		for (auto it = be;it != ed;++it)
 			if (regex_match(*it, reg)) {
 				ve.push_back(s2w(*it));
-				if (++cnt == 50)break;
+				if (++cnt == 20)break;
 			}
 	}
 	catch (std::regex_error& error) {
@@ -321,7 +321,7 @@ vector<wstring> match_via_reg(wstring match) {
 		for (auto &x : vocs)
 			if (regex_match(x, reg)) {
 				ve.push_back(s2w(x));
-				if (++cnt == 50)break;
+				if (++cnt == 15)break;
 			}
 	}
 	catch (std::regex_error& error) {
