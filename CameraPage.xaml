@@ -76,10 +76,12 @@
             </StackPanel>-->
         <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" Grid.RowSpan="3">
             <CaptureElement Name="PreviewControl" Stretch="Uniform"/>
-            <Grid x:Name="ImageGrid" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image x:Name="PreviewImage"  HorizontalAlignment="Left" VerticalAlignment="Top" SizeChanged="PreviewImage_SizeChanged"/>
-                <Grid x:Name="TextOverlay" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            </Grid>
+            <ScrollViewer ZoomMode="Enabled" MinZoomFactor="1" >
+                <Grid x:Name="ImageGrid" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image x:Name="PreviewImage"  HorizontalAlignment="Left" VerticalAlignment="Top" SizeChanged="PreviewImage_SizeChanged"/>
+                    <Grid x:Name="TextOverlay" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                </Grid>
+            </ScrollViewer>
         </Grid>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,20" Grid.Row="1" Grid.RowSpan="3">
             <Button Name="ExtractButton" Tapped="ExtractButton_Tapped">

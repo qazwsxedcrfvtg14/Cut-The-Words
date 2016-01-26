@@ -87,7 +87,8 @@ CameraPage::CameraPage()
 
 Object^ CameraPage_Navigate_Obj1;
 Object^ CameraPage_Navigate_Obj2;
-//vector<CutTheWords::WordOverlay^> CameraPage_Navigate_wordBoxes;
+OcrResult^ CameraPage_Navigate_ocrResult;
+shared_ptr<SoftwareBitmap^> CameraPage_Navigate_bitmap;
 void CameraPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
 	//orientationChangedEventToken = displayInformation->OrientationChanged += ref new Windows::Foundation::TypedEventHandler<Windows::Graphics::Display::DisplayInformation ^, Platform::Object ^>(this, &SDKTemplate::CameraPage::DisplayInformation_OrientationChanged);
@@ -102,9 +103,9 @@ void CameraPage::OnNavigatedTo(NavigationEventArgs^ e)
 		ExtractButton->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
 		slider->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
 		CameraButton->Visibility = Windows::UI::Xaml::Visibility::Visible;
-		auto nav2 = dynamic_cast<Grid^>(CameraPage_Navigate_Obj2);
+		/*auto nav2 = dynamic_cast<Grid^>(CameraPage_Navigate_Obj2);
 		if (nav2 != nullptr) {
-			//wordBoxes = CameraPage_Navigate_wordBoxes;
+			wordBoxes = CameraPage_Navigate_wordBoxes;
 			TextOverlay->RenderTransform = nav2->RenderTransform;
 			vector<UIElement^>child;
 			for (auto &x : nav2->Children)
@@ -114,6 +115,70 @@ void CameraPage::OnNavigatedTo(NavigationEventArgs^ e)
 				x->Tapped += ref new Windows::UI::Xaml::Input::TappedEventHandler(this, &CutTheWords::Views::CameraPage::OnTapped);
 				TextOverlay->Children->Append(x);
 			}
+		}*/
+		auto ocrResult = CameraPage_Navigate_ocrResult;
+		if(ocrResult != nullptr){
+
+			auto bitmap = CameraPage_Navigate_bitmap;
+			// Used for text overlay.
+			// Prepare scale transform for words since image is not displayed in original format.
+
+			auto scaleTrasform = ref new ScaleTransform();
+			scaleTrasform->CenterX = 0;
+			scaleTrasform->CenterY = 0;
+			scaleTrasform->ScaleX = PreviewControl->ActualWidth / (*bitmap)->PixelWidth;
+			//ShowMsg(IntToStr(scaleTrasform->ScaleX*1000));
+			scaleTrasform->ScaleY = PreviewControl->ActualHeight / (*bitmap)->PixelHeight;
+
+
+			if (ocrResult->TextAngle != nullptr)
+			{
+				// If text is detected under some angle in this sample scenario we want to
+				// overlay word boxes over original image, so we rotate overlay boxes.
+				auto rotateTransform = ref new RotateTransform();
+				rotateTransform->Angle = ocrResult->TextAngle->Value;
+				rotateTransform->CenterX = PreviewImage->ActualWidth / 2;
+				rotateTransform->CenterY = PreviewImage->ActualHeight / 2;
+				TextOverlay->RenderTransform = rotateTransform;
+
+				isAngleDetected = true;
+			}
+
+			// Iterate over recognized lines of text.
+			for (auto line : ocrResult->Lines)
+			{
+				// Iterate over words in line.
+				for (auto word : line->Words)
+				{
+					// Define the TextBlock.
+					auto wordTextBlock = ref new TextBlock();
+					wordTextBlock->Text = word->Text;
+					wordTextBlock->Style = (Windows::UI::Xaml::Style^) this->Resources->Lookup("ExtractedWordTextStyle");
+
+					WordOverlay^ wordBoxOverlay = ref new WordOverlay(word);
+
+					// Keep references to word boxes.
+					wordBoxes.push_back(wordBoxOverlay);
+
+					// Define position, background, etc.
+					auto overlay = ref new Border();
+					overlay->Style = (Windows::UI::Xaml::Style^) this->Resources->Lookup("HighlightedWordBoxHorizontalLine");
+
+					// Bind word boxes to UI.
+					overlay->SetBinding(FrameworkElement::MarginProperty, wordBoxOverlay->CreateWordPositionBinding());
+					overlay->SetBinding(FrameworkElement::WidthProperty, wordBoxOverlay->CreateWordWidthBinding());
+					overlay->SetBinding(FrameworkElement::HeightProperty, wordBoxOverlay->CreateWordHeightBinding());
+					//wordTextBlock->FontSize = max((int)(word->BoundingRect.Height*PreviewControl->ActualHeight / (*bitmap)->PixelHeight), 1);
+					int heig = (int)(word->BoundingRect.Height* (PreviewControl->ActualHeight * wstring_height(wordTextBlock->Text->Data()) / (*bitmap)->PixelHeight));
+					wordTextBlock->FontSize = max(heig, 1);
+					overlay->Child = wordTextBlock;
+					overlay->Tapped += ref new Windows::UI::Xaml::Input::TappedEventHandler(this, &CutTheWords::Views::CameraPage::OnTapped);
+					// Put the filled textblock in the results grid.
+					TextOverlay->Children->Append(overlay);
+				}
+			}
+
+		UpdateWordBoxTransform();
 		}
 
 	}
@@ -162,9 +227,9 @@ void CameraPage::OnNavigatedFrom(NavigationEventArgs^ e)
 {
 	if (ImageGrid->Visibility == Windows::UI::Xaml::Visibility::Visible) {
 		CameraPage_Navigate_Obj1 = PreviewImage->Source;
-		if (CameraButton->Visibility == Windows::UI::Xaml::Visibility::Visible)
+		if (CameraButton->Visibility == Windows::UI::Xaml::Visibility::Visible) {
 			CameraPage_Navigate_Obj2 = TextOverlay;
-			//CameraPage_Navigate_wordBoxes = wordBoxes;
+			}
 		else
 			CameraPage_Navigate_Obj2 = nullptr;
 	}
@@ -270,6 +335,8 @@ void CameraPage::ExtractButton_Tapped(Platform::Object^ sender, Windows::UI::Xam
 		return ocrEngine->RecognizeAsync(*bitmap);
 	}).then([this, bitmap, ocrEngine](OcrResult^ ocrResult)
 	{
+		CameraPage_Navigate_bitmap = bitmap;
+		CameraPage_Navigate_ocrResult=ocrResult;
 		// Used for text overlay.
 		// Prepare scale transform for words since image is not displayed in original format.
 		auto scaleTrasform = ref new ScaleTransform();
