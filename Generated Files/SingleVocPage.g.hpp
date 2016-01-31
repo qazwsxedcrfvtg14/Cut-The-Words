@@ -217,13 +217,20 @@ void ::CutTheWords::Views::SingleVocPage::Connect(int __connectionId, ::Platform
             {
                 ::Windows::UI::Xaml::Controls::AppBarButton^ element26 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element26))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
-                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::EditButton_Click);
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::F5Button_Click);
             }
             break;
         case 27:
             {
                 ::Windows::UI::Xaml::Controls::AppBarButton^ element27 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element27))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::EditButton_Click);
+            }
+            break;
+        case 28:
+            {
+                ::Windows::UI::Xaml::Controls::AppBarButton^ element28 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element28))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::DeleteButton_Click);
             }
             break;

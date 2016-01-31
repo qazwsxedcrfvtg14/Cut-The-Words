@@ -267,10 +267,11 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 	{
 		wstring pa(param->Data());
 		for (auto &x : pa)
-			x |= 32;
+			if(x>='A'||x<='Z')
+				x |= 32;
 		param = ref new String(pa.c_str());
 		Vocabulary = param;
-		if(words.find(pa)!=words.end()){
+		if(words.find(pa)!=words.end()&&words[pa]!=L""){
 			Init(pa);
 		}
 		else {
@@ -351,7 +352,7 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 				vocs.insert(w2s(pa));
 
 				if (nt != L"")
-					note[pa] = nt, AppendStrToFile(pa + L"," + nt + L"\n", L"note_user.txt");
+					note[pa] = s2t(nt), AppendStrToFile(pa + L"," + nt + L"\n", L"note_user.txt");
 				AppendStrToFile(pa + L"," + disc + L"\n", L"words_user.txt");
 				if (voc_root == nullptr)return;
 				Init(pa);
@@ -695,4 +696,104 @@ void CutTheWords::Views::SingleVocPage::OnLoaded(Platform::Object ^sender, Windo
 
 void SingleVocPage::upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^ e) {
 	return;
+}
+
+void CutTheWords::Views::SingleVocPage::F5Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	ShowLoading();
+	wstring pa = Vocabulary->Data();
+	get(L"http://cn.bing.com/dict/search?mkt=zh-cn&q=" + (wstring)pa, [=](wstring web) {
+		wstring disc, nt;
+		auto betip = web.find(L"<div class=\"in_tip\">");
+		if (betip != std::wstring::npos) {
+			web = web.substr(betip + 20);
+			auto edtip = web.find(L"</div>");
+			if (edtip != std::wstring::npos) {
+				wstring od = web.substr(0, edtip);
+				for (auto x : od)
+					if (x == ',')
+						nt += L"，";
+					else if (x == '/')
+						nt += L"／";
+					else
+						nt += x;
+			}
+		}
+		while (1) {
+			auto be = web.find(L"<span class=\"pos\">");
+			if (be == std::wstring::npos || be + 18 >= web.size()) { break; }
+			web = web.substr(be + 18);
+			auto ed = web.find(L"</span><span class=\"def\"><span>");
+			if (ed == std::wstring::npos || ed + 31 >= web.size()) { break; }
+			disc += L"[" + web.substr(0, ed) + L"]";
+			web = web.substr(ed + 31);
+			if (ed == std::wstring::npos) { break; }
+			ed = web.find(L"</span></span>");
+			wstring tmp = web.substr(0, ed), str;
+			bool inhtml = 0;
+			for (auto &x : tmp)
+				if (x == '[')str += '(';
+				else if (x == ']')str += ')';
+				else if (x == '<')inhtml = 1;
+				else if (x == '>')inhtml = 0;
+				else if (!inhtml)str += x;
+				disc += str + L" ";
+		}
+		while (1) {
+			auto be = web.find(L"<span class=\"pos web\">");
+			if (be == std::wstring::npos || be + 22 >= web.size()) { break; }
+			web = web.substr(be + 22);
+			auto ed = web.find(L"</span><span class=\"def\"><span>");
+			if (ed == std::wstring::npos || ed + 31 >= web.size()) { break; }
+			disc += L"[" + web.substr(0, ed) + L"]";
+			web = web.substr(ed + 31);
+			if (ed == std::wstring::npos) { break; }
+			ed = web.find(L"</span></span>");
+			if (ed == std::wstring::npos) { break; }
+			wstring tmp = web.substr(0, ed), str;
+			bool inhtml = 0;
+			for (auto &x : tmp)
+				if (x == '[')str += '(';
+				else if (x == ']')str += ')';
+				else if (x == '<')inhtml = 1;
+				else if (x == '>')inhtml = 0;
+				else if (!inhtml)str += x;
+				disc += str + L" ";
+		}
+		//ShowMsg(disc);
+		//Explanation = ref new String(disc.c_str());
+		wstring disc2;
+		for (auto x : disc)
+			if (x == ',')
+				disc2 += L"，";
+			else if (x == '/')
+				disc2 += L"／";
+			else
+				disc2 += x;
+
+			if (disc2 == L"") { HideLoading(); ShowMsg(L"查無此字"); return; }
+			HideLoading();
+			disc = s2t(disc2);
+			words[pa] = disc;
+			vocs.insert(w2s(pa));
+
+			if (nt != L"")
+				note[pa] = s2t(nt), AppendStrToFile(pa + L"," + nt + L"\n", L"note_user.txt");
+			AppendStrToFile(pa + L"," + disc + L"\n", L"words_user.txt");
+			if (voc_root == nullptr)return;
+			wds = GetExp(words[pa]);
+			Explanation = ref new String(wds.f.c_str());
+			ExpStack();
+			auto tb = ref new TextBlock();
+			if (note.find(Vocabulary->Data()) != note.end())
+				tb->Text = ref new String(note[Vocabulary->Data()].c_str());
+			else
+				tb->Text = "備註(點擊修改)";
+			tb->Margin = 20;
+			tb->FontSize = 18;
+			tb->Tapped += ref new Windows::UI::Xaml::Input::TappedEventHandler(this, &CutTheWords::Views::SingleVocPage::OnTapped2);
+			note_view->Content = tb;
+			note_bool = 0;
+	}, [=] {HideLoading(); ShowMsg(L"網路錯誤!"); });
+
 }

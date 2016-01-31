@@ -94,6 +94,7 @@
 
             <CommandBar Grid.ColumnSpan="2" x:Name="topbar" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
                 <AppBarButton x:Name="fav" Icon="Favorite" Label="最愛" Click="FavoriteButton_Click"/>
+                <AppBarButton Icon="Refresh" Label="更新" Click="F5Button_Click"/>
                 <AppBarButton Icon="Edit" Label="編輯" Click="EditButton_Click"/>
                 <AppBarButton Icon="Delete" Label="刪除" Click="DeleteButton_Click"/>
                 <!--<AppBarSeparator/>
