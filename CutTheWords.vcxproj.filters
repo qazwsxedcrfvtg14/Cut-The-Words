@@ -208,9 +208,6 @@
     <Image Include="Assets\squaretile-sdk.png">
       <Filter>Assets</Filter>
     </Image>
-    <Image Include="Assets\StoreLogo.scale-100.png">
-      <Filter>Assets</Filter>
-    </Image>
     <Image Include="Assets\storelogo-sdk.png">
       <Filter>Assets</Filter>
     </Image>
@@ -233,6 +230,27 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\cut.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cut-71.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cut-150.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cut-310x150.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cut-310.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cut-44.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cut-620x300.scale-100.png">
+      <Filter>Assets</Filter>
+    </Image>
+    <Image Include="Assets\cut-24.scale-100.png">
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\cut-24.png">

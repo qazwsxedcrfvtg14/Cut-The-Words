@@ -421,13 +421,34 @@
     <Image Include="Assets\adj.JPG" />
     <Image Include="Assets\adv.JPG" />
     <Image Include="Assets\cut-150.png" />
+    <Image Include="Assets\cut-150.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\cut-24.png" />
+    <Image Include="Assets\cut-24.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\cut-310.png" />
+    <Image Include="Assets\cut-310.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\cut-310x150.png" />
+    <Image Include="Assets\cut-310x150.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\cut-44.png" />
+    <Image Include="Assets\cut-44.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\cut-50.png" />
     <Image Include="Assets\cut-620x300.png" />
+    <Image Include="Assets\cut-620x300.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\cut-71.png" />
+    <Image Include="Assets\cut-71.scale-100.png">
+      <DeploymentContent>true</DeploymentContent>
+    </Image>
     <Image Include="Assets\cut.png" />
     <Image Include="Assets\examine.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
@@ -438,7 +459,6 @@
     <Image Include="Assets\splash-sdk.png" />
     <Image Include="Assets\squaretile-sdk.png" />
     <Image Include="Assets\storelogo-sdk.png" />
-    <Image Include="Assets\StoreLogo.scale-100.png" />
     <Image Include="Assets\tile-sdk.png" />
     <Image Include="Assets\v-150.scale-100.png">
       <DeploymentContent>true</DeploymentContent>
