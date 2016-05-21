@@ -182,6 +182,9 @@
     <Page Include="MALoginPage.xaml">
       <Filter>Views</Filter>
     </Page>
+    <Page Include="TestPage.xaml">
+      <Filter>Views</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\adj.JPG">

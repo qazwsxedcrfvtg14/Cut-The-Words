@@ -33,6 +33,7 @@
 #include "SettingPage.xaml.h"
 #include "SingleRootPage.xaml.h"
 #include "SingleVocPage.xaml.h"
+#include "TestPage.xaml.h"
 #include "XamlBindingInfo.g.hpp"
 #include "AddVocPage.g.hpp"
 #include "AppShell.g.hpp"
@@ -58,6 +59,7 @@
 #include "SettingPage.g.hpp"
 #include "SingleRootPage.g.hpp"
 #include "SingleVocPage.g.hpp"
+#include "TestPage.g.hpp"
 
 template<typename T>
 ::Platform::Object^ ActivateType()
@@ -202,13 +204,13 @@ TypeInfo TypeInfos[] =
     //   3
     L"CutTheWords.AppShell", L"",
     &ActivateType<::CutTheWords::AppShell>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    15, // Windows.UI.Xaml.Controls.Page
     0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //   4
     L"CutTheWords.ExamPage", L"",
     &ActivateType<::CutTheWords::ExamPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    15, // Windows.UI.Xaml.Controls.Page
     2, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //   5
@@ -220,7 +222,7 @@ TypeInfo TypeInfos[] =
     //   6
     L"CutTheWords.Views.MAPage", L"",
     &ActivateType<::CutTheWords::Views::MAPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //   7
@@ -232,7 +234,7 @@ TypeInfo TypeInfos[] =
     //   8
     L"CutTheWords.Views.PicPage", L"",
     &ActivateType<::CutTheWords::Views::PicPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //   9
@@ -244,148 +246,154 @@ TypeInfo TypeInfos[] =
     //  10
     L"CutTheWords.Views.NullPage", L"",
     &ActivateType<::CutTheWords::Views::NullPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  11
-    L"CutTheWords.Views.BasicPage", L"",
-    &ActivateType<::CutTheWords::Views::BasicPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.TestPage", L"",
+    &ActivateType<::CutTheWords::Views::TestPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  12
-    L"CutTheWords.Views.AddVocPage", L"",
-    &ActivateType<::CutTheWords::Views::AddVocPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.BasicPage", L"",
+    &ActivateType<::CutTheWords::Views::BasicPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  13
-    L"CutTheWords.Views.CameraPage", L"",
-    &ActivateType<::CutTheWords::Views::CameraPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.AddVocPage", L"",
+    &ActivateType<::CutTheWords::Views::AddVocPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  14
+    L"CutTheWords.Views.CameraPage", L"",
+    &ActivateType<::CutTheWords::Views::CameraPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  15
     L"Windows.UI.Xaml.Controls.Page", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  15
+    //  16
     L"CutTheWords.Views.DrillInPage", L"",
     &ActivateType<::CutTheWords::Views::DrillInPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
-    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  16
-    L"CutTheWords.Views.FindVocPage", L"",
-    &ActivateType<::CutTheWords::Views::FindVocPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  17
-    L"CutTheWords.Views.HistoryPage", L"",
-    &ActivateType<::CutTheWords::Views::HistoryPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.FindVocPage", L"",
+    &ActivateType<::CutTheWords::Views::FindVocPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  18
-    L"CutTheWords.Views.LandingPage", L"",
-    &ActivateType<::CutTheWords::Views::LandingPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.HistoryPage", L"",
+    &ActivateType<::CutTheWords::Views::HistoryPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  19
-    L"CutTheWords.Views.LoadingPage", L"",
-    &ActivateType<::CutTheWords::Views::LoadingPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.LandingPage", L"",
+    &ActivateType<::CutTheWords::Views::LandingPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  20
-    L"CutTheWords.Views.MALoginPage", L"",
-    &ActivateType<::CutTheWords::Views::MALoginPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.LoadingPage", L"",
+    &ActivateType<::CutTheWords::Views::LoadingPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  21
-    L"CutTheWords.Views.SettingPage", L"",
-    &ActivateType<::CutTheWords::Views::SettingPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.MALoginPage", L"",
+    &ActivateType<::CutTheWords::Views::MALoginPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  22
+    L"CutTheWords.Views.SettingPage", L"",
+    &ActivateType<::CutTheWords::Views::SettingPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  23
     L"Windows.UI.Xaml.Controls.Frame", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  23
+    //  24
     L"CutTheWords.Views.BasicSubPage", L"",
     &ActivateType<::CutTheWords::Views::BasicSubPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    15, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
-    //  24
+    //  25
     L"CutTheWords.Views.FavoritePage", L"",
     &ActivateType<::CutTheWords::Views::FavoritePage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
-    6, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  25
-    L"CutTheWords.Controls.PageHeader", L"",
-    &ActivateType<::CutTheWords::Controls::PageHeader>, nullptr, nullptr, nullptr,
-    32, // Windows.UI.Xaml.Controls.UserControl
+    15, // Windows.UI.Xaml.Controls.Page
     6, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  26
-    L"CutTheWords.Views.SearchVocPage", L"",
-    &ActivateType<::CutTheWords::Views::SearchVocPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
-    7, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    L"CutTheWords.Controls.PageHeader", L"",
+    &ActivateType<::CutTheWords::Controls::PageHeader>, nullptr, nullptr, nullptr,
+    33, // Windows.UI.Xaml.Controls.UserControl
+    6, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  27
-    L"CutTheWords.Views.SingleVocPage", L"",
-    &ActivateType<::CutTheWords::Views::SingleVocPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.SearchVocPage", L"",
+    &ActivateType<::CutTheWords::Views::SearchVocPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     7, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  28
-    L"CutTheWords.Views.CommandBarPage", L"",
-    &ActivateType<::CutTheWords::Views::CommandBarPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
-    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    L"CutTheWords.Views.SingleVocPage", L"",
+    &ActivateType<::CutTheWords::Views::SingleVocPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
+    7, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  29
-    L"CutTheWords.Views.SearchRootPage", L"",
-    &ActivateType<::CutTheWords::Views::SearchRootPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.CommandBarPage", L"",
+    &ActivateType<::CutTheWords::Views::CommandBarPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  30
-    L"CutTheWords.Views.SingleRootPage", L"",
-    &ActivateType<::CutTheWords::Views::SingleRootPage>, nullptr, nullptr, nullptr,
-    14, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.SearchRootPage", L"",
+    &ActivateType<::CutTheWords::Views::SearchRootPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
     9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  31
+    L"CutTheWords.Views.SingleRootPage", L"",
+    &ActivateType<::CutTheWords::Views::SingleRootPage>, nullptr, nullptr, nullptr,
+    15, // Windows.UI.Xaml.Controls.Page
+    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  32
     L"Windows.UI.Xaml.Controls.ListView", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     10, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  32
+    //  33
     L"Windows.UI.Xaml.Controls.UserControl", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     10, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  33
+    //  34
     L"CutTheWords.Controls.NavMenuListView", L"",
     &ActivateType<::CutTheWords::Controls::NavMenuListView>, nullptr, nullptr, nullptr,
-    31, // Windows.UI.Xaml.Controls.ListView
+    32, // Windows.UI.Xaml.Controls.ListView
     10, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
-    //  34
+    //  35
     L"Windows.UI.Xaml.Controls.ItemsControl", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
@@ -406,7 +414,7 @@ UINT TypeInfoLookup[] = {
       0,   //   3
       0,   //   4
       0,   //   5
-      1,   //   6
+      0,   //   6
       3,   //   7
       3,   //   8
       3,   //   9
@@ -427,18 +435,18 @@ UINT TypeInfoLookup[] = {
       6,   //  24
       7,   //  25
      10,   //  26
-     11,   //  27
-     12,   //  28
-     14,   //  29
-     22,   //  30
-     25,   //  31
-     28,   //  32
-     31,   //  33
-     32,   //  34
-     32,   //  35
-     32,   //  36
-     34,   //  37
-     35,   //  38
+     12,   //  27
+     13,   //  28
+     15,   //  29
+     23,   //  30
+     26,   //  31
+     29,   //  32
+     32,   //  33
+     33,   //  34
+     33,   //  35
+     33,   //  36
+     35,   //  37
+     36,   //  38
 };
 
 struct MemberInfo 
@@ -459,14 +467,14 @@ MemberInfo MemberInfos[] =
     L"AppFrame",
     &GetReferenceTypeMember_AppFrame<::CutTheWords::AppShell>,
     nullptr,
-    22, // Windows.UI.Xaml.Controls.Frame
+    23, // Windows.UI.Xaml.Controls.Frame
     -1,
     true,  false, false,
     //   1 - CutTheWords.AppShell.AppTopFrame
     L"AppTopFrame",
     &GetReferenceTypeMember_AppTopFrame<::CutTheWords::AppShell>,
     nullptr,
-    22, // Windows.UI.Xaml.Controls.Frame
+    23, // Windows.UI.Xaml.Controls.Frame
     -1,
     true,  false, false,
     //   2 - CutTheWords.WordOverlay.WordHeight

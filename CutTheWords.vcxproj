@@ -228,6 +228,9 @@
     <ClInclude Include="SingleVocPage.xaml.h">
       <DependentUpon>SingleVocPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="TestPage.xaml.h">
+      <DependentUpon>TestPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="Voc.h" />
     <ClInclude Include="WordOverlay.h" />
   </ItemGroup>
@@ -306,6 +309,9 @@
     </Page>
     <Page Include="Styles.xaml">
       <DeploymentContent>true</DeploymentContent>
+    </Page>
+    <Page Include="TestPage.xaml">
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -412,6 +418,9 @@
     </ClCompile>
     <ClCompile Include="SingleVocPage.xaml.cpp">
       <DependentUpon>SingleVocPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="TestPage.xaml.cpp">
+      <DependentUpon>TestPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="Voc.cpp" />
     <ClCompile Include="WordOverlay.cpp" />

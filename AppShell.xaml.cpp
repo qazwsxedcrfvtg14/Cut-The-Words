@@ -16,6 +16,7 @@
 #include "NavMenuItem.h"
 #include "NavMenuListView.h"
 #include "FavoritePage.xaml.h"
+#include "TestPage.xaml.h"
 #include "HistoryPage.xaml.h"
 #include "ExamPage.xaml.h"
 #include "CameraPage.xaml.h"
@@ -91,11 +92,11 @@ namespace CutTheWords
 				"我的最愛",
 				Symbol::Favorite,
 				TypeName(Views::FavoritePage::typeid)));
-		/*navlist->Append(
+		navlist->Append(
 			ref new NavMenuItem(
 				"單字測驗",
 				Symbol::Link,
-				TypeName(Views::ExamPage::typeid)));*/
+				TypeName(Views::TestPage::typeid)));
 		navlist->Append(
 			ref new NavMenuItem(
 				"歷程記錄",

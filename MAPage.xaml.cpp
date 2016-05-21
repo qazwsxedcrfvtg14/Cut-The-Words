@@ -49,46 +49,46 @@ void MAPage::OnNavigatedTo(NavigationEventArgs^ e)
 		fun(L"Card: " + home.child[L"card_num"].data + L"/" + home.child[L"card_max"].data);
 		fun(L"Gold: " + home.child[L"gold"].data);
 		//fun(L"Friend Point: " + home.child[L"fp"].data);
-		kalisin(L"/Game/TeamBattleSoloShow", L"", 1, [=](wstring s) {
+		kalisin(L"/Game/TeamBattleSoloShow", L"{\"active_arthur_type\":4}", 1, [=](wstring s) {
 			auto fun = [=](wstring s) {
 				auto tmp = ref new TextBlock();
 				tmp->Text = ref new String(s.c_str());
 				//tmp->FontSize = 20;
 				tmp->Margin = 5;
 				stp2->Children->Append(tmp);
+				};
+			wstring out;
+			solo_data = Read_Json(s);
+			function<void(Json_Node&, int)> f = [&](Json_Node& now, int l) {
+				if (now.type == 0)out += now.data;
+				else if (now.type == 1) {
+					if (now.child[L"appear_end"].data == L"-1")return;
+					out += L"{\n";
+					for (auto &x : now.child) {
+						for (int i = 0;i <= l;i++)
+							out += L"  ";
+						out += x.f + L": ";
+						f(x.s, l + 1);
+						out += L"\n";
+					}
+					for (int i = 0;i < l;i++)
+						out += L"  ";
+					out += L"}\n";
+				}
+				else if (now.type == 2) {
+					out += L"[\n";
+					for (auto &x : now.ary) {
+						for (int i = 0;i <= l;i++)
+							out += L"  ";
+						f(x,l + 1);
+						out += L"\n";
+					}
+					for (int i = 0;i < l;i++)
+						out += L"  ";
+					out += L"]\n";
+				}
 			};
-		wstring out;
-		solo_data = Read_Json(s);
-		function<void(Json_Node&, int)> f = [&](Json_Node& now, int l) {
-			if (now.type == 0)out += now.data;
-			else if (now.type == 1) {
-				if (now.child[L"appear_end"].data == L"-1")return;
-				out += L"{\n";
-				for (auto &x : now.child) {
-					for (int i = 0;i <= l;i++)
-						out += L"  ";
-					out += x.f + L": ";
-					f(x.s, l + 1);
-					out += L"\n";
-				}
-				for (int i = 0;i < l;i++)
-					out += L"  ";
-				out += L"}\n";
-			}
-			else if (now.type == 2) {
-				out += L"[\n";
-				for (auto &x : now.ary) {
-					for (int i = 0;i <= l;i++)
-						out += L"  ";
-					f(x,l + 1);
-					out += L"\n";
-				}
-				for (int i = 0;i < l;i++)
-					out += L"  ";
-				out += L"]\n";
-			}
-		};
-		f(solo_data.child[L"event_groups"], 0);
+		f(solo_data, 0);
 		fun(out);
 		});
 	});

@@ -49,12 +49,12 @@ void FindVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 		input_voc->SelectAll();
 		target = input_voc->Text->Data();
 	}
-	//auto svp2= dynamic_cast<ListView^>(SearchRootPage_Navigate_Obj2);
-	//if (svp2 != nullptr) {
-		//for (int i = 0;i < (int)(svp2->Items->Size);i++){
-			//VocList->Items->Append(svp2->Items->GetAt(i));
-		//}
-	//}
+	auto svp2= dynamic_cast<ListView^>(SearchRootPage_Navigate_Obj2);
+	if (svp2 != nullptr) {
+		for (int i = 0;i < (int)(svp2->Items->Size);i++){
+			VocList->Items->Append(svp2->Items->GetAt(i));
+		}
+	}
 	match_running = 0;
 	scroll_load_not_finish = 0;
 	Page::OnNavigatedTo(e);
@@ -62,7 +62,7 @@ void FindVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 void FindVocPage::OnNavigatedFrom(NavigationEventArgs^ e)
 {
 	SearchRootPage_Navigate_Obj1 = input_voc->Text;
-	//SearchRootPage_Navigate_Obj2 = VocList;
+	SearchRootPage_Navigate_Obj2 = VocList;
 	Page::OnNavigatedFrom(e);
 }
 void FindVocPage::UpdateVocList(Platform::Object^ sender, ItemClickEventArgs^ e)

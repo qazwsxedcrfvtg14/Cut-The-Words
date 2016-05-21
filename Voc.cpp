@@ -208,7 +208,7 @@ void  match(wstring match, vector<wstring>&ve, wstring beg) {
 		string mi, ma;
 		bool tg = 1;
 		for (int i = 0;match[i];i++) {
-			if (match[i] == L'*' || match[i] == L'-') {
+			if (match[i] == L'*'/* || match[i] == L'-'*/) {
 				ma += "zzzzzzzzzzzzzzzzz";
 				reg_wstring += ".*";
 				tg = 0;
@@ -254,7 +254,7 @@ void  match_rot(wstring match, vector<wstring>&ve, wstring beg) {
 		wstring mi, ma;
 		bool tg = 1;
 		for (int i = 0;match[i];i++) {
-			if (match[i] == L'*' || match[i] == L'-') {
+			if (match[i] == L'*'/* || match[i] == L'-'*/) {
 				ma += 0xEFFF;
 				reg_wstring += L".*";
 				tg = 0;

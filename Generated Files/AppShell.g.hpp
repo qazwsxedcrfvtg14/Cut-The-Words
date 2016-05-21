@@ -148,7 +148,7 @@ private:
     }
     void Update_AppFrame(::Windows::UI::Xaml::Controls::Frame^ obj, int phase)
     {
-        this->_bindingsTracking->UpdateDependencyPropertyChangedListener(obj, ::Windows::UI::Xaml::Controls::Frame::CanGoBackProperty, &this->cacheDPC_AppFrame_CanGoBack, &this->tokenDPC_AppFrame_CanGoBack);
+                this->_bindingsTracking->UpdateDependencyPropertyChangedListener(obj, ::Windows::UI::Xaml::Controls::Frame::CanGoBackProperty, &this->cacheDPC_AppFrame_CanGoBack, &this->tokenDPC_AppFrame_CanGoBack);
         if (obj != nullptr)
         {
             if ((phase & (NOT_PHASED | DATA_CHANGED | (1 << 0))) != 0)
@@ -167,7 +167,7 @@ private:
 
     virtual void ReleaseAllListeners() override
     {
-        this->_bindingsTracking->UpdateDependencyPropertyChangedListener(nullptr, ::Windows::UI::Xaml::Controls::Frame::CanGoBackProperty, &this->cacheDPC_AppFrame_CanGoBack, &this->tokenDPC_AppFrame_CanGoBack);
+                this->_bindingsTracking->UpdateDependencyPropertyChangedListener(nullptr, ::Windows::UI::Xaml::Controls::Frame::CanGoBackProperty, &this->cacheDPC_AppFrame_CanGoBack, &this->tokenDPC_AppFrame_CanGoBack);
     }
 
     virtual void PropertyChanged(Platform::Object^ sender, ::Windows::UI::Xaml::Data::PropertyChangedEventArgs^ e) override
@@ -182,7 +182,7 @@ private:
     {
     }
 
-    void DependencyPropertyChanged(::Windows::UI::Xaml::DependencyObject^ sender, Windows::UI::Xaml::DependencyProperty^ prop)
+void DependencyPropertyChanged(::Windows::UI::Xaml::DependencyObject^ sender, Windows::UI::Xaml::DependencyProperty^ prop)
     {
         if (sender != nullptr)
         {
