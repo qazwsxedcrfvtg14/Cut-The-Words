@@ -231,6 +231,9 @@
     <ClInclude Include="TestPage.xaml.h">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="TestPage2.xaml.h">
+      <DependentUpon>TestPage2.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="Voc.h" />
     <ClInclude Include="WordOverlay.h" />
   </ItemGroup>
@@ -311,6 +314,9 @@
       <DeploymentContent>true</DeploymentContent>
     </Page>
     <Page Include="TestPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestPage2.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
@@ -421,6 +427,9 @@
     </ClCompile>
     <ClCompile Include="TestPage.xaml.cpp">
       <DependentUpon>TestPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="TestPage2.xaml.cpp">
+      <DependentUpon>TestPage2.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="Voc.cpp" />
     <ClCompile Include="WordOverlay.cpp" />

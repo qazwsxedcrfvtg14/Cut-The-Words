@@ -854,16 +854,16 @@ void CutTheWords::Views::CameraPage::OnTapped(Platform::Object ^sender, Windows:
 			wstring s = tmp2->Text->Data();
 			if (s == L"")return;
 			for (int i = 0;s[i];i++)
-				if ((s[i] | 32) >= 'a' && (s[i] | 32) <= 'z') {
+				if ((s[i]) >= 'a' && (s[i]) <= 'z') {
 					s = s.substr(i);
 					break;
 				}
 			for (int i = (int)s.length() - 1;~i;i--)
-				if ((s[i] | 32) >= 'a' && (s[i] | 32) <= 'z') {
+				if ((s[i]) >= 'a' && (s[i]) <= 'z') {
 					s = s.substr(0, i + 1);
 					break;
 				}
-			if ((s[0] | 32) < 'a' || (s[0] | 32) > 'z')
+			if ((s[0]) < 'a' || (s[0]) > 'z')
 				return;
 			Frame->Navigate(
 				TypeName(SingleVocPage::typeid),

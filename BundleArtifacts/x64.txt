@@ -1,2 +1,2 @@
-MainPackage=C:\Users\joe.VAIO\Cut The Words\x64\Release\CutTheWords\CutTheWords_1.0.31.0_x64.appx
-SymbolPackage=C:\Users\joe.VAIO\Cut The Words\AppPackages\CutTheWords\CutTheWords_1.0.31.0_Test\CutTheWords_1.0.31.0_x64.appxsym
+MainPackage=C:\Users\joe.VAIO\Cut The Words\x64\Release\CutTheWords\CutTheWords_1.0.32.0_x64.appx
+SymbolPackage=C:\Users\joe.VAIO\Cut The Words\AppPackages\CutTheWords\CutTheWords_1.0.32.0_Test\CutTheWords_1.0.32.0_x64.appxsym
