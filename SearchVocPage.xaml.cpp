@@ -28,10 +28,10 @@ SearchVocPage::SearchVocPage()
 	InitializeComponent();
 }
 
-Object^ SearchVocPage_Navigate_Obj;
+unordered_map<int, Object^> SearchVocPage_Navigate_Obj;
 void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
-	auto svp = dynamic_cast<String^>(SearchVocPage_Navigate_Obj);
+	auto svp = dynamic_cast<String^>(SearchVocPage_Navigate_Obj[GetCurrentID()]);
 	if (svp != nullptr) {
 		input_voc->Text = svp;
 		input_voc->SelectAll();
@@ -39,7 +39,7 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 	target = L"#";
 	tempdispatchertime_upd_sync = ref new DispatcherTimer();
 	Windows::Foundation::TimeSpan time;
-	time.Duration = 10000;
+	time.Duration = 2000000;
 	tempdispatchertime_upd_sync->Interval = time;
 	auto timerDelegate = [this](Object^ e, Object^ ags) {
 		if(target != input_voc->Text->Data()) {
@@ -67,11 +67,11 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 				VocList->Items->Append(stp);
 			}
 			if (ve.size())
-				scroll_load_not_finish = 1;
+				scroll_load_not_finish[GetCurrentID()] = 1;
 			else
-				scroll_load_not_finish = 0;
+				scroll_load_not_finish[GetCurrentID()] = 0;
 		}
-		if (scro->VerticalOffset >= scro->ScrollableHeight - 200 && scroll_load_not_finish) {
+		if (scro->VerticalOffset >= scro->ScrollableHeight - 200 && scroll_load_not_finish[GetCurrentID()]) {
 			wstring q = input_voc->Text->Data();
 			vector<wstring> ve;
 			match(q + L"*", ve, ((TextBlock^)(((StackPanel^)(VocList->Items->GetAt(VocList->Items->Size - 1)))->Children->GetAt(0)))->Text->Data());
@@ -92,9 +92,9 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 				VocList->Items->Append(stp);
 			}
 			if (ve.size())
-				scroll_load_not_finish = 1;
+				scroll_load_not_finish[GetCurrentID()] = 1;
 			else
-				scroll_load_not_finish = 0;
+				scroll_load_not_finish[GetCurrentID()] = 0;
 		}
 	};
 	tempdispatchertime_upd_sync->Tick += ref new EventHandler<Object^>(timerDelegate);
@@ -104,7 +104,7 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 void SearchVocPage::OnNavigatedFrom(NavigationEventArgs^ e)
 {
 	tempdispatchertime_upd_sync->Stop();
-	SearchVocPage_Navigate_Obj = input_voc->Text;
+	SearchVocPage_Navigate_Obj[GetCurrentID()] = input_voc->Text;
 	Page::OnNavigatedFrom(e);
 }
 

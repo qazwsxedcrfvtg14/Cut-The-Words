@@ -36,6 +36,7 @@ using namespace Windows::UI::Xaml::Navigation;
 
 App::App()
 {
+	srand(time(NULL));
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"setting.txt")) == nullptr)
 		DumpAppFile(L"setting.txt");
 	get_doc(L"setting.txt", setting);
@@ -94,6 +95,26 @@ App::App()
 		inited = 1;
 	});
 	InitializeComponent();
+	auto database_sync = ref new DispatcherTimer();
+	Windows::Foundation::TimeSpan time;
+	time.Duration = 3000000000;
+	database_sync->Interval = time;
+	auto timerDelegate = [this](Object^ e, Object^ ags) {
+		StrToFile(dump_doc(setting), L"setting.txt");
+		StrToFile(dump_doc(favorite), L"favorite.txt");
+		StrToFile(dump_doc(words,ok_words), L"words.txt");
+		StrToFile(dump_doc(prefix), L"prefix.txt");
+		StrToFile(dump_doc(suffix), L"suffix.txt");
+		StrToFile(dump_doc(root), L"root.txt");
+		StrToFile(dump_doc(note), L"note.txt");
+		StrToFile(L"", L"words_user.txt");
+		StrToFile(L"", L"prefix_user.txt");
+		StrToFile(L"", L"suffix_user.txt");
+		StrToFile(L"", L"root_user.txt");
+		StrToFile(L"", L"note_user.txt");
+	};
+	database_sync->Tick += ref new EventHandler<Object^>(timerDelegate);
+	database_sync->Start();
 	Suspending += ref new SuspendingEventHandler(this, &App::OnSuspending);
 }
 
@@ -113,7 +134,6 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
          //DebugSettings->EnableFrameRateCounter = true;
     }
 #endif
-
     auto shell = dynamic_cast<AppShell^>(Window::Current->Content);
     // Do not repeat app initialization when the Window already has content,
     // just ensure that the window is active
@@ -138,6 +158,22 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 		}
 		
     }
+	else {
+		CoreApplicationView^ newView = CoreApplication::CreateNewView();
+		int newViewId ;
+		AWait(newView->Dispatcher->RunAsync(CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([&]()	
+		{
+			//Frame^ frame = ref new Frame();
+			auto shell=ref new AppShell();
+			shell->AppFrame->Navigate(TypeName(Views::BasicPage::typeid));
+			Window::Current->Content = shell;
+			// You have to activate the window in order to show it later.
+			Window::Current->Activate();
+			newViewId = Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->Id;
+		})));
+		Windows::UI::ViewManagement::ApplicationViewSwitcher::TryShowAsStandaloneAsync(newViewId);
+
+	}
 	//
     // Place our app shell in the current Window
     Window::Current->Content = shell;

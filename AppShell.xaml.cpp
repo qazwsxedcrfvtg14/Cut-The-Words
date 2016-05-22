@@ -97,11 +97,11 @@ namespace CutTheWords
 				"單字測驗",
 				Symbol::Link,
 				TypeName(Views::TestPage::typeid)));
-		navlist->Append(
+		/*navlist->Append(
 			ref new NavMenuItem(
 				"歷程記錄",
 				Symbol::Clock,
-				TypeName(Views::HistoryPage::typeid)));
+				TypeName(Views::HistoryPage::typeid)));*/
 		navlist->Append(
 			ref new NavMenuItem(
 				"圖片掃描",

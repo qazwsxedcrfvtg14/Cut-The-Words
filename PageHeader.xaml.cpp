@@ -47,7 +47,7 @@ namespace CutTheWords
 
         void PageHeader::Current_TogglePaneButtonSizeChanged(AppShell^ sender, Rect e)
         {
-            titleBar->Margin = Thickness(e.Right, 0, 0, 0);
+            //titleBar->Margin = Thickness(e.Right, 0, 0, 0);
         }
     }
 }

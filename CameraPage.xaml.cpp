@@ -85,16 +85,16 @@ CameraPage::CameraPage()
 /// </summary>
 /// <param name="e"></param>
 
-Object^ CameraPage_Navigate_Obj1;
-Object^ CameraPage_Navigate_Obj2;
-OcrResult^ CameraPage_Navigate_ocrResult;
-shared_ptr<SoftwareBitmap^> CameraPage_Navigate_bitmap;
+unordered_map<int, Object^> CameraPage_Navigate_Obj1;
+unordered_map<int, Object^> CameraPage_Navigate_Obj2;
+unordered_map<int, OcrResult^> CameraPage_Navigate_ocrResult;
+unordered_map<int, shared_ptr<SoftwareBitmap^>> CameraPage_Navigate_bitmap;
 void CameraPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
 	//orientationChangedEventToken = displayInformation->OrientationChanged += ref new Windows::Foundation::TypedEventHandler<Windows::Graphics::Display::DisplayInformation ^, Platform::Object ^>(this, &SDKTemplate::CameraPage::DisplayInformation_OrientationChanged);
 
 	ocrLanguage = ref new Windows::Globalization::Language("en");
-	auto nav = dynamic_cast<Media::ImageSource^>(CameraPage_Navigate_Obj1);
+	auto nav = dynamic_cast<Media::ImageSource^>(CameraPage_Navigate_Obj1[GetCurrentID()]);
 	//auto nav = nullptr;
 	if (nav != nullptr) {
 		PreviewImage->Source = nav;
@@ -116,10 +116,10 @@ void CameraPage::OnNavigatedTo(NavigationEventArgs^ e)
 				TextOverlay->Children->Append(x);
 			}
 		}*/
-		auto ocrResult = CameraPage_Navigate_ocrResult;
+		auto ocrResult = CameraPage_Navigate_ocrResult[GetCurrentID()];
 		if(ocrResult != nullptr){
 
-			auto bitmap = CameraPage_Navigate_bitmap;
+			auto bitmap = CameraPage_Navigate_bitmap[GetCurrentID()];
 			// Used for text overlay.
 			// Prepare scale transform for words since image is not displayed in original format.
 
@@ -226,15 +226,15 @@ void CameraPage::OnNavigatedTo(NavigationEventArgs^ e)
 void CameraPage::OnNavigatedFrom(NavigationEventArgs^ e)
 {
 	if (ImageGrid->Visibility == Windows::UI::Xaml::Visibility::Visible) {
-		CameraPage_Navigate_Obj1 = PreviewImage->Source;
+		CameraPage_Navigate_Obj1[GetCurrentID()] = PreviewImage->Source;
 		if (CameraButton->Visibility == Windows::UI::Xaml::Visibility::Visible) {
-			CameraPage_Navigate_Obj2 = TextOverlay;
+			CameraPage_Navigate_Obj2[GetCurrentID()] = TextOverlay;
 			}
 		else
-			CameraPage_Navigate_Obj2 = nullptr;
+			CameraPage_Navigate_Obj2[GetCurrentID()] = nullptr;
 	}
 	else
-		CameraPage_Navigate_Obj1 = nullptr;
+		CameraPage_Navigate_Obj1[GetCurrentID()] = nullptr;
 
 	displayInformation->OrientationChanged -= orientationChangedEventToken;
 
@@ -335,8 +335,8 @@ void CameraPage::ExtractButton_Tapped(Platform::Object^ sender, Windows::UI::Xam
 		return ocrEngine->RecognizeAsync(*bitmap);
 	}).then([this, bitmap, ocrEngine](OcrResult^ ocrResult)
 	{
-		CameraPage_Navigate_bitmap = bitmap;
-		CameraPage_Navigate_ocrResult=ocrResult;
+		CameraPage_Navigate_bitmap[GetCurrentID()] = bitmap;
+		CameraPage_Navigate_ocrResult[GetCurrentID()] =ocrResult;
 		// Used for text overlay.
 		// Prepare scale transform for words since image is not displayed in original format.
 		auto scaleTrasform = ref new ScaleTransform();

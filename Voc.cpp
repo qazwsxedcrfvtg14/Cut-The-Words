@@ -143,6 +143,22 @@ void get_doc(wstring inp, map<wstring, wstring> &words, bool user) {
 	}
 	return;
 }
+wstring dump_doc(map<wstring, wstring> &words, map<wstring, wstring> &ok) {
+	wstring out;
+	for (auto x : words) {
+		if (ok_words.find(x.f) != ok_words.end())
+			out += L"*" + ok[x.f] + L"," + x.s + L"\n";
+		else
+			out += x.f + L"," + x.s + L"\n";
+	}
+	return out;
+}
+wstring dump_doc(map<wstring, wstring> &words) {
+	wstring out;
+	for (auto x : words)
+		out += x.f + L"," + x.s + L"\n";
+	return out;
+}
 map<wstring, wstring> ok_words;
 map<wstring, wstring> words, prefix, suffix, root, favorite, setting, note;
 set<string> vocs;
@@ -952,7 +968,7 @@ sqlite3_free(sql);
 //char* query = sqlite3_mprintf("insert into tbl5 values ('%q');", s);
 */
 
-bool scroll_load_not_finish = 0;
+unordered_map<int, bool> scroll_load_not_finish ;
 wstring erase_quote(wstring s) {
 	s = trim(s);
 	if (s.front() == '"'&&s.back() == '"') {
@@ -1340,4 +1356,7 @@ int LevenshteinDistance(wstring s, wstring t)
 	}
 
 	return v1[m];
+}
+int GetCurrentID() {
+	return Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->Id;
 }

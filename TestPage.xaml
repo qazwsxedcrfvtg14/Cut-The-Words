@@ -14,12 +14,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-
-            <!--<ctl:PageHeader>
-                <ctl:PageHeader.HeaderContent>
-                </ctl:PageHeader.HeaderContent>
-            </ctl:PageHeader>-->
             <CommandBar VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+                <AppBarButton Icon="Refresh" Click="AppBarButton_Click"/>
                 <AppBarButton Icon="AllApps" Click="fav_Click"/>
             </CommandBar>
             <TextBlock x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text=""/>

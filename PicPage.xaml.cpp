@@ -70,19 +70,19 @@ PicPage::PicPage()// : rootPage(MainPage::Current)
 /// </summary>
 /// <param name="e"></param>
 
-Object^ PicPage_Navigate_Obj1;
-Object^ PicPage_Navigate_Obj2;
+unordered_map<int, Object^> PicPage_Navigate_Obj1;
+unordered_map<int, Object^> PicPage_Navigate_Obj2;
 //vector<CutTheWords::WordOverlay^> PicPage_Navigate_wordBoxes;
 void PicPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
-	auto nav = dynamic_cast<Windows::Graphics::Imaging::SoftwareBitmap^>(PicPage_Navigate_Obj1);
+	auto nav = dynamic_cast<Windows::Graphics::Imaging::SoftwareBitmap^>(PicPage_Navigate_Obj1[GetCurrentID()]);
 	if (nav != nullptr) {
 		//ShowMsg(L"Hi");
 		bitmap = nav;
 		WriteableBitmap^ wb = ref new WriteableBitmap(bitmap->PixelWidth, bitmap->PixelHeight);
 		nav->CopyToBuffer(wb->PixelBuffer);
 		PreviewImage->Source = wb;
-		auto nav2 = dynamic_cast<Grid^>(PicPage_Navigate_Obj2);
+		auto nav2 = dynamic_cast<Grid^>(PicPage_Navigate_Obj2[GetCurrentID()]);
 		if (nav2 != nullptr) {
 			//wordBoxes = PicPage_Navigate_wordBoxes;
 			TextOverlay->RenderTransform = nav2->RenderTransform;
@@ -107,8 +107,8 @@ void PicPage::OnNavigatedTo(NavigationEventArgs^ e)
 void PicPage::OnNavigatedFrom(NavigationEventArgs^ e)
 {
 	//if (ImageGrid->Visibility == Windows::UI::Xaml::Visibility::Visible) {
-	PicPage_Navigate_Obj1 = bitmap;
-	PicPage_Navigate_Obj2 = TextOverlay;
+	PicPage_Navigate_Obj1[GetCurrentID()] = bitmap;
+	PicPage_Navigate_Obj2[GetCurrentID()] = TextOverlay;
 	//PicPage_Navigate_wordBoxes = wordBoxes;
 	Page::OnNavigatedFrom(e);
 }

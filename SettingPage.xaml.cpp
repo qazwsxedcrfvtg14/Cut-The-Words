@@ -80,6 +80,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 			StrToFile(L"", L"prefix_user.txt");
 			StrToFile(L"", L"suffix_user.txt");
 			StrToFile(L"", L"root_user.txt");
+			StrToFile(L"", L"note_user.txt");
 			get_doc(L"setting.txt", setting);
 			get_doc(L"favorite.txt", favorite);
 			get_doc(L"note.txt", note);
@@ -284,7 +285,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		ShowMsg(L"設定成功");
 	}
 	else if (str == "關於") {
-		ShowMsg(L"版本號:ver 1.0.32");
+		ShowMsg(L"版本號:ver 1.0.33");
 	}
 	else if (str == "Test") {
 		auto ocrLanguage = ref new Windows::Globalization::Language("en");

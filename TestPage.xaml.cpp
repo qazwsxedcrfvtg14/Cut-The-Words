@@ -21,10 +21,6 @@ using namespace Windows::UI::Xaml::Interop;
 using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
 
-TestPage::TestPage()
-{
-	InitializeComponent();
-}
 
 void TestPage::ExpStack(wstring s, StackPanel^ expst) {
 	expst->Children->Clear();
@@ -93,34 +89,34 @@ void TestPage::ExpStack(wstring s, StackPanel^ expst) {
 			expst->Children->Append(stp);
 		}
 }
-void TestPage::OnNavigatedTo(NavigationEventArgs^ e)
-{
-	/*auto param = dynamic_cast<String^>(e->Parameter);
-	input_voc->Text = ref new String(param->Data());*/
+
+unordered_map<int,Object^> TestPage_Navigate_Obj;
+unordered_map<int, int> TestPage_Navigate_ok, TestPage_Navigate_wa;
+void TestPage::Init() {
 	vector<wstring>ve;
 	for (auto x : favorite)ve.push_back(x.f);
 	random_shuffle(ve.begin(), ve.end());
 	ok = 0;
 	wa = ve.size();
-	title->Text = ref new String((L"正確:"+IntToStr(ok)+L" 錯誤:"+IntToStr(wa)).c_str());
+	title->Text = ref new String((L"正確:" + IntToStr(ok) + L" 錯誤:" + IntToStr(wa)).c_str());
 	test_stp->Children->Clear();
 	for (auto x : ve) {
 		auto block = ref new StackPanel();
-		block->Orientation= Orientation::Vertical;
+		block->Orientation = Orientation::Vertical;
 		//auto prob = ref new TextBlock();
 		//prob->Text = ref new String(trim(GetExp(words[x.f]).f).c_str());
 		auto prob = ref new StackPanel();
 		prob->Orientation = Orientation::Vertical;
-		ExpStack(GetExp(words[x]).f,prob);
+		ExpStack(GetExp(words[x]).f, prob);
 		//prob->FontSize = 10;
 		block->Children->Append(prob);
 		auto ans = ref new TextBox();
 		ans->TextChanged += ref new Windows::UI::Xaml::Controls::TextChangedEventHandler(this, &CutTheWords::Views::TestPage::OnTextChanged);
-		ans->TextCompositionChanged += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Xaml::Controls::TextBox ^, Windows::UI::Xaml::Controls::TextCompositionChangedEventArgs ^>(this, &CutTheWords::Views::TestPage::OnTextCompositionChanged);
 		block->Children->Append(ans);
 		auto tit = ref new TextBlock();
 		tit->Text = ref new String(trim(x).c_str());
 		tit->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
+		tit->Tapped += ref new Windows::UI::Xaml::Input::TappedEventHandler(this, &CutTheWords::Views::TestPage::OnTapped);
 		block->Children->Append(tit);
 		auto res = ref new TextBlock();
 		res->Text = ref new String(L"錯誤");
@@ -129,7 +125,39 @@ void TestPage::OnNavigatedTo(NavigationEventArgs^ e)
 		block->Margin = Thickness(0, 15, 0, 0);
 		test_stp->Children->Append(block);
 	}
+}
+
+TestPage::TestPage()
+{
+	InitializeComponent();
+	auto nvo = dynamic_cast<StackPanel^>(TestPage_Navigate_Obj[GetCurrentID()]);
+	if (nvo != nullptr) {
+		while (nvo->Children->Size) {
+			auto tmp = (StackPanel^)nvo->Children->GetAt(0);
+			nvo->Children->RemoveAt(0);
+			((TextBox^)tmp->Children->GetAt(1))->TextChanged += ref new Windows::UI::Xaml::Controls::TextChangedEventHandler(this, &CutTheWords::Views::TestPage::OnTextChanged);
+			tmp->Children->GetAt(2)->Tapped += ref new Windows::UI::Xaml::Input::TappedEventHandler(this, &CutTheWords::Views::TestPage::OnTapped);
+			tmp->Children->GetAt(3)->RightTapped += ref new Windows::UI::Xaml::Input::RightTappedEventHandler(this, &CutTheWords::Views::TestPage::OnRightTapped);
+			test_stp->Children->Append(tmp);
+		}
+		ok = TestPage_Navigate_ok[GetCurrentID()];
+		wa = TestPage_Navigate_wa[GetCurrentID()];
+		title->Text = ref new String((L"正確:" + IntToStr(ok) + L" 錯誤:" + IntToStr(wa)).c_str());
+	}
+	else {
+		Init();
+	}
+}
+void TestPage::OnNavigatedTo(NavigationEventArgs^ e)
+{	
 	Page::OnNavigatedTo(e);
+}
+void TestPage::OnNavigatedFrom(NavigationEventArgs^ e)
+{
+	TestPage_Navigate_Obj[GetCurrentID()] = test_stp;
+	TestPage_Navigate_ok[GetCurrentID()] = ok;
+	TestPage_Navigate_wa[GetCurrentID()] = wa;
+	Page::OnNavigatedFrom(e);
 }
 void TestPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArgs^ e)
 {
@@ -139,10 +167,6 @@ void TestPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArgs^ 
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }
 
-
-void CutTheWords::Views::TestPage::OnTextCompositionChanged(Windows::UI::Xaml::Controls::TextBox ^sender, Windows::UI::Xaml::Controls::TextCompositionChangedEventArgs ^args)
-{
-}
 
 
 void CutTheWords::Views::TestPage::OnTextChanged(Platform::Object ^sender, Windows::UI::Xaml::Controls::TextChangedEventArgs ^e)
@@ -186,12 +210,28 @@ void CutTheWords::Views::TestPage::OnRightTapped(Platform::Object ^sender, Windo
 
 void CutTheWords::Views::TestPage::fav_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	auto ar=ref new Array<int>(2);
+	auto ar=ref new Array<int>(3);
 	ar[0] = 0;
 	ar[1] = 0;
+	ar[2] = rand();
 	Frame->Navigate(
 		TypeName(TestPage2::typeid),
 		ar,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 
+}
+
+
+void CutTheWords::Views::TestPage::AppBarButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+	Init();
+}
+
+
+void CutTheWords::Views::TestPage::OnTapped(Platform::Object ^sender, Windows::UI::Xaml::Input::TappedRoutedEventArgs ^e)
+{
+	Frame->Navigate(
+		TypeName(SingleVocPage::typeid),
+		((TextBlock^)sender)->Text,
+		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }

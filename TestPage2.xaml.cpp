@@ -96,8 +96,13 @@ void TestPage2::ExpStack(wstring s, StackPanel^ expst) {
 void TestPage2::OnNavigatedTo(NavigationEventArgs^ e)
 {
 	auto score = dynamic_cast<Array<int>^>(e->Parameter);
-	ok = score[0];
-	wa = score[1];
+	if (score != nullptr) {
+		ok = score[0];
+		wa = score[1];
+		srand(score[2]);
+	}
+	else 
+		ok = wa = 0;
 	/*auto param = dynamic_cast<String^>(e->Parameter);
 	input_voc->Text = ref new String(param->Data());*/
 	vector<wstring>ve;
@@ -105,9 +110,6 @@ void TestPage2::OnNavigatedTo(NavigationEventArgs^ e)
 	title->Text = ref new String((L"正確:" + IntToStr(ok) + L" 錯誤:" + IntToStr(wa)).c_str());
 	test_stp->Children->Clear();
 	rand();
-	std::default_random_engine generator;
-	std::uniform_int_distribution<int> distribution(0, ve.size());
-	int random_int = distribution(generator);
 	auto rnd = [](int n)->int {return ((rand() << 16) + rand()) % n; };
 	ans = ve[rnd(ve.size())];
 	vector<wstring> words_ve;
@@ -134,26 +136,64 @@ void TestPage2::OnNavigatedTo(NavigationEventArgs^ e)
 	auto lis = ref new ListView();
 	lis->IsItemClickEnabled = true;
 	lis->ItemClick += ref new Windows::UI::Xaml::Controls::ItemClickEventHandler(this, &CutTheWords::Views::TestPage2::OnItemClick);
-	for(auto &x:prob)
-		lis->Items->Append(ref new String(x.c_str()));
+	for (auto &x : prob) {
+		auto tmp = ref new TextBlock();
+		tmp->Text = ref new String(x.c_str());
+		tmp->RightTapped += ref new Windows::UI::Xaml::Input::RightTappedEventHandler(this, &CutTheWords::Views::TestPage2::OnRightTapped);
+		lis->Items->Append(tmp);
+	}
 	test_stp->Children->Append(lis);
-	
+	SystemNavigationManager::GetForCurrentView()->AppViewBackButtonVisibility = AppViewBackButtonVisibility::Visible;
 	Page::OnNavigatedTo(e);
 }
 
+void CutTheWords::Views::TestPage2::OnNavigatedFrom(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) {
+	SystemNavigationManager::GetForCurrentView()->AppViewBackButtonVisibility = AppViewBackButtonVisibility::Collapsed;
+	Page::OnNavigatedFrom(e);
+}
 
 void CutTheWords::Views::TestPage2::OnItemClick(Platform::Object ^sender, Windows::UI::Xaml::Controls::ItemClickEventArgs ^e)
 {
-	auto str = dynamic_cast<String^>(e->ClickedItem);
-	if (str == ref new String(ans.c_str())) ok++;
-	else wa++;
-	auto ar = ref new Array<int>(2);
+	auto tmp = dynamic_cast<TextBlock^>(e->ClickedItem);
+	((ListView^)test_stp->Children->GetAt(1))->IsItemClickEnabled = false;
+	if (tmp->Text == ref new String(ans.c_str())) {
+		ok++;
+		auto tb = ref new TextBlock();
+		tb->Text = "正確";
+		test_stp->Children->Append(tb);
+	}
+	else {
+		wa++;
+		auto tb = ref new TextBlock();
+		tb->Text = "錯誤";
+		test_stp->Children->Append(tb);
+	}
+	auto ar = ref new Array<int>(3);
 	ar[0] = ok;
 	ar[1] = wa;
+	ar[2] = rand(); 
+	auto delay = ref new DispatcherTimer();
+	Windows::Foundation::TimeSpan time;
+	time.Duration = 20000000;
+	delay->Interval = time;
+	auto fr = Frame;
+	auto timerDelegate = [fr,delay,ar](Object^ e, Object^ ags) {
+		delay->Stop();
+		fr->Navigate(
+			TypeName(TestPage2::typeid),
+			ar,
+			ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+	};
+	delay->Tick += ref new EventHandler<Object^>(timerDelegate);
+	delay->Start();
+	
+}
+
+
+void CutTheWords::Views::TestPage2::OnRightTapped(Platform::Object ^sender, Windows::UI::Xaml::Input::RightTappedRoutedEventArgs ^e)
+{
 	Frame->Navigate(
-		TypeName(TestPage2::typeid),
-		ar,
+		TypeName(SingleVocPage::typeid),
+		((TextBlock^)sender)->Text,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
-
-
 }

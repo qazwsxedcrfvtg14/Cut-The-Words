@@ -95,6 +95,8 @@ inline std::wstring &rtrim(std::wstring &s);
 inline std::wstring trim(std::wstring s);
 void get_doc(wstring inp, map<wstring, wstring> &words, map<wstring, wstring> &ok, bool user = 1);
 void get_doc(wstring inp, map<wstring, wstring> &words, bool user = 1);
+wstring dump_doc(map<wstring, wstring> &words, map<wstring, wstring> &ok);
+wstring dump_doc(map<wstring, wstring> &words);
 wstring make_tail(wstring org, wstring tail);
 void match(wstring match, vector<wstring>& ve, wstring beg = L"");
 void  match_rot(wstring match, vector<wstring>&ve, wstring beg = L"");
@@ -129,7 +131,7 @@ std::string utf8_encode(const std::wstring &wstr);
 std::wstring utf8_decode(const std::string &str);
 wstring s2t(wstring s);
 
-extern bool scroll_load_not_finish;
+extern unordered_map<int,bool> scroll_load_not_finish;
 struct Json_Node {
 	int type;
 	wstring data;
@@ -145,3 +147,4 @@ extern wstring key_main;
 void kalisin(wstring path, wstring snd = L"", bool show_error = 1, function<void(wstring)> fnc = [](wstring s) {});
 void SavingSetting();
 int LevenshteinDistance(wstring s, wstring t);
+int GetCurrentID();

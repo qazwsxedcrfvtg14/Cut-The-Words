@@ -23,14 +23,17 @@ namespace CutTheWords
 			TestPage();
 		protected:
 			virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
+			virtual void OnNavigatedFrom(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 		private:
 			int ok = 0, wa = 0;
 			void ExpStack(wstring s, StackPanel ^ expst);
+			void Init();
 			void ListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
-			void OnTextCompositionChanged(Windows::UI::Xaml::Controls::TextBox ^sender, Windows::UI::Xaml::Controls::TextCompositionChangedEventArgs ^args);
 			void OnTextChanged(Platform::Object ^sender, Windows::UI::Xaml::Controls::TextChangedEventArgs ^e);
 			void OnRightTapped(Platform::Object ^sender, Windows::UI::Xaml::Input::RightTappedRoutedEventArgs ^e);
 			void fav_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+			void AppBarButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+			void OnTapped(Platform::Object ^sender, Windows::UI::Xaml::Input::TappedRoutedEventArgs ^e);
 		};
 	}
 }
