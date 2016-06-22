@@ -37,7 +37,7 @@ void FindVocPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }
 
-bool match_running;
+unordered_map<int, bool> match_running;
 
 unordered_map<int, Object^> SearchRootPage_Navigate_Obj1;
 unordered_map<int, Object^> SearchRootPage_Navigate_Obj2;
@@ -51,11 +51,15 @@ void FindVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 	}
 	auto svp2= dynamic_cast<ListView^>(SearchRootPage_Navigate_Obj2[GetCurrentID()]);
 	if (svp2 != nullptr) {
-		for (int i = 0;i < (int)(svp2->Items->Size);i++){
-			VocList->Items->Append(svp2->Items->GetAt(i));
+		deque<Object^>ve;
+		while ((int)(svp2->Items->Size))
+			ve.push_front(svp2->Items->GetAt(svp2->Items->Size-1)),
+			svp2->Items->RemoveAtEnd();
+		for (auto &x:ve){
+			VocList->Items->Append(x);
 		}
 	}
-	match_running = 0;
+	match_running[GetCurrentID()] = 0;
 	scroll_load_not_finish[GetCurrentID()] = 0;
 	Page::OnNavigatedTo(e);
 }
@@ -71,8 +75,8 @@ void FindVocPage::UpdateVocList(Platform::Object^ sender, ItemClickEventArgs^ e)
 }
 void FindVocPage::button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
-	if (!match_running) {
-		match_running = 1;
+	if (!match_running[GetCurrentID()]) {
+		//match_running[GetCurrentID()] = 1;
 		ShowLoading();
 		wstring q = input_voc->Text->Data();
 		//vector<wstring> ve;
@@ -103,7 +107,7 @@ void FindVocPage::button_Click(Platform::Object^ sender, Windows::UI::Xaml::Rout
 			else
 				scroll_load_not_finish[GetCurrentID()] = 0;
 			//ShowMsg(L"Ji");
-			match_running = 0;
+			match_running[GetCurrentID()] = 0;
 			HideLoading();
 		}, task_continuation_context::use_current());
 	}
@@ -117,8 +121,8 @@ void FindVocPage::TextBoxKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRo
 void FindVocPage::upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^ e) {
 	auto scro = (ScrollViewer^)sender;
 	if (scro->VerticalOffset >= scro->ScrollableHeight - 200 && scroll_load_not_finish[GetCurrentID()]) {
-		if (!match_running) {
-			match_running = 1;
+		if (!match_running[GetCurrentID()]) {
+			match_running[GetCurrentID()] = 1;
 			wstring q = input_voc->Text->Data(), qq = ((String^)(((TextBlock^)(((StackPanel^)(VocList->Items->GetAt(VocList->Items->Size - 1)))->Children->GetAt(0)))->Text))->Data();
 			//vector<wstring> ve;
 			//match(q, ve);
@@ -148,7 +152,7 @@ void FindVocPage::upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerV
 				else
 					scroll_load_not_finish[GetCurrentID()] = 0;
 				//ShowMsg(L"Ji");
-				match_running = 0;
+				match_running[GetCurrentID()] = 0;
 			}, task_continuation_context::use_current());
 		}
 	}

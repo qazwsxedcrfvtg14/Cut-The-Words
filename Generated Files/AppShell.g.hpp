@@ -105,99 +105,6 @@ private:
     }
 };
 
-/// <summary>
-/// Auto generated class for compiled bindings.
-/// </summary>
-class CutTheWords::AppShell::AppShell_obj1_Bindings 
-    : public ::XamlBindingInfo::XamlBindingsBase<::CutTheWords::AppShell>
-    , public ::XamlBindingInfo::IXamlBindingTracking
-{
-public:
-    AppShell_obj1_Bindings()
-    {
-        InitializeTracking(this);
-    }
-
-    void Connect(int __connectionId, ::Platform::Object^ __target)
-    {
-        switch(__connectionId)
-        {
-            case 9:
-                this->obj9 = safe_cast<::Windows::UI::Xaml::Controls::Button^>(__target);
-                break;
-        }
-    }
-private:
-    // Fields for each control that has bindings.
-    ::Windows::UI::Xaml::Controls::Button^ obj9;
-    
-    // Fields for binding tracking.
-    ::Windows::UI::Xaml::DependencyObject^ cacheDPC_AppFrame_CanGoBack = nullptr;
-    __int64 tokenDPC_AppFrame_CanGoBack = 0;
-
-    // Update methods for each path node used in binding steps.
-    void Update_(::CutTheWords::AppShell^ obj, int phase)
-    {
-        if (obj != nullptr)
-        {
-            if ((phase & (NOT_PHASED | DATA_CHANGED | (1 << 0))) != 0)
-            {
-                this->Update_AppFrame(obj->AppFrame, phase);
-            }
-        }
-    }
-    void Update_AppFrame(::Windows::UI::Xaml::Controls::Frame^ obj, int phase)
-    {
-                this->_bindingsTracking->UpdateDependencyPropertyChangedListener(obj, ::Windows::UI::Xaml::Controls::Frame::CanGoBackProperty, &this->cacheDPC_AppFrame_CanGoBack, &this->tokenDPC_AppFrame_CanGoBack);
-        if (obj != nullptr)
-        {
-            if ((phase & (NOT_PHASED | DATA_CHANGED | (1 << 0))) != 0)
-            {
-                this->Update_AppFrame_CanGoBack(obj->CanGoBack, phase);
-            }
-        }
-    }
-    void Update_AppFrame_CanGoBack(::Platform::Boolean obj, int phase)
-    {
-        if((phase & ((1 << 0) | NOT_PHASED | DATA_CHANGED)) != 0)
-        {
-            ::XamlBindingInfo::XamlBindingSetters::Set_Windows_UI_Xaml_Controls_Control_IsEnabled(this->obj9, obj);
-        }
-    }
-
-    virtual void ReleaseAllListeners() override
-    {
-                this->_bindingsTracking->UpdateDependencyPropertyChangedListener(nullptr, ::Windows::UI::Xaml::Controls::Frame::CanGoBackProperty, &this->cacheDPC_AppFrame_CanGoBack, &this->tokenDPC_AppFrame_CanGoBack);
-    }
-
-    virtual void PropertyChanged(Platform::Object^ sender, ::Windows::UI::Xaml::Data::PropertyChangedEventArgs^ e) override
-    {
-    }
-
-    void CollectionChanged(::Platform::Object^ sender, ::Windows::UI::Xaml::Interop::NotifyCollectionChangedEventArgs^ e)
-    {
-    }
-
-    void VectorChanged(::Platform::Object^ sender, ::Windows::Foundation::Collections::IVectorChangedEventArgs^ e)
-    {
-    }
-
-void DependencyPropertyChanged(::Windows::UI::Xaml::DependencyObject^ sender, Windows::UI::Xaml::DependencyProperty^ prop)
-    {
-        if (sender != nullptr)
-        {
-            if (sender->Equals(this->cacheDPC_AppFrame_CanGoBack) && ::Windows::UI::Xaml::Controls::Frame::CanGoBackProperty->Equals(prop))
-            {
-                ::Windows::UI::Xaml::Controls::Frame^ obj = safe_cast<::Windows::UI::Xaml::Controls::Frame^>(sender);
-                if (obj != nullptr)
-                {
-                    this->Update_AppFrame_CanGoBack(obj->CanGoBack, DATA_CHANGED);
-                }
-            }
-        }
-    }
-};
-
 void ::CutTheWords::AppShell::Connect(int __connectionId, ::Platform::Object^ __target)
 {
     switch (__connectionId)
@@ -211,17 +118,26 @@ void ::CutTheWords::AppShell::Connect(int __connectionId, ::Platform::Object^ __
             break;
         case 5:
             {
-                this->RootSplitView = safe_cast<::Windows::UI::Xaml::Controls::SplitView^>(__target);
+                this->LayoutRoot = safe_cast<::Windows::UI::Xaml::Controls::Grid^>(__target);
             }
             break;
         case 6:
             {
-                this->TogglePaneButton = safe_cast<::Windows::UI::Xaml::Controls::Primitives::ToggleButton^>(__target);
-                (safe_cast<::Windows::UI::Xaml::Controls::Primitives::ToggleButton^>(this->TogglePaneButton))->Unchecked += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::AppShell::*)
-                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&AppShell::TogglePaneButton_Checked);
+                this->RootSplitView = safe_cast<::Windows::UI::Xaml::Controls::SplitView^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::SplitView^>(this->RootSplitView))->PaneClosed += ref new ::Windows::Foundation::TypedEventHandler<::Windows::UI::Xaml::Controls::SplitView^, ::Platform::Object^>(this, (void (::CutTheWords::AppShell::*)
+                    (::Windows::UI::Xaml::Controls::SplitView^, ::Platform::Object^))&AppShell::RootSplitView_PaneClosed);
             }
             break;
         case 7:
+            {
+                this->TogglePaneButton = safe_cast<::Windows::UI::Xaml::Controls::Primitives::ToggleButton^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::Primitives::ToggleButton^>(this->TogglePaneButton))->Unchecked += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::AppShell::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&AppShell::TogglePaneButton_Unchecked);
+                (safe_cast<::Windows::UI::Xaml::Controls::Primitives::ToggleButton^>(this->TogglePaneButton))->Checked += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::AppShell::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&AppShell::TogglePaneButton_Checked);
+            }
+            break;
+        case 8:
             {
                 this->top_frame = safe_cast<::Windows::UI::Xaml::Controls::Frame^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::Frame^>(this->top_frame))->Navigating += ref new ::Windows::UI::Xaml::Navigation::NavigatingCancelEventHandler(this, (void (::CutTheWords::AppShell::*)
@@ -230,7 +146,7 @@ void ::CutTheWords::AppShell::Connect(int __connectionId, ::Platform::Object^ __
                     (::Platform::Object^, ::Windows::UI::Xaml::Navigation::NavigationEventArgs^))&AppShell::OnNavigatedToPage);
             }
             break;
-        case 8:
+        case 9:
             {
                 this->NavMenuList = safe_cast<::CutTheWords::Controls::NavMenuListView^>(__target);
                 (safe_cast<::CutTheWords::Controls::NavMenuListView^>(this->NavMenuList))->ContainerContentChanging += ref new ::Windows::Foundation::TypedEventHandler<::Windows::UI::Xaml::Controls::ListViewBase^, ::Windows::UI::Xaml::Controls::ContainerContentChangingEventArgs^>(this, (void (::CutTheWords::AppShell::*)
@@ -239,14 +155,26 @@ void ::CutTheWords::AppShell::Connect(int __connectionId, ::Platform::Object^ __
                     (::Platform::Object^, ::Windows::UI::Xaml::Controls::ListViewItem^))&AppShell::NavMenuList_ItemInvoked);
             }
             break;
-        case 9:
+        case 10:
             {
-                this->BackButton = safe_cast<::Windows::UI::Xaml::Controls::Button^>(__target);
-                (safe_cast<::Windows::UI::Xaml::Controls::Button^>(this->BackButton))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::AppShell::*)
-                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&AppShell::BackButton_Click);
+                this->NavPaneDivider = safe_cast<::Windows::UI::Xaml::Shapes::Rectangle^>(__target);
             }
             break;
-        case 10:
+        case 11:
+            {
+                this->FeedbackNavPaneButton = safe_cast<::Windows::UI::Xaml::Controls::Button^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::Button^>(this->FeedbackNavPaneButton))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::AppShell::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&AppShell::FeedbackNavPaneButton_Click);
+            }
+            break;
+        case 12:
+            {
+                this->SettingsNavPaneButton = safe_cast<::Windows::UI::Xaml::Controls::Button^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::Button^>(this->SettingsNavPaneButton))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::AppShell::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&AppShell::SettingsNavPaneButton_Click);
+            }
+            break;
+        case 13:
             {
                 this->frame = safe_cast<::Windows::UI::Xaml::Controls::Frame^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::Frame^>(this->frame))->Navigating += ref new ::Windows::UI::Xaml::Navigation::NavigatingCancelEventHandler(this, (void (::CutTheWords::AppShell::*)
@@ -264,16 +192,6 @@ void ::CutTheWords::AppShell::Connect(int __connectionId, ::Platform::Object^ __
     ::XamlBindingInfo::XamlBindings^ bindings = nullptr;
     switch (__connectionId)
     {
-        case 1:
-            {
-                ::Windows::UI::Xaml::Controls::Page^ element1 = safe_cast<::Windows::UI::Xaml::Controls::Page^>(__target);
-                AppShell_obj1_Bindings* objBindings = new AppShell_obj1_Bindings();
-                objBindings->SetDataRoot(this);
-                bindings = ref new ::XamlBindingInfo::XamlBindings(objBindings);
-                this->Bindings = bindings;
-                element1->Loading += ref new ::Windows::Foundation::TypedEventHandler<::Windows::UI::Xaml::FrameworkElement^, ::Platform::Object^>(bindings, &::XamlBindingInfo::XamlBindings::Loading);
-            }
-            break;
         case 2:
             {
                 ::Windows::UI::Xaml::Controls::Grid^ element2 = safe_cast<::Windows::UI::Xaml::Controls::Grid^>(__target);

@@ -220,10 +220,6 @@ namespace XamlBindingInfo
     ref class XamlBindingSetters sealed
     {
     internal:
-        static void Set_Windows_UI_Xaml_Controls_Control_IsEnabled(::Windows::UI::Xaml::Controls::Control^ obj, ::Platform::Boolean value)
-        {
-            obj->IsEnabled = value;
-        }
         static void Set_Windows_UI_Xaml_Controls_FontIcon_Glyph(::Windows::UI::Xaml::Controls::FontIcon^ obj, ::Platform::String^ value, ::Platform::String^ targetNullValue)
         {
             if (value == nullptr && targetNullValue != nullptr)

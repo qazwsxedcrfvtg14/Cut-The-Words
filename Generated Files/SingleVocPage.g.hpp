@@ -39,14 +39,14 @@ public:
     {
         switch(__connectionId)
         {
-            case 8:
-                this->obj8 = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(__target);
+            case 9:
+                this->obj9 = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(__target);
                 break;
         }
     }
 private:
     // Fields for each control that has bindings.
-    ::Windows::UI::Xaml::Controls::TextBlock^ obj8;
+    ::Windows::UI::Xaml::Controls::TextBlock^ obj9;
 
     // Update methods for each path node used in binding steps.
     void Update_(::CutTheWords::Views::SingleVocPage^ obj, int phase)
@@ -63,7 +63,7 @@ private:
     {
         if((phase & ((1 << 0) | NOT_PHASED )) != 0)
         {
-            ::XamlBindingInfo::XamlBindingSetters::Set_Windows_UI_Xaml_Controls_TextBlock_Text(this->obj8, obj, nullptr);
+            ::XamlBindingInfo::XamlBindingSetters::Set_Windows_UI_Xaml_Controls_TextBlock_Text(this->obj9, obj, nullptr);
         }
     }
 };
@@ -81,156 +81,168 @@ void ::CutTheWords::Views::SingleVocPage::Connect(int __connectionId, ::Platform
             break;
         case 2:
             {
+                this->media = safe_cast<::Windows::UI::Xaml::Controls::MediaElement^>(__target);
+            }
+            break;
+        case 3:
+            {
                 this->scro = safe_cast<::Windows::UI::Xaml::Controls::ScrollViewer^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::ScrollViewer^>(this->scro))->ViewChanged += ref new ::Windows::Foundation::EventHandler<::Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^>(this, (void (::CutTheWords::Views::SingleVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^))&SingleVocPage::upd);
             }
             break;
-        case 3:
+        case 4:
             {
                 this->FadOutEditPanel = safe_cast<::Windows::UI::Xaml::Media::Animation::Storyboard^>(__target);
             }
             break;
-        case 4:
+        case 5:
             {
                 this->FadInEditPanel = safe_cast<::Windows::UI::Xaml::Media::Animation::Storyboard^>(__target);
             }
             break;
-        case 5:
+        case 6:
             {
                 this->FadOutDelPanel = safe_cast<::Windows::UI::Xaml::Media::Animation::Storyboard^>(__target);
             }
             break;
-        case 6:
+        case 7:
             {
                 this->FadInDelPanel = safe_cast<::Windows::UI::Xaml::Media::Animation::Storyboard^>(__target);
             }
             break;
-        case 7:
+        case 8:
             {
                 this->topbar = safe_cast<::Windows::UI::Xaml::Controls::CommandBar^>(__target);
             }
             break;
-        case 8:
+        case 9:
             {
                 this->tivoc = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(__target);
             }
             break;
-        case 9:
+        case 10:
             {
                 this->play_but = safe_cast<::Windows::UI::Xaml::Controls::Button^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::Button^>(this->play_but))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::PlayButton_Click);
             }
             break;
-        case 10:
+        case 11:
             {
                 this->kk = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(__target);
             }
             break;
-        case 11:
+        case 12:
+            {
+                this->expst = safe_cast<::Windows::UI::Xaml::Controls::ScrollViewer^>(__target);
+            }
+            break;
+        case 13:
             {
                 this->note_view = safe_cast<::Windows::UI::Xaml::Controls::ScrollViewer^>(__target);
             }
             break;
-        case 12:
+        case 14:
+            {
+                this->alias_list = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::ListView^>(this->alias_list))->ItemClick += ref new ::Windows::UI::Xaml::Controls::ItemClickEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::Controls::ItemClickEventArgs^))&SingleVocPage::alias_list_ItemClick);
+            }
+            break;
+        case 15:
+            {
+                this->ad = safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(__target);
+            }
+            break;
+        case 16:
             {
                 this->VocList = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::ListView^>(this->VocList))->ItemClick += ref new ::Windows::UI::Xaml::Controls::ItemClickEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Controls::ItemClickEventArgs^))&SingleVocPage::VocListView_ItemClick);
             }
             break;
-        case 13:
+        case 17:
             {
                 this->EditPanel = safe_cast<::Windows::UI::Xaml::Controls::ScrollViewer^>(__target);
             }
             break;
-        case 14:
+        case 18:
             {
                 this->DelPanel = safe_cast<::Windows::UI::Xaml::Controls::StackPanel^>(__target);
             }
             break;
-        case 15:
-            {
-                this->media = safe_cast<::Windows::UI::Xaml::Controls::MediaElement^>(__target);
-            }
-            break;
-        case 16:
+        case 19:
             {
                 this->DelList = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::ListView^>(this->DelList))->ItemClick += ref new ::Windows::UI::Xaml::Controls::ItemClickEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Controls::ItemClickEventArgs^))&SingleVocPage::DelPanelListView_ItemClick);
             }
             break;
-        case 17:
+        case 20:
             {
                 this->block = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(__target);
             }
             break;
-        case 18:
+        case 21:
             {
                 this->EditList = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::ListView^>(this->EditList))->ItemClick += ref new ::Windows::UI::Xaml::Controls::ItemClickEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Controls::ItemClickEventArgs^))&SingleVocPage::ListView_ItemClick);
             }
             break;
-        case 19:
+        case 22:
             {
                 this->block2 = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(__target);
             }
             break;
-        case 20:
+        case 23:
             {
                 this->EditList2 = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::ListView^>(this->EditList2))->ItemClick += ref new ::Windows::UI::Xaml::Controls::ItemClickEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Controls::ItemClickEventArgs^))&SingleVocPage::ListView2_ItemClick);
             }
             break;
-        case 21:
+        case 24:
             {
                 this->pics = safe_cast<::Windows::UI::Xaml::Controls::StackPanel^>(__target);
             }
             break;
-        case 22:
+        case 25:
             {
                 this->voc_croot = safe_cast<::Windows::UI::Xaml::Controls::StackPanel^>(__target);
             }
             break;
-        case 23:
+        case 26:
             {
                 this->voc_root = safe_cast<::Windows::UI::Xaml::Controls::StackPanel^>(__target);
             }
             break;
-        case 24:
-            {
-                this->expst = safe_cast<::Windows::UI::Xaml::Controls::StackPanel^>(__target);
-            }
-            break;
-        case 25:
+        case 27:
             {
                 this->fav = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(this->fav))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::FavoriteButton_Click);
             }
             break;
-        case 26:
-            {
-                ::Windows::UI::Xaml::Controls::AppBarButton^ element26 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
-                (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element26))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
-                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::F5Button_Click);
-            }
-            break;
-        case 27:
-            {
-                ::Windows::UI::Xaml::Controls::AppBarButton^ element27 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
-                (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element27))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
-                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::EditButton_Click);
-            }
-            break;
         case 28:
             {
                 ::Windows::UI::Xaml::Controls::AppBarButton^ element28 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element28))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::F5Button_Click);
+            }
+            break;
+        case 29:
+            {
+                ::Windows::UI::Xaml::Controls::AppBarButton^ element29 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element29))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::EditButton_Click);
+            }
+            break;
+        case 30:
+            {
+                ::Windows::UI::Xaml::Controls::AppBarButton^ element30 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element30))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleVocPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleVocPage::DeleteButton_Click);
             }
             break;

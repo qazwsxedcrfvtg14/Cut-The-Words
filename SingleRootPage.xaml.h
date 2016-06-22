@@ -6,6 +6,7 @@
 #pragma once
 
 using namespace Platform;
+using namespace Microsoft::Advertising::WinRT::UI;
 
 #include "SingleRootPage.g.h"
 #include "Voc.h"
@@ -21,18 +22,12 @@ namespace CutTheWords
 		{
 		public:
 			SingleRootPage();
-			property String^ Vocabulary
-			{
-				String^ get();
-				void set(String^);
-			}
 		protected:
 			virtual void OnNavigatedTo(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 			virtual void OnNavigatedFrom(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 
 		private:
-			String^ _voc;
-			wstring _exp;
+			wstring _exp,_voc;
 			bool EditPanelVis = 0;
 			bool DelPanelVis = 0;
 			void EditButton_Click(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
@@ -41,6 +36,9 @@ namespace CutTheWords
 			void VocListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void DelPanelListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void PageKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e);
+			void OnErrorOccurred(Object^ sender, AdErrorEventArgs^ e);
+			void OnAdRefreshed(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ args);
+			void alias_list_ItemClick(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 		};
 	}
 }

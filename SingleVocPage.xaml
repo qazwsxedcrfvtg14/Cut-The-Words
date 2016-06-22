@@ -6,9 +6,13 @@
     xmlns:ctl="using:CutTheWords.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
     mc:Ignorable="d"
     KeyDown="PageKeyDown"
     >
+    <Page.Resources>
+        <MediaElement x:Name="media" Visibility="Collapsed" AutoPlay="False"/>
+    </Page.Resources>
     <ScrollViewer x:Name="scro" VerticalScrollBarVisibility="Auto" ViewChanged="upd">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.Resources>
@@ -85,6 +89,8 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -92,32 +98,16 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-            <CommandBar Grid.ColumnSpan="2" x:Name="topbar" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+            <CommandBar Grid.ColumnSpan="2" x:Name="topbar" VerticalAlignment="Top" HorizontalContentAlignment="Stretch" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <AppBarButton x:Name="fav" Icon="Favorite" Label="最愛" Click="FavoriteButton_Click"/>
                 <AppBarButton Icon="Refresh" Label="更新" Click="F5Button_Click"/>
                 <AppBarButton Icon="Edit" Label="編輯" Click="EditButton_Click"/>
                 <AppBarButton Icon="Delete" Label="刪除" Click="DeleteButton_Click"/>
-                <!--<AppBarSeparator/>
-                <AppBarToggleButton Icon="Sort" Label="Sort"/>
-                <CommandBar.SecondaryCommands>
-                    <AppBarButton Label="Menu Item 1"/>
-                    <AppBarButton Label="Menu Item 2"/>
-                    <AppBarButton Label="Menu Item 3"/>
-                </CommandBar.SecondaryCommands>
-                <CommandBar.Content>
-                    <ctl:PageHeader>
-                        <ctl:PageHeader.HeaderContent>
-                            <TextBlock Text="" Style="{ThemeResource PageTitleTextBlockStyle}" TextWrapping="NoWrap"/>
-                        </ctl:PageHeader.HeaderContent>
-                    </ctl:PageHeader>
-                </CommandBar.Content>-->
             </CommandBar>
-            <TextBlock Grid.Row="1" x:Name="tivoc" VerticalAlignment="Center" Text="{x:Bind Vocabulary}" Margin="20" Style="{ThemeResource TitleTextBlockStyle}"/>
+            <TextBlock x:Name="tivoc" Grid.Row="1" VerticalAlignment="Center" Text="{x:Bind Vocabulary}" Margin="20" Style="{ThemeResource TitleTextBlockStyle}"/>
             <Button Grid.Row="1" Grid.Column="1" x:Name="play_but" FontFamily="Segoe MDL2 Assets" Content="&#xE767;" Background="Transparent" Click="PlayButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,7,0,0" />
             <TextBlock Grid.Row="1" Grid.Column="1" x:Name="kk" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="40,7,0,0" />
-            <ScrollViewer Grid.Row="2" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                <StackPanel x:Name="expst"  Orientation="Vertical" Margin="20,0,0,0"/>
-            </ScrollViewer>
+            <ScrollViewer x:Name="expst" Grid.Row="2" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled"/>
             <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                 <StackPanel x:Name="voc_root" Orientation="Horizontal"/>
             </ScrollViewer>
@@ -126,14 +116,24 @@
             </ScrollViewer>
             <ScrollViewer x:Name="note_view" Grid.Row="5" Grid.ColumnSpan="2"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
             </ScrollViewer>
-            <ScrollViewer Grid.Row="6" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <ListView x:Name="alias_list" Grid.Row="6" Grid.ColumnSpan="2" 
+                  EntranceNavigationTransitionInfo.IsTargetElement="True"
+                  IsItemClickEnabled="True"
+                  ItemClick="alias_list_ItemClick"/>
+            <ScrollViewer Grid.Row="7" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
                 <StackPanel x:Name="pics"  Orientation="Horizontal" Margin="20,0,0,0"/>
             </ScrollViewer>
-            <ListView Grid.Row="7" Grid.ColumnSpan="2" x:Name="VocList" 
+            <ads:AdControl
+                x:Name="ad"
+                Grid.Row="8" Grid.ColumnSpan="2"
+                ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299427"
+                Width="728" Height="90"
+                Margin="20,5,5,5"/>
+            <ListView Grid.Row="9" Grid.ColumnSpan="2" x:Name="VocList" 
                   EntranceNavigationTransitionInfo.IsTargetElement="True"
                   IsItemClickEnabled="True"
                   ItemClick="VocListView_ItemClick" />
-            <ScrollViewer  x:Name="EditPanel" Opacity="0" Visibility="Visible" Grid.Row="3" Grid.RowSpan="5" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+            <ScrollViewer  x:Name="EditPanel" Opacity="0" Visibility="Visible" Grid.Row="3" Grid.RowSpan="7" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical" 
                         Background="{ThemeResource MenuFlyoutItemFocusedBackgroundThemeBrush}">
                     <TextBlock Text="應該如何拆解?" Margin="10"/>
@@ -167,7 +167,7 @@
                     </ListView>
                 </StackPanel>
             </ScrollViewer>
-            <StackPanel Grid.Row="3" Grid.RowSpan="5" Grid.ColumnSpan="2" Orientation="Vertical" 
+            <StackPanel Grid.Row="3" Grid.RowSpan="7" Grid.ColumnSpan="2" Orientation="Vertical" 
                         x:Name="DelPanel" Opacity="0" Visibility="Visible" 
                         Background="{ThemeResource MenuFlyoutItemFocusedBackgroundThemeBrush}">
                 <TextBlock Text="確定刪除?" Margin="10" HorizontalAlignment="Center"/>
@@ -203,7 +203,7 @@
             </Grid>
     -->
 
-            <MediaElement x:Name="media" Visibility="Collapsed" AutoPlay="False"/>
+            
         </Grid>
     </ScrollViewer>
 </Page>

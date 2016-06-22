@@ -6,7 +6,6 @@
 //     the code is regenerated.
 //------------------------------------------------------------------------------
 
-#include "XamlBindingInfo.g.h"
 
 namespace Windows {
     namespace UI {
@@ -14,6 +13,7 @@ namespace Windows {
             namespace Controls {
                 ref class ScrollViewer;
                 ref class CommandBar;
+                ref class TextBlock;
                 ref class ListView;
                 ref class StackPanel;
                 ref class TextBox;
@@ -49,15 +49,15 @@ namespace CutTheWords
         
         private:
             bool _contentLoaded;
-            class SingleRootPage_obj1_Bindings;
         
-            ::XamlBindingInfo::XamlBindings^ Bindings;
             private: ::Windows::UI::Xaml::Controls::ScrollViewer^ scro;
             private: ::Windows::UI::Xaml::Media::Animation::Storyboard^ FadOutEditPanel;
             private: ::Windows::UI::Xaml::Media::Animation::Storyboard^ FadInEditPanel;
             private: ::Windows::UI::Xaml::Media::Animation::Storyboard^ FadOutDelPanel;
             private: ::Windows::UI::Xaml::Media::Animation::Storyboard^ FadInDelPanel;
             private: ::Windows::UI::Xaml::Controls::CommandBar^ topbar;
+            private: ::Windows::UI::Xaml::Controls::TextBlock^ title;
+            private: ::Windows::UI::Xaml::Controls::ListView^ alias_list;
             private: ::Windows::UI::Xaml::Controls::ListView^ VocList;
             private: ::Windows::UI::Xaml::Controls::StackPanel^ EditPanel;
             private: ::Windows::UI::Xaml::Controls::StackPanel^ DelPanel;

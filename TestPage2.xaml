@@ -6,12 +6,15 @@
     xmlns:ctl="using:CutTheWords.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
     mc:Ignorable="d">
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <ctl:PageHeader>
@@ -19,10 +22,18 @@
                 <TextBlock x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text=""/>
             </ctl:PageHeader.HeaderContent>
         </ctl:PageHeader>
-
-        <ScrollViewer Grid.Row="1" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+        <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3" Text="如果想看小抄請直接在選項上按【右鍵】"/>
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="test_stp" Orientation="Vertical" Margin="10"/>
         </ScrollViewer>
+        <ads:AdControl
+                Grid.Row="3"
+                ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299427"
+                AdRefreshed="OnAdRefreshed"
+                ErrorOccurred="OnErrorOccurred"
+                Width="728"
+                Height="90"
+                Margin="5"/>
     </Grid>
 
 </Page>

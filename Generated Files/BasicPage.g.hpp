@@ -29,9 +29,39 @@ void ::CutTheWords::Views::BasicPage::Connect(int __connectionId, ::Platform::Ob
     {
         case 1:
             {
-                this->host_name = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(__target);
-                (safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(this->host_name))->TextChanged += ref new ::Windows::UI::Xaml::Controls::TextChangedEventHandler(this, (void (::CutTheWords::Views::BasicPage::*)
-                    (::Platform::Object^, ::Windows::UI::Xaml::Controls::TextChangedEventArgs^))&BasicPage::host_name_TextChanged);
+                this->stp = safe_cast<::Windows::UI::Xaml::Controls::StackPanel^>(__target);
+            }
+            break;
+        case 2:
+            {
+                ::Microsoft::Advertising::WinRT::UI::AdControl^ element2 = safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(__target);
+                (safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(element2))->AdRefreshed += ref new ::Windows::Foundation::EventHandler<::Windows::UI::Xaml::RoutedEventArgs^>(this, (void (::CutTheWords::Views::BasicPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&BasicPage::OnAdRefreshed);
+                (safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(element2))->ErrorOccurred += ref new ::Windows::Foundation::EventHandler<::Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^>(this, (void (::CutTheWords::Views::BasicPage::*)
+                    (::Platform::Object^, ::Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^))&BasicPage::OnErrorOccurred);
+            }
+            break;
+        case 3:
+            {
+                ::Microsoft::Advertising::WinRT::UI::AdControl^ element3 = safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(__target);
+                (safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(element3))->AdRefreshed += ref new ::Windows::Foundation::EventHandler<::Windows::UI::Xaml::RoutedEventArgs^>(this, (void (::CutTheWords::Views::BasicPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&BasicPage::OnAdRefreshed);
+                (safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(element3))->ErrorOccurred += ref new ::Windows::Foundation::EventHandler<::Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^>(this, (void (::CutTheWords::Views::BasicPage::*)
+                    (::Platform::Object^, ::Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^))&BasicPage::OnErrorOccurred);
+            }
+            break;
+        case 4:
+            {
+                ::Windows::UI::Xaml::Controls::Button^ element4 = safe_cast<::Windows::UI::Xaml::Controls::Button^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::Button^>(element4))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::BasicPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&BasicPage::RunInterstitialAd);
+            }
+            break;
+        case 5:
+            {
+                ::Windows::UI::Xaml::Controls::Button^ element5 = safe_cast<::Windows::UI::Xaml::Controls::Button^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::Button^>(element5))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::BasicPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&BasicPage::Button_Click);
             }
             break;
     }

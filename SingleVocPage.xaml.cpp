@@ -25,140 +25,76 @@ using namespace CutTheWords::Views;
 SingleVocPage::SingleVocPage()
 {
 	InitializeComponent();
+	if (!IsTrial) 
+		ad->Visibility= Windows::UI::Xaml::Visibility::Collapsed;
 }
 
 bool note_bool;
 void SingleVocPage::OnNavigatedFrom(NavigationEventArgs^ e) {
-	Symbol::Play;
-	SystemNavigationManager::GetForCurrentView()->AppViewBackButtonVisibility = AppViewBackButtonVisibility::Collapsed;
+	//SystemNavigationManager::GetForCurrentView()->AppViewBackButtonVisibility = AppViewBackButtonVisibility::Collapsed;
 
 	Page::OnNavigatedFrom(e);
 	}
-void SingleVocPage::ExpStack() {
-	expst->Children->Clear();
-	wstring s(Explanation->Data());
-	s = trim(s);
-	wstring vol,pre;
-	bool iv=0;
-	auto stp=ref new StackPanel();
-	stp->Orientation = Orientation::Horizontal;
-	for (auto x : s)
-		if (!iv&&x == '[') {
-			pre = trim(pre);
-			if (pre != L"") {
-				auto tmp = ref new TextBlock();
-				tmp->Text = ref new String(trim(pre).c_str());
-				tmp->FontSize = 20;
-				tmp->Margin = Thickness(10, 0, 0, 0);
-				tmp->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
-				tmp->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
-				stp->Children->Append(tmp);
-				expst->Children->Append(stp);
-				stp = ref new StackPanel();
-				stp->Orientation = Orientation::Horizontal;
-				pre.clear();
-				}
-			iv = 1;
-		}
-		else if (iv&&x == ']') {
-			if(pre==L"XX"){
-				/*
-				auto tmp = ref new Image;
-				tmp->Source = ref new Media::Imaging::BitmapImage(ref new Uri(L"ms-appx:///Assets/v.jpg"));
-				tmp->Margin = Thickness(10, 0, 0, 0);
-				tmp->Height = 2;
-				expst->Children->Append(tmp);
-				*/
-			}
-			else {
-				auto tmp = ref new TextBlock();
-				tmp->Text = ref new String(trim(pre).c_str());
-				tmp->FontSize = 20;
-				tmp->FontWeight = Text::FontWeights::Bold;
-				tmp->Margin = Thickness(2, 1,2,1);
-				tmp->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
-				tmp->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
-				auto bor = ref new Border();
-				bor->MinWidth = 50;
-				bor->Margin = Thickness(10, 0, 0, 4);
-				bor->BorderBrush = ref new SolidColorBrush(Windows::UI::Colors::Gray);
-				bor->BorderThickness = 2;
-				bor->Child = tmp;
-
-				stp->Children->Append(bor);
-			}
-			pre.clear();
-			iv = 0;
-		}
-		else pre += x;
-	if (pre != L""){
-		auto tmp = ref new TextBlock();
-		tmp->Text = ref new String(trim(pre).c_str());
-		tmp->FontSize = 20;
-		tmp->Margin = Thickness(10, 0, 0, 0);
-		tmp->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
-		tmp->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
-		stp->Children->Append(tmp);
-		expst->Children->Append(stp);
-	}
-}
-void SingleVocPage::Init(wstring data) {
+void SingleVocPage::Init(wstring data,bool first) {
+	tivoc->Text = ref new String(data.c_str());
 	wds = GetExp(words[data]);
 	Explanation = ref new String(wds.f.c_str());
-	ExpStack();
-	get(setting[L"sound_url"] + data, [=](wstring s) {
-		auto be = s.find(setting[L"sound_url2"]);
-		if (be == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000001)");*/  return; }
-		s = s.substr(be);
-		auto ed = s.find(setting[L"sound_type"]);
-		if (ed == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000002)");*/ return; }
-		s = s.substr(0, ed + 4);
-		while (1) {
-			auto pos = s.substr(1).find(setting[L"sound_url2"]);
-			if (pos == wstring::npos)break;
-			s = s.substr(pos + 1);
-		}
-		media->Source = ref new Uri(ref new String(s.c_str()));
-		if(setting[L"auto_play"]==L"On")
-			media->AutoPlay = 1;
-		play_but->Visibility = Windows::UI::Xaml::Visibility::Visible;
-		
-	}, [=] {});
-	get(L"https://www.bing.com/images/search?q=" + data, [=](wstring s) {
-		pics->Children->Clear();
-		for (int i = 0;i < 4;i++){
-			auto be = s.find(L".mm.bing.net/");
-			if (be == std::wstring::npos&&be - 25 > 0) { /*ShowMsg(L"解析錯誤!(0x00000001)"); */ return; }
-			s = s.substr(be - 25);
-			be = s.find(L"http");
-			if (be == std::wstring::npos) {/* ShowMsg(L"解析錯誤!(0x00000003)");  */return; }
+	expst->Content = ExpStack(wds.f,20);
+	if (first) {
+		get(setting[L"sound_url"] + data, [=](wstring s) {
+			auto be = s.find(setting[L"sound_url2"]);
+			if (be == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000001)");*/  return; }
 			s = s.substr(be);
-			auto ed = s.find(L"\"");
-			if (ed == std::wstring::npos) {/* ShowMsg(L"解析錯誤!(0x00000002)");*/ return; }
-			auto tmp = ref new Image;
-			tmp->Source = ref new Media::Imaging::BitmapImage(ref new Uri(ref new String(s.substr(0, ed).c_str())));
-			s=s.substr(ed);
-			tmp->Margin = Thickness(10, 0, 0, 0);
-			tmp->Height = 150;
-			pics->Children->Append(tmp);
-		}
-	}, [=] {});
-	get(L"http://tw.dictionary.search.yahoo.com/search?p=" + (wstring)data, [=](wstring web) {
-		int len = int(web.length());
-		auto beg = web.find(L">KK[");
-		if (beg == wstring::npos)return;
-		web = web.substr(beg);
-		//ShowMsg(web);
-		beg = web.find(L"[");
-		if (beg == wstring::npos)return;
-		web = web.substr(beg);
-		beg = web.find(L"]");
-		if (beg == wstring::npos)return;
-		web = web.substr(0,beg+1);
-		kk->Text = ref new String(web.c_str());
-		
-	}, [] {});
+			auto ed = s.find(setting[L"sound_type"]);
+			if (ed == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000002)");*/ return; }
+			s = s.substr(0, ed + 4);
+			while (1) {
+				auto pos = s.substr(1).find(setting[L"sound_url2"]);
+				if (pos == wstring::npos)break;
+				s = s.substr(pos + 1);
+			}
+			media->Source = ref new Uri(ref new String(s.c_str()));
+			if (setting[L"auto_play"] == L"On")
+				media->AutoPlay = 1;
+			play_but->Visibility = Windows::UI::Xaml::Visibility::Visible;
 
+		}, [=] {});
+		get(L"https://www.bing.com/images/search?q=" + data, [=](wstring s) {
+			pics->Children->Clear();
+			for (int i = 0; i < 4; i++) {
+				auto be = s.find(L".mm.bing.net/");
+				if (be == std::wstring::npos || be - 25 < 0) { /*ShowMsg(L"解析錯誤!(0x00000001)"); */ return; }
+				s = s.substr(be - 25);
+				be = s.find(L"http");
+				if (be == std::wstring::npos) {/* ShowMsg(L"解析錯誤!(0x00000003)");  */return; }
+				s = s.substr(be);
+				auto ed = s.find(L"\"");
+				if (ed == std::wstring::npos) {/* ShowMsg(L"解析錯誤!(0x00000002)");*/ return; }
+				auto tmp = ref new Image;
+				tmp->Source = ref new Media::Imaging::BitmapImage(ref new Uri(ref new String(s.substr(0, ed).c_str())));
+				s = s.substr(ed);
+				tmp->Margin = Thickness(10, 0, 0, 0);
+				tmp->Height = 150;
+				pics->Children->Append(tmp);
+				s = s.substr(ed - 1);
+			}
+		}, [=] {});
+		get(L"http://tw.dictionary.search.yahoo.com/search?p=" + (wstring)data, [=](wstring web) {
+			int len = int(web.length());
+			auto beg = web.find(L">KK[");
+			if (beg == wstring::npos)return;
+			web = web.substr(beg);
+			//ShowMsg(web);
+			beg = web.find(L"[");
+			if (beg == wstring::npos)return;
+			web = web.substr(beg);
+			beg = web.find(L"]");
+			if (beg == wstring::npos)return;
+			web = web.substr(0, beg + 1);
+			kk->Text = ref new String(web.c_str());
+
+		}, [] {});
+	}
 	auto ve = Show(data);
 	vector<ComboBox^> tp;
 	vector<TextBlock^> tmp;
@@ -191,44 +127,63 @@ void SingleVocPage::Init(wstring data) {
 	}
 	if (favorite.find(Vocabulary->Data()) != favorite.end())
 		fav->Icon = ref new SymbolIcon(Symbol::UnFavorite);
-	Windows::UI::Xaml::DispatcherTimer^ tempdispatchertime = ref new DispatcherTimer();
-	Windows::Foundation::TimeSpan time;
-	time.Duration = 10000;
-	tempdispatchertime->Interval = time;
-	VocList->Items->Clear();
-	VocList->IsItemClickEnabled = false;
-	VocList->Items->Append("讀取中...");
-	if (inited) {
+	wstring _voc = data,_exp=GetExpSimple(words[_voc]);
+	create_task([=] {
+		vector<wstring>ve;
+		for (auto x : words)
+			if (x.first != _voc&&GetExpSimple(x.s) == _exp)
+				ve.push_back(x.f);
+		return ve;
+	}).then([this](vector<wstring>ve) {
+		Dispatcher->RunAsync(CoreDispatcherPriority::High, ref new DispatchedHandler([this,ve]()
+		{
+			alias_list->Items->Clear();
+			for(auto &x:ve)
+				alias_list->Items->Append(ref new String(x.c_str()));
+		}));
+	});
+	if (first) {
 		VocList->Items->Clear();
-		for (auto &x : rt[data]) {
-			auto stp = ref new StackPanel();
-			stp->Orientation = Orientation::Horizontal;
-			auto tmp = ref new TextBlock();
-			tmp->Text = ref new String(x.c_str());
-			stp->Children->Append(tmp);
-			tmp = ref new TextBlock();
-			int len = (int)x.length();
-			wstring _exp = GetExpSimple(words[x]);
-			_exp = trim(_exp);
-			tmp->Text = ref new String(_exp.c_str());
-			tmp->Margin = Thickness(20, 0, 0, 0);
-			stp->Children->Append(tmp);
-			VocList->Items->Append(stp);
-		}
-		VocList->IsItemClickEnabled = true;
-	}
-	else {
-		auto timerDelegate = [=](Object^ e, Object^ ags) {
-			if (inited) {
+		VocList->IsItemClickEnabled = false;
+		VocList->Items->Append("讀取中...");
+		create_task([=] {
+			vector<wstring> ve;
+			if (data.length() == 1 || data.find(' ') != wstring::npos)
+				return ve;
+			wstring reg_string;
+			int len = (int)data.length();
+			if (len > 2 && data.back() == 'e')
+				reg_string = L".*" + data.substr(0, len - 1) + L".*";
+			else if (len > 2 && data.back() == 'y')
+				reg_string = L".*" + data.substr(0, len - 1) + L"[iy].*";
+			else
+				reg_string = L".*" + data + L".*";
+			wregex reg(reg_string);
+			int cnt = 0;
+			for (auto &x : words) {
+				if (!regex_match(x.f, reg) || x.f == data)continue;
+				auto s2 = Show2(x.f);
+				for (auto &y : s2) {
+					if (y.front() == '-' || y.back() == '-')continue;
+					if (WordRotToExp(y).s == data) {
+						ve.push_back(x.f);
+						break;
+					}
+				}
+			}
+			return ve;
+		}).then([this](vector<wstring>ve) {
+			Dispatcher->RunAsync(CoreDispatcherPriority::High, ref new DispatchedHandler([this, ve]()
+			{
 				VocList->Items->Clear();
-				for (auto &x : rt[data]) {
+				VocList->IsItemClickEnabled = true;
+				for (auto &x : ve) {
 					auto stp = ref new StackPanel();
 					stp->Orientation = Orientation::Horizontal;
 					auto tmp = ref new TextBlock();
 					tmp->Text = ref new String(x.c_str());
 					stp->Children->Append(tmp);
 					tmp = ref new TextBlock();
-					int len = (int)x.length();
 					wstring _exp = GetExpSimple(words[x]);
 					_exp = trim(_exp);
 					tmp->Text = ref new String(_exp.c_str());
@@ -236,12 +191,8 @@ void SingleVocPage::Init(wstring data) {
 					stp->Children->Append(tmp);
 					VocList->Items->Append(stp);
 				}
-				VocList->IsItemClickEnabled = true;
-				tempdispatchertime->Stop();
-			}
-		};
-		tempdispatchertime->Tick += ref new EventHandler<Object^>(timerDelegate);
-		tempdispatchertime->Start();
+			}));
+		});
 	}
 	auto tb = ref new TextBlock();
 	if (note.find(Vocabulary->Data()) != note.end())
@@ -266,17 +217,35 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 	if (param != nullptr)
 	{
 		wstring pa(param->Data());
+		//transform(pa.begin(), pa.end(), pa.begin(), tolower);
+		/*
 		for (auto &x : pa)
 			if(x>='A'||x<='Z')
 				x |= 32;
-		param = ref new String(pa.c_str());
-		Vocabulary = param;
+		*/
 		if(words.find(pa)!=words.end()&&words[pa]!=L""){
-			Init(pa);
+			pa = words.find(pa)->first;
+			param = ref new String(pa.c_str());
+			Vocabulary = param;
+			Init(pa,true);
 		}
 		else {
+			param = ref new String(pa.c_str());
+			Vocabulary = param;
 			ShowLoading();
 			get(L"http://cn.bing.com/dict/search?mkt=zh-cn&q=" + (wstring)pa, [=](wstring web) {
+				wstring npa = pa;
+				auto pb = web.find(L"<h1><strong>");
+				if (pb != wstring::npos) {
+					auto tit = web.substr(pb+12);
+					auto pe = tit.find(L"<");
+					if (pe != wstring::npos) {
+						npa = tit.substr(0, pe);
+						if (_wcsicmp(npa.c_str(), pa.c_str()) != 0)npa = pa;
+						Vocabulary = ref new String(npa.c_str());
+					}
+				}
+
 				wstring disc,nt;
 				auto betip = web.find(L"<div class=\"in_tip\">");
 				if (betip != std::wstring::npos) {
@@ -348,14 +317,12 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 				if (disc2 == L"") { HideLoading();ShowMsg(L"查無此字");return; }
 				HideLoading();
 				disc = s2t(disc2);
-				words[pa] = disc;
-				vocs.insert(w2s(pa));
-
+				words[npa] = disc;
 				if (nt != L"")
-					note[pa] = s2t(nt), AppendStrToFile(pa + L"," + nt + L"\n", L"note_user.txt");
-				AppendStrToFile(pa + L"," + disc + L"\n", L"words_user.txt");
+					note[npa] = s2t(nt), AppendStrToFile(npa + L"," + nt + L"\n", L"note_user.txt");
+				AppendStrToFile(npa + L"," + disc + L"\n", L"words_user.txt");
 				if (voc_root == nullptr)return;
-				Init(pa);
+				Init(npa,true);
 			}, [=]{HideLoading(); ShowMsg(L"網路錯誤!");});
 
 		}
@@ -365,7 +332,7 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 		Vocabulary = "#####";
 	}
 
-	SystemNavigationManager::GetForCurrentView()->AppViewBackButtonVisibility = AppViewBackButtonVisibility::Visible;
+	//SystemNavigationManager::GetForCurrentView()->AppViewBackButtonVisibility = AppViewBackButtonVisibility::Visible;
 
 	Page::OnNavigatedTo(e);
 }
@@ -406,7 +373,7 @@ void SingleVocPage::EditButton_Click(Object^ sender, Windows::UI::Xaml::Controls
 			}
 			block->Text = ref new String(ss.c_str());
 			}
-		block2->Text = Explanation;
+		block2->Text = ref new String(GetExpSimpleOrg(words[s]).c_str());
 		if (DelPanelVis)
 			FadOutDelPanel->Begin(), DelPanelVis = 0;
 		FadInEditPanel->Begin(), EditPanelVis = 1;
@@ -504,10 +471,11 @@ void SingleVocPage::ListView2_ItemClick(Object^ sender, Windows::UI::Xaml::Contr
 				b += L"，";
 			else
 				b += c[i];
-		Explanation = ref new String(b.c_str());
-		ExpStack();
 		wds.first = b.c_str();
 		words[a] = MakeExp(wds);
+		b = GetExpSimple(words[a]);
+		Explanation = ref new String(b.c_str());
+		expst->Content = ExpStack(b,20);
 		wstring out;
 		if (ok_words.find(a) != ok_words.end())
 			out += L"*" + ok_words[a] + L"," + words[a] + L"\n";
@@ -543,6 +511,11 @@ void SingleVocPage::ListView2_ItemClick(Object^ sender, Windows::UI::Xaml::Contr
 			voc_croot->Children->Append(tp.back());
 			i++;
 		}
+		wstring _voc = a, _exp = GetExpSimple(words[_voc]);
+		alias_list->Items->Clear();
+		for (auto x : words)
+			if (x.first != _voc&&GetExpSimple(x.s) == _exp)
+				alias_list->Items->Append(ref new String(x.first.c_str()));
 		EditButton_Click(sender, e);
 	}
 	else if (str == "取消")
@@ -553,7 +526,6 @@ void SingleVocPage::DelPanelListView_ItemClick(Object^ sender, Windows::UI::Xaml
 	if (str == "確定") {
 		wstring s(Vocabulary->Data());
 		words.erase(s);
-		vocs.erase(w2s(s));
 		AppendStrToFile(L"$"+s+L"\n", L"words_user.txt");
 		DeleteButton_Click(sender, e);
 		if (Frame != nullptr && Frame->CanGoBack)
@@ -584,14 +556,18 @@ void SingleVocPage::PageKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRou
 			dynamic_cast<TextBox^>(note_view->Content)->IsEnabled = false;
 			dynamic_cast<TextBox^>(note_view->Content)->IsEnabled = true;
 	}
+	else if (e->Key == Windows::System::VirtualKey::F5 && !DelPanelVis && !EditPanelVis && !note_bool) {
+		F5Button_Click(nullptr, nullptr);
+	}
 }
 void SingleVocPage::OnSelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs^ e) {
 	ComboBox^ senderComboBox = dynamic_cast<ComboBox^>(sender);
 	for (int i = 0;i<(int)voc_croot->Children->Size;i++)
 		if (voc_croot->Children->GetAt(i) == senderComboBox) {
+			if (wds.s.size() < i + 1)wds.s.resize(i + 1);
 			wds.s[i] = senderComboBox->SelectedIndex;
 			wstring a(Vocabulary->Data());
-			words[a] = MakeExp(wds);
+			words[a] = MakeExp(make_pair(GetExpSimpleOrg(words[a]),wds.s));
 			wstring out;
 			if (ok_words.find(a) != ok_words.end())
 				out += L"*" + ok_words[a] + L"," + words[a] + L"\n";
@@ -611,17 +587,19 @@ void CutTheWords::Views::SingleVocPage::GoRootPage(Platform::Object ^sender) {
 		if (voc_root->Children->GetAt(i) == senderTextBlock) {
 			auto s = Show2(Vocabulary->Data())[i];
 			if (s.front() != L'-'&&s.back() != L'-') {
+				s = WordRotToExp(s).s;
 				if (words.find(s) != words.end())
 					Frame->Navigate(
 						TypeName(SingleVocPage::typeid),
 						ref new String(s.c_str()),
 						ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 			}
-			else
+			else {
 				Frame->Navigate(
 					TypeName(SingleRootPage::typeid),
 					ref new String(s.c_str()),
 					ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+			}
 			return;
 		}
 }
@@ -665,6 +643,7 @@ void CutTheWords::Views::SingleVocPage::OnTapped2(Platform::Object ^sender, Wind
 void CutTheWords::Views::SingleVocPage::OnLostFocus(Platform::Object ^sender, Windows::UI::Xaml::RoutedEventArgs ^e)
 {
 	TextBox^ tmp = dynamic_cast<TextBox^>(note_view->Content);
+	if (tmp == nullptr)return;
 	wstring in = tmp->Text->Data(),out,s= Vocabulary->Data();
 	for (auto x : in)
 		if (x == '/')out += L"／";
@@ -672,8 +651,10 @@ void CutTheWords::Views::SingleVocPage::OnLostFocus(Platform::Object ^sender, Wi
 		else if (x == '$')out += L"＄";
 		else if (x == '*')out += L"＊";
 		else out += x;
-	if(out!=L"")
+	if(out!=note[s])
 		note[s] = out,AppendStrToFile(s+L","+out + L"\n", L"note_user.txt");
+	else if(out==L"" && note.find(s)!=note.end())
+		note.erase(s), AppendStrToFile(L"$" + s +  L"\n", L"note_user.txt");
 	auto tb = ref new TextBlock();
 	if (note.find(s) != note.end())
 		tb->Text = ref new String(note[s].c_str());
@@ -703,6 +684,23 @@ void CutTheWords::Views::SingleVocPage::F5Button_Click(Platform::Object^ sender,
 	ShowLoading();
 	wstring pa = Vocabulary->Data();
 	get(L"http://cn.bing.com/dict/search?mkt=zh-cn&q=" + (wstring)pa, [=](wstring web) {
+		wstring npa = pa;
+		auto pb = web.find(L"<h1><strong>");
+		if (pb != wstring::npos) {
+			auto tit = web.substr(pb + 12);
+			auto pe = tit.find(L"<");
+			if (pe != wstring::npos) {
+				npa = tit.substr(0, pe);
+				if (_wcsicmp(npa.c_str(), pa.c_str()) != 0)npa = pa;
+				if (npa != pa) {
+					AppendStrToFile(L"$" + pa + L"\n", L"note_user.txt");
+					AppendStrToFile(L"$" + pa + L"\n", L"words_user.txt");
+					note.erase(pa);
+					words.erase(pa);
+				}
+				Vocabulary = ref new String(npa.c_str());
+			}
+		}
 		wstring disc, nt;
 		auto betip = web.find(L"<div class=\"in_tip\">");
 		if (betip != std::wstring::npos) {
@@ -774,16 +772,16 @@ void CutTheWords::Views::SingleVocPage::F5Button_Click(Platform::Object^ sender,
 			if (disc2 == L"") { HideLoading(); ShowMsg(L"查無此字"); return; }
 			HideLoading();
 			disc = s2t(disc2);
-			words[pa] = disc;
-			vocs.insert(w2s(pa));
-
+			words[npa] = disc;
 			if (nt != L"")
-				note[pa] = s2t(nt), AppendStrToFile(pa + L"," + nt + L"\n", L"note_user.txt");
-			AppendStrToFile(pa + L"," + disc + L"\n", L"words_user.txt");
+				note[npa] = s2t(nt), AppendStrToFile(npa + L"," + nt + L"\n", L"note_user.txt");
+			AppendStrToFile(npa + L"," + disc + L"\n", L"words_user.txt");
 			if (voc_root == nullptr)return;
-			wds = GetExp(words[pa]);
+			Init(npa);
+			return;
+			wds = GetExp(words[npa]);
 			Explanation = ref new String(wds.f.c_str());
-			ExpStack();
+			expst->Content = ExpStack(wds.f,20);
 			auto tb = ref new TextBlock();
 			if (note.find(Vocabulary->Data()) != note.end())
 				tb->Text = ref new String(note[Vocabulary->Data()].c_str());
@@ -796,4 +794,17 @@ void CutTheWords::Views::SingleVocPage::F5Button_Click(Platform::Object^ sender,
 			note_bool = 0;
 	}, [=] {HideLoading(); ShowMsg(L"網路錯誤!"); });
 
+}
+
+
+void CutTheWords::Views::SingleVocPage::alias_list_ItemClick(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e)
+{
+
+	auto str = dynamic_cast<String^>(e->ClickedItem);
+	if (str != nullptr) {
+		Frame->Navigate(
+			TypeName(SingleVocPage::typeid),
+			str,
+			ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+	}
 }

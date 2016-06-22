@@ -48,6 +48,7 @@ void SearchRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 			vector<wstring> ve;
 			match_rot(q + L"*", ve);
 			VocList->Items->Clear();
+			int cnt = 0;
 			for (auto x : ve) {
 				auto stp = ref new StackPanel();
 				stp->Orientation = Orientation::Horizontal;
@@ -56,15 +57,13 @@ void SearchRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 				stp->Children->Append(tmp);
 				tmp = ref new TextBlock();
 				int len = (int)x.length();
-				wstring _exp;
-				if (x[0] == '-'&&x[len - 1] == '-')_exp = root[x.substr(1, len - 2)];
-				else if (x[0] == '-')_exp = suffix[x.substr(1)];
-				else if (x[len - 1] == '-')_exp = prefix[x.substr(0, len - 1)];
+				wstring _exp=GetRootExp(x);
 				_exp = trim(_exp);
 				tmp->Text = ref new String(_exp.c_str());
 				tmp->Margin = Thickness(20, 0, 0, 0);
 				stp->Children->Append(tmp);
 				VocList->Items->Append(stp);
+				if (++cnt == 30)break;
 			}
 			if (ve.size())
 				scroll_load_not_finish[GetCurrentID()] = 1;

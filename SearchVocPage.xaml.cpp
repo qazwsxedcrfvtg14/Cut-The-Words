@@ -43,58 +43,75 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 	tempdispatchertime_upd_sync->Interval = time;
 	auto timerDelegate = [this](Object^ e, Object^ ags) {
 		if(target != input_voc->Text->Data()) {
+			scroll_load_not_finish[GetCurrentID()] = 0;
 			target = input_voc->Text->Data();
 			wstring q = input_voc->Text->Data();
-			vector<wstring> ve;
-			match(q + L"*", ve);
-			VocList->Items->Clear();
-			if (target != input_voc->Text->Data())return;
-			int cnt = 0;
-			for (auto x : ve) {
-				auto stp = ref new StackPanel();
-				stp->Orientation = Orientation::Horizontal;
-				auto tmp = ref new TextBlock();
-				tmp->Text = ref new String(x.c_str());
-				stp->Children->Append(tmp);
-				tmp = ref new TextBlock();
-				int len = (int)x.length();
-				wstring _exp = GetExpSimple(words[x]);
-				_exp = trim(_exp);
-				tmp->Text = ref new String(_exp.c_str());
-				tmp->Margin = Thickness(20, 0, 0, 0);
-				stp->Children->Append(tmp);
-				if (target != input_voc->Text->Data())return;
-				VocList->Items->Append(stp);
-			}
-			if (ve.size())
-				scroll_load_not_finish[GetCurrentID()] = 1;
-			else
-				scroll_load_not_finish[GetCurrentID()] = 0;
+			create_task([=] {
+				vector<wstring> ve;
+				match(q + L"*", ve); 
+				return ve;
+			}).then([this,q](vector<wstring>ve) {
+				Dispatcher->RunAsync(CoreDispatcherPriority::High, ref new DispatchedHandler([this, ve,q]()
+				{
+					if (target != input_voc->Text->Data()||target!=q)return;
+					VocList->Items->Clear();
+					int cnt = 0;
+					for (auto x : ve) {
+						auto stp = ref new StackPanel();
+						stp->Orientation = Orientation::Horizontal;
+						auto tmp = ref new TextBlock();
+						tmp->Text = ref new String(x.c_str());
+						stp->Children->Append(tmp);
+						tmp = ref new TextBlock();
+						int len = (int)x.length();
+						wstring _exp = GetExpSimple(words[x]);
+						_exp = trim(_exp);
+						tmp->Text = ref new String(_exp.c_str());
+						tmp->Margin = Thickness(20, 0, 0, 0);
+						stp->Children->Append(tmp);
+						if (target != input_voc->Text->Data())return;
+						VocList->Items->Append(stp);
+					}
+					if (ve.size())
+						scroll_load_not_finish[GetCurrentID()] = 1;
+					else
+						scroll_load_not_finish[GetCurrentID()] = 0;
+				}));
+			});
 		}
-		if (scro->VerticalOffset >= scro->ScrollableHeight - 200 && scroll_load_not_finish[GetCurrentID()]) {
-			wstring q = input_voc->Text->Data();
-			vector<wstring> ve;
-			match(q + L"*", ve, ((TextBlock^)(((StackPanel^)(VocList->Items->GetAt(VocList->Items->Size - 1)))->Children->GetAt(0)))->Text->Data());
-			int cnt = 0;
-			for (auto x : ve) {
-				auto stp = ref new StackPanel();
-				stp->Orientation = Orientation::Horizontal;
-				auto tmp = ref new TextBlock();
-				tmp->Text = ref new String(x.c_str());
-				stp->Children->Append(tmp);
-				tmp = ref new TextBlock();
-				int len = (int)x.length();
-				wstring _exp = GetExp(words[x]).f;
-				_exp = trim(_exp);
-				tmp->Text = ref new String(_exp.c_str());
-				tmp->Margin = Thickness(20, 0, 0, 0);
-				stp->Children->Append(tmp);
-				VocList->Items->Append(stp);
-			}
-			if (ve.size())
-				scroll_load_not_finish[GetCurrentID()] = 1;
-			else
-				scroll_load_not_finish[GetCurrentID()] = 0;
+		if (scro->VerticalOffset >= scro->ScrollableHeight - 200 && scroll_load_not_finish[GetCurrentID()] && VocList->Items->Size) {
+			scroll_load_not_finish[GetCurrentID()] = 0;
+			wstring q = input_voc->Text->Data(),qq= ((TextBlock^)(((StackPanel^)(VocList->Items->GetAt(VocList->Items->Size - 1)))->Children->GetAt(0)))->Text->Data();
+			auto tsk = create_task([=] {
+				vector<wstring> ve;
+				match(q + L"*", ve, qq); 
+				return ve;
+			}).then([this](vector<wstring>ve) {
+				Dispatcher->RunAsync(CoreDispatcherPriority::High, ref new DispatchedHandler([this, ve]()
+				{
+					int cnt = 0;
+					for (auto x : ve) {
+						auto stp = ref new StackPanel();
+						stp->Orientation = Orientation::Horizontal;
+						auto tmp = ref new TextBlock();
+						tmp->Text = ref new String(x.c_str());
+						stp->Children->Append(tmp);
+						tmp = ref new TextBlock();
+						int len = (int)x.length();
+						wstring _exp = GetExp(words[x]).f;
+						_exp = trim(_exp);
+						tmp->Text = ref new String(_exp.c_str());
+						tmp->Margin = Thickness(20, 0, 0, 0);
+						stp->Children->Append(tmp);
+						VocList->Items->Append(stp);
+					}
+					if (ve.size())
+						scroll_load_not_finish[GetCurrentID()] = 1;
+					else
+						scroll_load_not_finish[GetCurrentID()] = 0;
+				}));
+			});
+			
 		}
 	};
 	tempdispatchertime_upd_sync->Tick += ref new EventHandler<Object^>(timerDelegate);

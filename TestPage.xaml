@@ -8,18 +8,29 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer x:Name="scro" VerticalScrollBarVisibility="Auto">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <CommandBar VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+            <CommandBar VerticalAlignment="Top" HorizontalContentAlignment="Stretch"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <AppBarButton Icon="Refresh" Click="AppBarButton_Click"/>
                 <AppBarButton Icon="AllApps" Click="fav_Click"/>
+                <AppBarButton Icon="Bookmarks" Click="AppBarButton_Click_1"/>
+                <CommandBar.Content>
+                    <ctl:PageHeader>
+                        <ctl:PageHeader.HeaderContent>
+                            <TextBlock x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text=""/>
+                        </ctl:PageHeader.HeaderContent>
+                    </ctl:PageHeader>
+                </CommandBar.Content>
             </CommandBar>
-            <TextBlock x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text=""/>
-            <StackPanel Grid.Row="1"  x:Name="test_stp" Orientation="Vertical" Margin="10"/>
+                <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3" Text="這份考卷在關掉此應用程式或是按右上重整前都不會消失喔!"/>
+            <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="3" Text="如果想看小抄請對【正確】/【錯誤】字樣上按【右鍵】"/>
+            <StackPanel Grid.Row="3"  x:Name="test_stp" Orientation="Vertical" Margin="10"/>
         </Grid>
     </ScrollViewer>
 

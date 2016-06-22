@@ -13,6 +13,7 @@
 #include "WordOverlay.h"
 
 using namespace CutTheWords;
+using namespace Platform;
 
 WordOverlay::WordOverlay(OcrWord^ ocrWord) :
     word(ocrWord),

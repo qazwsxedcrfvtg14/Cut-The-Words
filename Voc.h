@@ -9,6 +9,8 @@
 #include <iostream>
 #include <sstream>
 #include <deque>
+#include <queue>
+#include <stack>
 #include <functional> 
 #include <cctype>
 #include <locale>
@@ -16,6 +18,7 @@
 #include <codecvt>
 #include <ppltasks.h>
 #include <functional>
+//#include <boost/regex.hpp>
 #include "Helpers.h"
 #include "AppShell.xaml.h"
 #include <thread>
@@ -58,9 +61,14 @@ using namespace Windows::UI::Core;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Navigation;
-extern map<wstring, wstring> ok_words;
-extern map<wstring, wstring> words, prefix, suffix, root, favorite, setting, note;
-extern set<string> vocs;
+
+struct map_comp {
+	inline bool operator() (const std::wstring& lhs, const std::wstring& rhs) const;
+};
+typedef map<wstring, wstring,map_comp> DataMap;
+extern DataMap ok_words;
+extern DataMap words, prefix, suffix, root, favorite, setting, note;
+//extern set<string> vocs;
 
 template <class TResult>
 inline TResult AWait(Windows::Foundation::IAsyncOperation<TResult>^ asyncOp)
@@ -93,14 +101,13 @@ void AppendStrToFile(wstring ws, wstring fil);
 inline std::wstring &ltrim(std::wstring &s);
 inline std::wstring &rtrim(std::wstring &s);
 inline std::wstring trim(std::wstring s);
-void get_doc(wstring inp, map<wstring, wstring> &words, map<wstring, wstring> &ok, bool user = 1);
-void get_doc(wstring inp, map<wstring, wstring> &words, bool user = 1);
-wstring dump_doc(map<wstring, wstring> &words, map<wstring, wstring> &ok);
-wstring dump_doc(map<wstring, wstring> &words);
+void get_doc(wstring inp, DataMap &words, DataMap &ok, bool user = 1);
+void get_doc(wstring inp, DataMap &words, bool user = 1);
+wstring dump_doc(DataMap &words, DataMap &ok);
+wstring dump_doc(DataMap &words);
 wstring make_tail(wstring org, wstring tail);
 void match(wstring match, vector<wstring>& ve, wstring beg = L"");
 void  match_rot(wstring match, vector<wstring>&ve, wstring beg = L"");
-vector<wstring> match_via_reg(wstring match);
 vector<pair<wstring, wstring>> Show(wstring s);
 vector<wstring> Show2(wstring s);
 wstring IntToStr(int x);
@@ -119,12 +126,16 @@ void ShowLoading();
 void HideLoading();
 
 pair<wstring, vector<int>> GetExp(wstring s);
-wstring GetExpSimple(wstring s);
+wstring GetRootExp(wstring s, int cnt=0);
+wstring GetRootExpOrg(wstring s);
+wstring GetExpSimple(wstring s,int cnt=0);
+wstring GetExpSimpleOrg(wstring s);
 vector<wstring> CutExp(wstring s);
 wstring MakeExp(pair<wstring, vector<int>> p);
 wstring MergeExp(vector<wstring> v);
 wstring LowwerCase(wstring s);
-extern map<wstring, set<wstring>>rt;
+//extern unique_ptr<map<wstring, set<wstring>>> rtp;
+//extern map<wstring, set<wstring>>rt;
 extern bool inited;
 extern int loading_cnt;
 std::string utf8_encode(const std::wstring &wstr);
@@ -148,3 +159,8 @@ void kalisin(wstring path, wstring snd = L"", bool show_error = 1, function<void
 void SavingSetting();
 int LevenshteinDistance(wstring s, wstring t);
 int GetCurrentID();
+int RandomInt(int n=0x7fffffff);
+extern bool IsTrial;
+void InitializeLicense();
+pair<wstring, wstring> WordRotToExp(wstring now);
+StackPanel^ ExpStack(wstring s,int fontsize=16);

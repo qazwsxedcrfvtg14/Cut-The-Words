@@ -102,8 +102,8 @@
     <IncludePath>$(VC_IncludePath);$(UniversalCRT_IncludePath);$(WindowsSDK_IncludePath);..\..\..\SharedContent\cpp</IncludePath>
     <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
     <AppxBundlePlatforms>x86|x64|arm</AppxBundlePlatforms>
-    <PackageCertificateThumbprint>35E802CAEA756B394A78D0DE2E1499FA220F6FCA</PackageCertificateThumbprint>
-    <PackageCertificateKeyFile>CutTheWords_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>1D48479ADF5FBB747124CC4001BE7B0530CC8F56</PackageCertificateThumbprint>
+    <PackageCertificateKeyFile>CutTheWords_StoreKey.pfx</PackageCertificateKeyFile>
     <AppxBundle>Always</AppxBundle>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|ARM'">
@@ -119,6 +119,9 @@
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_ARM_WINAPI_PARTITION_DESKTOP_SDK_AVAILABLE=1;%(ClCompile.PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -133,6 +136,9 @@
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -147,6 +153,9 @@
       <DisableSpecificWarnings>4453;28204</DisableSpecificWarnings>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;_CRT_SECURE_NO_WARNINGS;_UNICODE;UNICODE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AddVocPage.xaml.h">
@@ -231,6 +240,9 @@
     <ClInclude Include="TestPage.xaml.h">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="TestPage1.xaml.h">
+      <DependentUpon>TestPage1.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="TestPage2.xaml.h">
       <DependentUpon>TestPage2.xaml</DependentUpon>
     </ClInclude>
@@ -314,6 +326,9 @@
       <DeploymentContent>true</DeploymentContent>
     </Page>
     <Page Include="TestPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="TestPage1.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="TestPage2.xaml">
@@ -428,6 +443,9 @@
     <ClCompile Include="TestPage.xaml.cpp">
       <DependentUpon>TestPage.xaml</DependentUpon>
     </ClCompile>
+    <ClCompile Include="TestPage1.xaml.cpp">
+      <DependentUpon>TestPage1.xaml</DependentUpon>
+    </ClCompile>
     <ClCompile Include="TestPage2.xaml.cpp">
       <DependentUpon>TestPage2.xaml</DependentUpon>
     </ClCompile>
@@ -502,8 +520,10 @@
     <Text Include="words.txt" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="CutTheWords_StoreKey.pfx" />
     <None Include="CutTheWords_TemporaryKey.pfx" />
     <None Include="NavigationMenu_TemporaryKey.pfx" />
+    <None Include="packages.config" />
     <None Include="s2t.json">
       <DeploymentContent>true</DeploymentContent>
     </None>
@@ -514,6 +534,20 @@
       <DeploymentContent>true</DeploymentContent>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <SDKReference Include="Microsoft.Advertising.Xaml, Version=10.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Package.StoreAssociation.xml" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\boost.1.61.0.0\build\native\boost.targets" Condition="Exists('packages\boost.1.61.0.0\build\native\boost.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\boost.1.61.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.61.0.0\build\native\boost.targets'))" />
+  </Target>
 </Project>

@@ -34,12 +34,12 @@ void HistoryPage::OnNavigatedTo(NavigationEventArgs^ e)
 	ShowLoading();
 	create_task([=] {
 		//ShowLoading();
-		map<wstring, wstring> *old_words_p = new map<wstring, wstring>();
-		map<wstring, wstring> *old_ok_p=new map<wstring, wstring>();
+		DataMap *old_words_p = new DataMap();
+		DataMap *old_ok_p=new DataMap();
 		get_doc(L"words.txt", *old_words_p, *old_ok_p, 0);
 		return make_pair(old_words_p, old_ok_p);
-	}, task_continuation_context::use_current()).then([=](pair<map<wstring, wstring>* ,map<wstring, wstring>*> old){
-		map<wstring, wstring> &old_words=*(old.f), &old_ok = *(old.s);
+	}, task_continuation_context::use_current()).then([=](pair<DataMap* , DataMap*> old){
+		DataMap &old_words=*(old.f), &old_ok = *(old.s);
 		lis->Items->Clear();
 
 		wstringstream str;
@@ -58,7 +58,7 @@ void HistoryPage::OnNavigatedTo(NavigationEventArgs^ e)
 				else if (star&&s[i] == L' ')d += L' ';
 				else if (s[i] == L',')tag = 1;
 				else if (s[i] == L'/')a.push_back(L"");
-				else if (s[i] >= L'A'&&s[i] <= L'Z') a.back() += s[i] - L'A' + L'a', d += s[i] - L'A' + L'a';
+				//else if (s[i] >= L'A'&&s[i] <= L'Z') a.back() += s[i] - L'A' + L'a', d += s[i] - L'A' + L'a';
 				else a.back() += s[i], d += s[i];
 				for (auto &c : a) {
 					if (trim(c) == L"")continue;

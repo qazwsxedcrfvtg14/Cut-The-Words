@@ -12,6 +12,7 @@ namespace Windows {
     namespace UI {
         namespace Xaml {
             namespace Controls {
+                ref class Grid;
                 ref class SplitView;
                 ref class Frame;
                 ref class Button;
@@ -35,6 +36,15 @@ namespace CutTheWords {
         ref class NavMenuListView;
     }
 }
+namespace Windows {
+    namespace UI {
+        namespace Xaml {
+            namespace Shapes {
+                ref class Rectangle;
+            }
+        }
+    }
+}
 
 namespace CutTheWords
 {
@@ -51,14 +61,16 @@ namespace CutTheWords
     private:
         bool _contentLoaded;
         class AppShell_obj2_Bindings;
-        class AppShell_obj1_Bindings;
     
         ::XamlBindingInfo::XamlBindings^ Bindings;
+        private: ::Windows::UI::Xaml::Controls::Grid^ LayoutRoot;
         private: ::Windows::UI::Xaml::Controls::SplitView^ RootSplitView;
         private: ::Windows::UI::Xaml::Controls::Primitives::ToggleButton^ TogglePaneButton;
         private: ::Windows::UI::Xaml::Controls::Frame^ top_frame;
         private: ::CutTheWords::Controls::NavMenuListView^ NavMenuList;
-        private: ::Windows::UI::Xaml::Controls::Button^ BackButton;
+        private: ::Windows::UI::Xaml::Shapes::Rectangle^ NavPaneDivider;
+        private: ::Windows::UI::Xaml::Controls::Button^ FeedbackNavPaneButton;
+        private: ::Windows::UI::Xaml::Controls::Button^ SettingsNavPaneButton;
         private: ::Windows::UI::Xaml::Controls::Frame^ frame;
     };
 }

@@ -34,7 +34,6 @@ void AddVocPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArgs
 	if (str == "新增為單字") {
 		wstring a(voca->Text->Data()), b(expl->Text->Data());
 		words[a] = b;
-		vocs.insert(w2s(a));
 		wstring out;
 		if (ok_words.find(a) != ok_words.end())
 			out += L"*" + ok_words[a] + L"," + b + L"\n";

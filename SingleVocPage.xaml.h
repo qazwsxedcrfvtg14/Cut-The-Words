@@ -43,7 +43,7 @@ namespace CutTheWords
 			pair<wstring, vector<int>> wds;
 			bool EditPanelVis = 0;
 			bool DelPanelVis = 0;
-			void Init(wstring data);
+			void Init(wstring data,bool first=false);
 			void EditButton_Click(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void DeleteButton_Click(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void FavoriteButton_Click(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
@@ -62,9 +62,10 @@ namespace CutTheWords
 			void VocListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void OnLostFocus(Platform::Object ^sender, Windows::UI::Xaml::RoutedEventArgs ^e);
 			void OnLoaded(Platform::Object ^sender, Windows::UI::Xaml::RoutedEventArgs ^e);
-			void SingleVocPage::ExpStack();
+			//void SingleVocPage::ExpStack();
 			void upd(Object^ sender, Windows::UI::Xaml::Controls::ScrollViewerViewChangedEventArgs^ e);
 			void F5Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+			void alias_list_ItemClick(Platform::Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 		};
 	}
 }

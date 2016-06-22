@@ -23,6 +23,7 @@ namespace CutTheWords
 			SettingPage();
 		private:
 			void ListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
+			void host_name_TextChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::TextChangedEventArgs^ e);
 		};
 	}
 }

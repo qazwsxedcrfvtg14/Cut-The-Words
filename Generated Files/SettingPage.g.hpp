@@ -36,6 +36,13 @@ void ::CutTheWords::Views::SettingPage::Connect(int __connectionId, ::Platform::
             break;
         case 2:
             {
+                this->host_name = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(this->host_name))->TextChanged += ref new ::Windows::UI::Xaml::Controls::TextChangedEventHandler(this, (void (::CutTheWords::Views::SettingPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::Controls::TextChangedEventArgs^))&SettingPage::host_name_TextChanged);
+            }
+            break;
+        case 3:
+            {
                 this->title = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(__target);
             }
             break;

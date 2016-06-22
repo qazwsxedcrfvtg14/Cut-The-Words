@@ -5,16 +5,51 @@
     xmlns:local="using:CutTheWords.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
     mc:Ignorable="d">
 
+     <!--ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299427"-->
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
           EntranceNavigationTransitionInfo.IsTargetElement="True">
-        <StackPanel>
-            <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Home" Margin="20" FontSize="32"/>
-            <TextBlock Margin="30,0">
-                Host
-            </TextBlock>
-            <TextBox x:Name="host_name" Margin="30" TextChanged="host_name_TextChanged"/>
-        </StackPanel>
+        <ScrollViewer>
+            <StackPanel x:Name="stp">
+                <TextBlock Style="{ThemeResource TitleTextBlockStyle}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="Home" Margin="30" FontSize="32"/>
+                <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="請按左上角的漢堡鍵(三條橫線)開啟選單"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="0.家：使用說明跟廣告"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="1.單字查詢：查詢單字(連網時可查詢不在單字庫的單字)"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="2.部首查詢：查詢部首"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="3.單字搜尋：進階的查詢單字功能"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="4.新增資料：增加新的單字/部首到本機資料庫中"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="5.我的最愛：查看自訂單字表"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="6.單字測驗：練習自訂單字表中的單字"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="7.圖片掃描：辨識圖片中的英文單字"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="8.相機掃描：辨識相機鏡頭中的英文單字(需要相機功能)"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="9.下方笑臉：意見反饋"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="10.下方齒輪：設定介面顏色、自動發音開關、更新單字庫"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="  (第7跟第8項功能需在電腦設定-地區與語言中新增英文語言)"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="  (【右鍵】在觸碰螢幕中代表著【長按後放開】)"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="  (字根字首部分不保證完全正確)"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="建議第一次使用前先更新單字庫"/>
+                    <Button Content="資料格式說明" Margin="4" HorizontalAlignment="Center" Click="Button_Click"/>
+                </StackPanel>
+                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="以下是些小小的廣告"/>
+                <ads:AdControl
+                ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299575"
+                AdRefreshed="OnAdRefreshed"
+                Width="300"
+                Height="250"
+                ErrorOccurred="OnErrorOccurred"
+                Margin="20"/>
+                <ads:AdControl
+                ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299427"
+                AdRefreshed="OnAdRefreshed"
+                Width="728"
+                Height="90"
+                ErrorOccurred="OnErrorOccurred"
+                Margin="20"/>
+                <Button Content="Show AD Video" Click="RunInterstitialAd" Margin="10" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

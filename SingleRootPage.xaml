@@ -6,6 +6,7 @@
     xmlns:ctl="using:CutTheWords.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
     mc:Ignorable="d"
     KeyDown="PageKeyDown">
 
@@ -75,10 +76,12 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
-            <CommandBar x:Name="topbar" VerticalAlignment="Top" HorizontalContentAlignment="Stretch">
+            <CommandBar x:Name="topbar" VerticalAlignment="Top" HorizontalContentAlignment="Stretch"  Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
                 <AppBarButton Icon="Edit" Label="Edit" Click="EditButton_Click"/>
                 <AppBarButton Icon="Delete" Label="Delete" Click="DeleteButton_Click"/>
                 <!--<AppBarSeparator/>
@@ -96,16 +99,29 @@
                     </ctl:PageHeader>
                 </CommandBar.Content>-->
             </CommandBar>
-            <TextBlock Grid.Row="1" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Text="{x:Bind Vocabulary}" Margin="10"/>
+            <TextBlock x:Name="title" Grid.Row="1" FontSize="24" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10"/>
             <!--<TextBlock Grid.Row="2" x:Name="tiexp" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{x:Bind Explanation}" Margin="10"/>-->
-            <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ListView x:Name="alias_list" Grid.Row="2" 
+                  ItemContainerStyle="{StaticResource NoSpacesListViewItemStyle}"
+                  EntranceNavigationTransitionInfo.IsTargetElement="True"
+                  IsItemClickEnabled="True"
+                  ItemClick="alias_list_ItemClick"/>
+            <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
                 <StackPanel x:Name="voc_root" Orientation="Horizontal"/>
             </ScrollViewer>
-            <ListView x:Name="VocList" Grid.Row="3" 
+            <ads:AdControl
+                Grid.Row="4"
+                ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299427"
+                AdRefreshed="OnAdRefreshed"
+                ErrorOccurred="OnErrorOccurred"
+                Width="728"
+                Height="90"
+                Margin="20,5,5,5"/>
+            <ListView x:Name="VocList" Grid.Row="5" 
                   EntranceNavigationTransitionInfo.IsTargetElement="True"
                   IsItemClickEnabled="True"
                   ItemClick="VocListView_ItemClick"/>
-            <StackPanel Grid.Row="3" Grid.RowSpan="1" Orientation="Vertical" 
+            <StackPanel Grid.Row="3" Grid.RowSpan="3" Orientation="Vertical" 
                         x:Name="EditPanel" Visibility="Collapsed" 
                         Background="{ThemeResource MenuFlyoutItemFocusedBackgroundThemeBrush}">
                 <TextBlock Text="修改解釋:" Margin="10"/>
@@ -125,7 +141,7 @@
                     <ListViewItem>取消</ListViewItem>
                 </ListView>
             </StackPanel>
-            <StackPanel Grid.Row="3" Grid.RowSpan="1" Orientation="Vertical" 
+            <StackPanel Grid.Row="3" Grid.RowSpan="3" Orientation="Vertical" 
                         x:Name="DelPanel" Visibility="Collapsed" 
                         Background="{ThemeResource MenuFlyoutItemFocusedBackgroundThemeBrush}">
                 <TextBlock Text="確定刪除?" Margin="10" HorizontalAlignment="Center"/>

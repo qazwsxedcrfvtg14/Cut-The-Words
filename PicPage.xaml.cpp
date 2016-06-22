@@ -485,6 +485,7 @@ void CutTheWords::Views::PicPage::OnTapped(Platform::Object ^sender, Windows::UI
 		auto tmp2 = dynamic_cast<TextBlock^>(tmp->Child);
 		if (tmp2 != nullptr) {
 			wstring s = tmp2->Text->Data();
+			transform(s.begin(), s.end(), s.begin(), tolower);
 			if (s == L"")return;
 			for (int i = 0;s[i];i++)
 				if ((s[i]) >= 'a' && (s[i]) <= 'z') {

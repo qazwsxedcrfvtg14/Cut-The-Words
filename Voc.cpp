@@ -6,6 +6,11 @@
 #include "AppShell.xaml.h"
 #include "LoadingPage.xaml.h"
 #include "NullPage.xaml.h"
+
+inline bool map_comp::operator() (const std::wstring& lhs, const std::wstring& rhs) const {
+	return _wcsicmp(lhs.c_str(), rhs.c_str()) < 0;
+}
+
 void OnMessageReceived(Windows::Networking::Sockets::DatagramSocket ^sender, Windows::Networking::Sockets::DatagramSocketMessageReceivedEventArgs ^args);
 bool inited;
 using namespace CutTheWords;
@@ -76,15 +81,23 @@ inline std::wstring &rtrim(std::wstring &s) {
 inline std::wstring trim(std::wstring s) {
 	return (Helpers::Trim(ref new String(s.c_str())))->Data();
 }
-void get_doc(wstring inp, map<wstring, wstring> &words, map<wstring, wstring> &ok, bool user) {
+void get_doc(wstring inp, DataMap &words, DataMap &ok, bool user) {
 	words.clear();
 	ok.clear();
 	wstringstream str;
 	auto ps = inp.find(L".txt");
+	wstring tmp;
 	if (ps != wstring::npos&&user)
-		str << FileToStr(inp) + FileToStr(inp.substr(0, ps) + L"_user.txt");
+		tmp += FileToStr(inp) +L"\n"+ FileToStr(inp.substr(0, ps) + L"_user.txt");
 	else
-		str << FileToStr(inp);
+		tmp += FileToStr(inp);
+	/*int pos;
+	while ((pos = tmp.find(L"\n,")) != wstring::npos)
+		tmp.erase(pos,1);
+	while ((pos = tmp.find(L"\r,")) != wstring::npos)
+		tmp.erase(pos,1);
+	StrToFile(tmp, L"good_" + inp);*/
+	str << tmp;
 	wstring s;
 	while (getline(str, s)) {
 		vector<wstring>a;
@@ -99,7 +112,7 @@ void get_doc(wstring inp, map<wstring, wstring> &words, map<wstring, wstring> &o
 			else if (star&&s[i] == L' ')d += L' ';
 			else if (s[i] == L',')tag = 1;
 			else if (s[i] == L'/')a.push_back(L"");
-			else if (s[i] >= L'A'&&s[i] <= L'Z') a.back() += s[i] - L'A' + L'a', d += s[i] - L'A' + L'a';
+			//else if (s[i] >= L'A'&&s[i] <= L'Z') a.back() += s[i] - L'A' + L'a', d += s[i] - L'A' + L'a';
 			else a.back() += s[i], d += s[i];
 			for (auto &c : a) {
 				if (trim(c) == L"")continue;
@@ -110,7 +123,7 @@ void get_doc(wstring inp, map<wstring, wstring> &words, map<wstring, wstring> &o
 	}
 	return;
 }
-void get_doc(wstring inp, map<wstring, wstring> &words, bool user) {
+void get_doc(wstring inp, DataMap &words, bool user) {
 	words.clear();
 	wstringstream str;
 	auto ps = inp.find(L".txt");
@@ -133,7 +146,7 @@ void get_doc(wstring inp, map<wstring, wstring> &words, bool user) {
 			else if (star&&s[i] == L' ')d += L' ';
 			else if (s[i] == L',')tag = 1;
 			else if (s[i] == L'/')a.push_back(L"");
-			else if (s[i] >= L'A'&&s[i] <= L'Z') a.back() += s[i] - L'A' + L'a', d += s[i] - L'A' + L'a';
+			//else if (s[i] >= L'A'&&s[i] <= L'Z') a.back() += s[i] - L'A' + L'a', d += s[i] - L'A' + L'a';
 			else a.back() += s[i], d += s[i];
 			for (auto &c : a) {
 				if (trim(c) == L"")continue;
@@ -143,25 +156,25 @@ void get_doc(wstring inp, map<wstring, wstring> &words, bool user) {
 	}
 	return;
 }
-wstring dump_doc(map<wstring, wstring> &words, map<wstring, wstring> &ok) {
+wstring dump_doc(DataMap &words, DataMap &ok) {
 	wstring out;
 	for (auto x : words) {
 		if (ok_words.find(x.f) != ok_words.end())
-			out += L"*" + ok[x.f] + L"," + x.s + L"\n";
+			out += L"*" + ok[x.f] + L"," + trim(x.s) + L"\n";
 		else
-			out += x.f + L"," + x.s + L"\n";
+			out += x.f + L"," + trim(x.s) + L"\n";
 	}
 	return out;
 }
-wstring dump_doc(map<wstring, wstring> &words) {
+wstring dump_doc(DataMap &words) {
 	wstring out;
 	for (auto x : words)
-		out += x.f + L"," + x.s + L"\n";
+		out += x.f + L"," + trim(x.s) + L"\n";
 	return out;
 }
-map<wstring, wstring> ok_words;
-map<wstring, wstring> words, prefix, suffix, root, favorite, setting, note;
-set<string> vocs;
+DataMap ok_words;
+DataMap words, prefix, suffix, root, favorite, setting, note;
+//set<string> vocs;
 
 std::wstring& trimx(std::wstring &s)
 {
@@ -220,43 +233,78 @@ wstring make_tail(wstring org, wstring tail) {
 void  match(wstring match, vector<wstring>&ve, wstring beg) {
 	ve.clear();
 	try {
-		string reg_wstring;
-		string mi, ma;
+		wstring reg_wstring;
+		wstring mi, ma;
 		bool tg = 1;
+		bool noteng = false;
+		bool star = false;
+		if (match.length() && match[0] == '^')
+			noteng = true,match=match.substr(1);
 		for (int i = 0;match[i];i++) {
 			if (match[i] == L'*'/* || match[i] == L'-'*/) {
-				ma += "zzzzzzzzzzzzzzzzz";
-				reg_wstring += ".*";
+				if (i&&match[i-1] == '*')continue;
+				if (i&&star&&match[i-1] == '?')continue;
+				ma += L"zzzzzzzzzzzzzzzzz";
+				reg_wstring += L".*";
 				tg = 0;
+				star = true;
 			}
 			else if (match[i] == L'?') {
-				if (tg)mi += "a";
-				ma += "z";
-				reg_wstring += ".";
+				if (tg)mi += L"a";
+				ma += L"z";
+				reg_wstring += L".";
+			}
+			else if (match[i] >= 'a'&&match[i] <= L'z') {
+				reg_wstring += wstring(L"[") + match[i] + wchar_t(match[i] - 'a' + 'A') + wstring(L"]");
+				ma += match[i];
+				if (tg)mi += match[i];
+				star = false;
 			}
 			else if (match[i] >= 'A'&&match[i] <= L'Z') {
-				reg_wstring += (char)match[i] - 'A' + 'a';
-				ma += (char)match[i] - 'A' + 'a';
-				if (tg)mi += (char)match[i] - 'A' + 'a';
+				reg_wstring += wstring(L"[") + match[i] + wchar_t(match[i] - 'A' + 'a') + wstring(L"]");
+				ma += match[i];
+				if (tg)mi += match[i];
+				star = false;
+			}
+			else if ((match[i]=='['||match[i]==']'||match[i]=='.')) {
+				reg_wstring += wstring(L"\\")+match[i];
+				ma += match[i];
+				if (tg)mi += match[i];
+				star = false;
+			}
+			else if(match[i]>=0&&match[i]<=128){
+				reg_wstring += match[i];
+				ma += match[i];
+				if (tg)mi += match[i];
+				star = false;
 			}
 			else {
-				reg_wstring += (char)match[i];
-				ma += (char)match[i];
-				if (tg)mi += (char)match[i];
+				noteng = true;
+				reg_wstring += match[i];
+				ma += match[i];
+				if (tg)mi += match[i];
+				star = false;
 			}
 		}
-		regex reg(reg_wstring);
+		wregex reg(reg_wstring);
+		wregex reg2(L".*"+reg_wstring+ L".*");
 		int cnt = 0;
-		auto be = vocs.lower_bound(mi), ed = vocs.upper_bound(ma);
+		auto be = words.lower_bound(mi), ed = words.upper_bound(ma);
+		if (noteng)
+			be = words.begin(), ed = words.end();
 		if (beg != L"")
-			be = vocs.upper_bound(w2s(beg));
+			be = words.upper_bound(beg);
 		for (auto it = be;it != ed;++it)
-			if (regex_match(*it, reg)) {
-				ve.push_back(s2w(*it));
-				if (++cnt == 20)break;
+			if (regex_match(it->first, reg)) {
+				ve.push_back(it->first);
+				if (++cnt == 30)break;
+			}
+			else if (noteng&&regex_match(it->second, reg2)) {
+				ve.push_back(it->first);
+				if (++cnt == 30)break;
 			}
 	}
-	catch (std::regex_error& error) {
+	catch (regex_error& error) {
 		error;
 
 	}
@@ -298,21 +346,21 @@ void  match_rot(wstring match, vector<wstring>&ve, wstring beg) {
 		for (auto it = be;it != ed;++it)
 			if (regex_match(it->f, reg)) {
 				ve.push_back(it->f + L"-");
-				if (++cnt == 15)break;
+				if (++cnt == 30)break;
 			}
 		be = root.lower_bound(mi), ed = root.upper_bound(ma);
 		if (beg != L"")be = root.upper_bound(beg);
 		for (auto it = be;it != ed;++it)
 			if (regex_match(it->f, reg)) {
 				ve.push_back(L"-" + it->f + L"-");
-				if (++cnt == 30)break;
+				if (++cnt == 60)break;
 			}
 		be = suffix.lower_bound(mi), ed = suffix.upper_bound(ma);
 		if (beg != L"")be = suffix.upper_bound(beg);
 		for (auto it = be;it != ed;++it)
 			if (regex_match(it->f, reg)) {
 				ve.push_back(L"-" + it->f);
-				if (++cnt == 45)break;
+				if (++cnt == 90)break;
 			}
 		sort(ve.begin(), ve.end(), [](wstring a, wstring b) {
 			if (a[0] == '-'&&b[0] == '-')return a < b;
@@ -321,381 +369,202 @@ void  match_rot(wstring match, vector<wstring>&ve, wstring beg) {
 			else return a < b;
 		});
 	}
-	catch (std::regex_error& error) {
+	catch (regex_error& error) {
 		error;
 	}
 	return;
 }
-vector<wstring> match_via_reg(wstring match) {
-	vector<wstring>ve;
-	try {
-		for (int i = 0; match[i]; i++)
-			if (match[i] >= 'A'&&match[i] <= L'Z')
-				match[i] = match[i] - 'A' + 'a';
-		regex reg(w2s(match));
-		int cnt = 0;
-		for (auto &x : vocs)
-			if (regex_match(x, reg)) {
-				ve.push_back(s2w(x));
-				if (++cnt == 15)break;
-			}
-	}
-	catch (std::regex_error& error) {
-		error;
-
-	}
-	return ve;
-}
 
 vector<wstring> Show2(wstring s) {
-	wstring input = s;
+	s = trim(s);
 	int len = (int)s.length();
-	bool sp = 0;
-	for (int i = 0;i < len;i++)
+	bool sp = false;
+	for (int i = 0; i < len; i++)
 		if (s[i] >= 'A'&&s[i] <= 'Z')
-			s[i] = s[i] - 'A' + 'a';
+			s[i] = s[i];
 		else if (s[i] >= 'a'&&s[i] <= 'z')
 			s[i] = s[i];
 		else
-			sp = 1, s[i] = ' ';
-		if (sp) {
-			wstringstream str(s);
+			sp = true, s[i] = ' ';
+	if(sp){
+		wstringstream str(s);
+		vector<wstring> ret;
+		while (str >> s)
+			ret.push_back(s);
+		return ret;
+	}
+	else if (ok_words.find(s)!=ok_words.end()) {
+		wstringstream str(ok_words[s]);
+		deque<wstring>dq;
+		int cnt = 0;
+		while (str >> s) {
+			cnt++;
+			dq.push_back(s);
+		}
+		if (cnt == 1) {
 			vector<wstring> ret;
-			while (str >> s)
-				ret.push_back(s);
+			ret.push_back(s);
 			return ret;
 		}
-		if (ok_words.find(s) != ok_words.end()) {
-			wstringstream str(ok_words[s]);
-			deque<wstring>dq;
-			int cnt = 0;
-			while (str >> s) {
-				cnt++;
-				dq.push_back(s);
-			}
-			if (cnt == 1) {
-				vector<wstring> ret;
-				ret.push_back(s);
-				return ret;
-			}
-			else if (cnt >= 2) {
-				wstring bes, eds;
-				vector<wstring> mds;
-				if (prefix.find(dq.front()) != prefix.end())
-					bes += dq.front() + L"-", dq.pop_front();
-				if (suffix.find(dq.back()) != suffix.end())
-					eds += L"-" + dq.back(), dq.pop_back();
-				bool nbe = 0;
-				for (auto &x : dq) {
-					nbe = 1;
-					if (root.find(x) != root.end())
-						mds.push_back(L"-" + x + L"-");
-					else if (words.find(x) != words.end())
-						mds.push_back(x);
-					else
-						mds.push_back(x);
-				}
-				vector<wstring> ret;
-				if (bes != L"")
-					ret.push_back(bes);
-				int sz = (int)mds.size();
-				for (int i = 0;i < sz;i++)
-					ret.push_back(mds[i]);
-				if (eds != L"")
-					ret.push_back(eds);
-				return ret;
-			}
-			else {
-				return vector<wstring>();
-			}
-		}
-		else {
+		else if (cnt >= 2) {
 			wstring bes, eds;
 			vector<wstring> mds;
-			for (int i = len;i > 0;i--) {
-				wstring sr = s.substr(0, i);
-				if (prefix.find(sr) != prefix.end() && prefix[sr] != L"") {
-					bes = sr + L"-";
-					if (i != len)s = s.substr(i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-				else if (i >= 3 && i != len&&root.find(sr) != root.end() && root[sr] != L"") {
-					bes = L"-" + sr + L"-";
-					if (i != len)s = s.substr(i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-				else if (i >= 4 && i != len&&words.find(sr) != words.end() && words[sr] != L"") {
-					bes = sr;
-					if (i != len)s = s.substr(i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
+			if (prefix.find(dq.front()) != prefix.end())
+				bes += dq.front() + L"-", dq.pop_front();
+			if (suffix.find(dq.back()) != suffix.end())
+				eds += L"-" + dq.back(), dq.pop_back();
+			bool nbe = 0;
+			for (auto &x : dq) {
+				nbe = 1;
+				if (root.find(x) != root.end())
+					mds.push_back(L"-" + x + L"-");
+				else if (words.find(x) != words.end())
+					mds.push_back(x);
+				else if (words.find(x+L'e') != words.end())
+					mds.push_back(x);
+				else if (prefix.find(x) != prefix.end())
+					mds.push_back(x + L"-"); 
+				else if (suffix.find(x) != suffix.end())
+					mds.push_back(L"-" + x);
+				else
+					mds.push_back(x);
 			}
-			for (int i = 0;i < len;i++) {
-				wstring sr = s.substr(i, len - i);
-				if ((len - i != len || bes != L"") && suffix.find(sr) != suffix.end() && suffix[sr] != L"") {
-					eds = L"-" + sr;
-					if (i)s = s.substr(0, i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-				else if ((len - i != len || bes != L"") && len - i >= 4 && root.find(sr) != root.end() && root[sr] != L"") {
-					eds = L"-" + sr + L"-";
-					if (i)s = s.substr(0, i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-				else if ((len - i != len || bes != L"") && len - i >= 5 && words.find(sr) != words.end() && words[sr] != L"") {
-					eds = sr;
-					if (i)s = s.substr(0, i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-			}
-			bool addp = 1;
-			for (int i = 0;i < len;i++) {
-			flag:;
-				for (int j = len - 1;j >= i;j--) {
-					wstring sr = s.substr(i, j - i + 1);
-					if (root.find(sr) != root.end() && root[sr] != L"") {
-						addp = 1;
-						mds.push_back(L"-" + sr + L"-");
-						wstring a, b;
-						if (i)a = s.substr(0, i);
-						if (j + 1 != len)b = s.substr(j + 1);
-						s = a + b;
-						len = (int)s.length();
-						goto flag;
-					}
-					else if ((j - i + 1) >= 3 && words.find(sr) != words.end() && words[sr] != L"") {
-						addp = 1;
-						mds.push_back(sr);
-						wstring a, b;
-						if (i)a = s.substr(0, i);
-						if (j + 1 != len)b = s.substr(j + 1);
-						s = a + b;
-						len = (int)s.length();
-						goto flag;
-					}
-					else if ((j - i + 1) >= 4 && words.find(sr + L"e") != words.end() && words[sr + L"e"] != L"") {
-						addp = 1;
-						mds.push_back(sr);
-						wstring a, b;
-						if (i)a = s.substr(0, i);
-						if (j + 1 != len)b = s.substr(j + 1);
-						s = a + b;
-						len = (int)s.length();
-						goto flag;
-					}
-
-				}
-				if (i < len) {
-					if (addp)mds.push_back(L"");
-					mds.back() += s[i];
-					addp = 0;
-				}
-			}
-			vector< wstring> ret;
+			vector<wstring> ret;
 			if (bes != L"")
 				ret.push_back(bes);
 			int sz = (int)mds.size();
-			for (int i = 0;i < sz;i++)
+			for (int i = 0; i < sz; i++)
 				ret.push_back(mds[i]);
 			if (eds != L"")
 				ret.push_back(eds);
 			return ret;
 		}
+		else {
+			return vector<wstring>();
+		}
+	}
+	else {
+		vector<wstring> ret;
+		if (s.length() >=5 && s.substr(s.length() - 3, 3) == L"ing") {
+			if (words.find(s.substr(0, s.length() - 3) + L"e") != words.end()) {
+				ret.push_back(s.substr(0, s.length() - 3));
+				ret.push_back(L"-ing");
+				return ret;
+			}
+			if (words.find(s.substr(0, s.length() - 3)) != words.end()) {
+				ret.push_back(s.substr(0, s.length() - 3));
+				ret.push_back(L"-ing");
+				return ret;
+			}
+			if (s.length() >= 6 && words.find(s.substr(0, s.length() - 4)) != words.end()) {
+				ret.push_back(s.substr(0, s.length() - 4));
+				ret.push_back(s.substr(s.length() - 4, 1));
+				ret.push_back(L"-ing");
+				return ret;
+			}
+		}
+		vector<vector<int>>dp(len);
+		vector<vector<wstring>>dps(len);
+		for (auto &x : dp)
+			x.resize(len);
+		for (auto &x : dps)
+			x.resize(len);
+		for (int i = 0; i < len; i++)
+			for (int j = i; j < len; j++) {
+				wstring now = s.substr(i, j - i + 1);
+				dp[i][j] = j - i;
+				dps[i][j] = now;
+				if (i == 0 && j == len - 1) {
+					dp[i][j] = j-i + max(17 / (j - i + 1), 1);
+					dps[i][j] = now;
+					continue;
+				}
+				if ((i != 0 || j != len - 1) && prefix.find(now) != prefix.end()) {
+					int score = i == 0 ? (j - i)*2+1 : (j - i - 1)*2;
+					if (dp[i][j] < score)
+						dp[i][j] = score, dps[i][j] = now + L"-";
+				}
+				if ((i != 0 || j != len - 1) && suffix.find(now) != suffix.end()) {
+					int score = j == len - 1 ? (j - i)*2+1 : (j - i - 1)*2;
+					if (dp[i][j] < score)
+						dp[i][j] = score, dps[i][j] = L"-" + now;
+				}
+				if ((i != 0 || j != len - 1) && root.find(now) != root.end()) {
+					int score = (j - i)*2;
+					if (dp[i][j] < score)
+						dp[i][j] = score, dps[i][j] = L"-" + now + L"-";
+				}
+				if ((i != 0 || j != len - 1) && (j - i >= 3||(j-i==2&& (j==len-1||i==0) ) )&& words.find(now) != words.end()) {
+					int score = (j - i) * 2;
+					if (dp[i][j] < score)
+						dp[i][j] = score, dps[i][j] = now;
+				}
+				if ((i != 0 || j != len - 2) && j - i>3 && words.find(now + L"e") != words.end()) {
+					int score = (j - i) * 2 - 1;
+					if (dp[i][j] < score)
+						dp[i][j] = score, dps[i][j] = now;
+				}
+				if ((i != 0 || j != len - 1) && (j - i >= 3 || (j - i == 2 && (j == len - 1 || i == 0))) && now.back()=='i' && words.find(now.substr(0,now.length()-1) + L"y") != words.end()) {
+					int score = (j - i) * 2 - 1;
+					if (dp[i][j] < score)
+						dp[i][j] = score, dps[i][j] = now;
+				}
+			}
+		vector<int>d(len);
+		vector<int>f(len);
+		/*wstring out;
+		for (int i = 0; i < len; i++,out+=L'\n')
+			for (int j = 0; j < len; j++)
+				out += IntToStr(dp[i][j]) +L' ';
+		if(s==L"acumen")
+			ShowMsg(out);*/
+		for (int i = 0; i < len; i++) {
+			d[i] = dp[0][i];
+			f[i] = -1;
+			for (int j = 0; j < i; j++)
+				if (d[i] <= d[j] + dp[j + 1][i])
+					d[i] = d[j] + dp[j + 1][i],
+					f[i] = j;
+		}
+		deque<wstring>dq;
+		int now = len - 1;
+		while (~now)
+			dq.push_front(dps[f[now] + 1][now]), now = f[now];
+		for (auto &x : dq)
+			ret.push_back(x);
+		return ret;
+	}
 }
 vector<pair<wstring, wstring>> Show(wstring s) {
-	s = trim(s);
-	wstring input = s;
-	int len = (int)s.length();
-	bool sp = 0;
-	for (int i = 0;i < len;i++)
-		if (s[i] >= 'A'&&s[i] <= 'Z')
-			s[i] = s[i] - 'A' + 'a';
-		else if (s[i] >= 'a'&&s[i] <= 'z')
-			s[i] = s[i];
-		else
-			sp = 1, s[i] = ' ';
-		if (sp) {
-			wstringstream str(s);
-			vector<pair<wstring, wstring>> ret;
-			while (str >> s)
-				if (words.find(s) == words.end())
-					ret.push_back(make_pair(s, s));
-				else
-					ret.push_back(make_pair(words[s], s));
-			return ret;
-		}
-		if (ok_words.find(s) != ok_words.end()) {
-			wstringstream str(ok_words[s]);
-			deque<wstring>dq;
-			int cnt = 0;
-			while (str >> s) {
-				cnt++;
-				dq.push_back(s);
-			}
-			if (cnt == 1) {
-				vector<pair<wstring, wstring>> ret;
-				ret.push_back(make_pair(words[s], s));
-				return ret;
-			}
-			else if (cnt >= 2) {
-				wstring bes, eds;
-				wstring be, ed;
-				vector<wstring> mds, md;
-				if (prefix.find(dq.front()) != prefix.end())
-					bes += dq.front(), be = prefix[dq.front()], dq.pop_front();
-				if (suffix.find(dq.back()) != suffix.end())
-					eds += dq.back(), ed = make_tail(input, suffix[dq.back()]), dq.pop_back();
-				bool nbe = 0;
-				for (auto &x : dq) {
-					nbe = 1;
-					if (root.find(x) != root.end())
-						mds.push_back(x), md.push_back(root[x]);
-					else if (words.find(x) != words.end())
-						mds.push_back(x), md.push_back(words[x]);
-					else
-						mds.push_back(x), md.push_back(x);
-				}
-				vector<pair<wstring, wstring>> ret;
-				if (be != L"")
-					ret.push_back(make_pair(be, bes));
-				int sz = (int)md.size();
-				for (int i = 0;i < sz;i++)
-					ret.push_back(make_pair(md[i], mds[i]));
-				if (ed != L"")
-					ret.push_back(make_pair(ed, eds));
-				return ret;
-			}
-			else {
-				return vector<pair<wstring, wstring>>();
-			}
+	auto ve = Show2(s);
+	vector<pair<wstring, wstring>>ret;//chinese eng
+	for (auto &x : ve) {
+		int len = (int)x.length();
+		if (x[0] == '-'||x[len - 1] == '-') {
+			wstring now = x;
+			if (now[0] == '-')
+				now = now.substr(1);
+			if (now[now.length() - 1] == '-')
+				now = now.substr(0, now.length() - 1);
+			ret.push_back(make_pair(GetRootExp(x), now));
 		}
 		else {
-			wstring bes, eds;
-			wstring be, ed;
-			vector<wstring> mds, md;
-			for (int i = len;i > 0;i--) {
-				wstring sr = s.substr(0, i);
-				if (prefix.find(sr) != prefix.end() && prefix[sr] != L"") {
-					be = prefix[sr];
-					bes = sr;
-					if (i != len)s = s.substr(i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-				else if (i >= 3 && i != len&&root.find(sr) != root.end() && root[sr] != L"") {
-					be = root[sr];
-					bes = sr;
-					if (i != len)s = s.substr(i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-				else if (i >= 4 && i != len&&words.find(sr) != words.end() && words[sr] != L"") {
-					be = words[sr];
-					bes = sr;
-					if (i != len)s = s.substr(i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-			}
-			for (int i = 0;i < len;i++) {
-				wstring sr = s.substr(i, len - i);
-				if ((len - i != len || be != L"") && suffix.find(sr) != suffix.end() && suffix[sr] != L"") {
-					ed = make_tail(input, suffix[sr]);
-					eds = sr;
-					if (i)s = s.substr(0, i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-				else if ((len - i != len || be != L"") && len - i >= 4 && root.find(sr) != root.end() && root[sr] != L"") {
-					ed = root[sr];
-					eds = sr;
-					if (i)s = s.substr(0, i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-				else if ((len - i != len || be != L"") && len - i >= 5 && i != len&&words.find(sr) != words.end() && words[sr] != L"") {
-					ed = words[sr];
-					eds = sr;
-					if (i)s = s.substr(0, i);
-					else s = L"";
-					len = (int)s.length();
-					break;
-				}
-			}
-			bool addp = 1;
-			for (int i = 0;i < len;i++) {
-			flag:;
-				for (int j = len - 1;j >= i;j--) {
-					wstring sr = s.substr(i, j - i + 1);
-					if (root.find(sr) != root.end() && root[sr] != L"") {
-						addp = 1;
-						md.push_back(root[sr]);
-						mds.push_back(sr);
-						wstring a, b;
-						if (i)a = s.substr(0, i);
-						if (j + 1 != len)b = s.substr(j + 1);
-						s = a + b;
-						len = (int)s.length();
-						goto flag;
-					}
-					else if ((j - i + 1) >= 3 && words.find(sr) != words.end() && words[sr] != L"") {
-						addp = 1;
-						md.push_back(words[sr]);
-						mds.push_back(sr);
-						wstring a, b;
-						if (i)a = s.substr(0, i);
-						if (j + 1 != len)b = s.substr(j + 1);
-						s = a + b;
-						len = (int)s.length();
-						goto flag;
-					}
-					else if ((j - i + 1) >= 5 && words.find(sr + L"e") != words.end() && words[sr + L"e"] != L"") {
-						addp = 1;
-						md.push_back(words[sr + L"e"]);
-						mds.push_back(sr);
-						wstring a, b;
-						if (i)a = s.substr(0, i);
-						if (j + 1 != len)b = s.substr(j + 1);
-						s = a + b;
-						len = (int)s.length();
-						goto flag;
-					}
-
-				}
-				if (i < len) {
-					if (addp)md.push_back(L""), mds.push_back(L"");
-					mds.back() += s[i];
-					md.back() += s[i];
-					addp = 0;
-				}
-			}
-			vector<pair<wstring, wstring>> ret;
-			if (be != L"")
-				ret.push_back(make_pair(be, bes));
-			int sz = (int)md.size();
-			for (int i = 0;i < sz;i++)
-				ret.push_back(make_pair(md[i], mds[i]));
-			if (ed != L"")
-				ret.push_back(make_pair(ed, eds));
-			return ret;
+			auto now = x;
+			ret.push_back(make_pair(WordRotToExp(now).f,now));
 		}
+	}
+	return ret;
+}
+pair<wstring, wstring> WordRotToExp(wstring now) {
+	wstring nw;
+	if (words.find(now) != words.end())
+		return (make_pair(words[now], now));
+	else if (now.length()>2 && words.find(now + L"e") != words.end())
+		return (make_pair(words[now + L"e"], now + L"e"));
+	else if (now.length()>2 && now.back() == 'i' && (nw = now.substr(0, now.length() - 1) + L"y", words.find(nw) != words.end()))
+		return (make_pair(words[nw], nw));
+	else
+		return (make_pair(now, now));
 }
 wstring IntToStr(int x) {
 	wstringstream str;
@@ -706,7 +575,7 @@ wstring IntToStr(int x) {
 }
 int StrToInt(wstring x) {
 	wstringstream str;
-	int s;
+	int s=0;
 	str << x;
 	str >> s;
 	return s;
@@ -848,6 +717,12 @@ fnc2(ex->Message->Data());
 }
 });
 }*/
+void LogMessage(Object^ parameter)
+{
+	auto paraString = parameter->ToString();
+	auto formattedText = std::wstring(paraString->Data()).append(L"\r\n");
+	OutputDebugString(formattedText.c_str());
+}
 void ShowLoading() {
 	auto shell = dynamic_cast<AppShell^>(Window::Current->Content);
 	shell->AppTopFrame->Navigate(TypeName(Views::LoadingPage::typeid));
@@ -863,9 +738,20 @@ pair<wstring, vector<int>> GetExp(wstring s) {
 	int i;
 	vector<int>ve;
 	while (str >> i)ve.push_back(i);
-	return make_pair(s.substr(0, pos), ve);
+	s = s.substr(0, pos);
+	if (s.length()>1 && s[0] == '='&&words.find(trim(s.substr(1))) != words.end())
+		return make_pair(GetExpSimple(words[trim(s.substr(1))]), ve);
+	return make_pair(s, ve);
 }
-wstring GetExpSimple(wstring s) {
+wstring GetExpSimple(wstring s,int cnt) {
+	auto pos = s.find(L",");
+	if (pos == wstring::npos)return s;
+	s = s.substr(0, pos);
+	if (cnt<20&&s.length()>1 && s[0] == '='&&words.find(trim(s.substr(1))) != words.end())
+		return GetExpSimple(words[trim(s.substr(1))],cnt+1);
+	return s;
+}
+wstring GetExpSimpleOrg(wstring s) {
 	auto pos = s.find(L",");
 	if (pos == wstring::npos)return s;
 	return s.substr(0, pos);
@@ -918,7 +804,77 @@ wstring MergeExp(vector<wstring> v) {
 	}
 	return ret;
 }
-map<wstring, set<wstring>>rt;
+wstring GetRootExp(wstring s, int cnt) {
+	if (s == L"")return L"";
+	if (s.front() == '-'&&s.back() == '-') {
+		s = s.substr(1, s.length() - 2);
+		if (root.find(s) != root.end()) {
+			wstring exp = root[s];
+			if (cnt < 20 && exp.length()>1 && exp[0] == '='&&root.find(trim(exp.substr(1))) != root.end())
+				return GetRootExp(L"-" + trim(exp.substr(1)) + L"-", cnt + 1);
+			return exp;
+		}
+		else
+			return L"";
+	}
+	else if (s.front() == '-') {
+		s = s.substr(1, s.length() - 1);
+		if (suffix.find(s) != suffix.end()) {
+			wstring exp = suffix[s];
+			if (cnt < 20 && exp.length()>1 && exp[0] == '='&&suffix.find(trim(exp.substr(1))) != suffix.end())
+				return GetRootExp(L"-" + trim(exp.substr(1)), cnt + 1);
+			return exp;
+		}
+		else
+			return L"";
+	}
+	else if (s.back() == '-') {
+		s = s.substr(0, s.length() - 1);
+		if (prefix.find(s) != prefix.end()) {
+			wstring exp = prefix[s];
+			if (cnt < 20 && exp.length()>1 && exp[0] == '='&&prefix.find(trim(exp.substr(1))) != prefix.end())
+				return GetRootExp(trim(exp.substr(1))+ L"-" , cnt + 1);
+			return exp;
+		}
+		else
+			return L"";
+	}
+	else {
+		return GetExpSimple(s);
+	}
+}
+wstring GetRootExpOrg(wstring s) {
+	if (s == L"")return L"";
+	if (s.front() == '-'&&s.back() == '-') {
+		s = s.substr(1, s.length() - 2);
+		if (root.find(s) != root.end()) {
+			return root[s];
+		}
+		else
+			return L"";
+	}
+	else if (s.front() == '-') {
+		s = s.substr(1, s.length() - 1);
+		if (suffix.find(s) != suffix.end()) {
+			return suffix[s];
+		}
+		else
+			return L"";
+	}
+	else if (s.back() == '-') {
+		s = s.substr(0, s.length() - 1);
+		if (prefix.find(s) != prefix.end()) {
+			return prefix[s];
+		}
+		else
+			return L"";
+	}
+	else {
+		return GetExpSimpleOrg(s);
+	}
+}
+//unique_ptr<map<wstring, set<wstring>>> rtp=nullptr;
+//map<wstring, set<wstring>>rt;
 int loading_cnt;
 wstring LowwerCase(wstring s) {
 	for (auto &x : s)
@@ -1321,7 +1277,7 @@ int LevenshteinDistance(wstring s, wstring t)
 {
 	// degenerate cases
 	if (s == t) return 0;
-	int n = s.length(), m = t.length();
+	int n = (int)s.length(), m = (int)t.length();
 	if (n == 0) return m;
 	if (m == 0) return n;
 
@@ -1358,5 +1314,112 @@ int LevenshteinDistance(wstring s, wstring t)
 	return v1[m];
 }
 int GetCurrentID() {
+	//return 0;
 	return Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->Id;
+}
+
+int RandomInt(int n){
+		return ((rand() << 16) + rand()) % n; 
+}
+Windows::ApplicationModel::Store::LicenseInformation^ licenseInformation;
+bool IsTrial=true;
+void licenseChangedEventHandler()
+{
+	if (licenseInformation->IsActive)
+	{
+		if (licenseInformation->IsTrial)
+		{
+			// Show the features that are available during trial only.
+			//auto longDateFormat = ref new Windows::Globalization::DateTimeFormatting::DateTimeFormatter("longdate");
+
+			// Display the expiration date using the DateTimeFormatter. 
+			// For example, longDateFormat.Format(licenseInformation.ExpirationDate)
+
+			//auto daysRemaining = (licenseInformation->ExpirationDate - DateTime->Now)->Days;
+			IsTrial = true;
+		}
+		else
+		{
+			// Show the features that are available only with a full license.
+			IsTrial = false;
+		}
+	}
+	else
+	{
+		// A license is inactive only when there' s an error.
+	}
+
+}
+void InitializeLicense()
+{
+	// Initialize the license info for use in the app that is uploaded to the Store.
+	// uncomment for release
+	//   licenseInformation = CurrentApp.LicenseInformation;
+
+	// Initialize the license info for testing.
+	// comment the next line for release
+	//licenseInformation = Windows::ApplicationModel::Store::CurrentAppSimulator::LicenseInformation;
+	licenseInformation = Windows::ApplicationModel::Store::CurrentApp::LicenseInformation;
+	if (licenseInformation->IsActive&&licenseInformation->IsTrial)IsTrial = true;
+	else IsTrial = false;
+	licenseInformation->LicenseChanged += ref new Windows::ApplicationModel::Store::LicenseChangedEventHandler(&licenseChangedEventHandler);
+}
+
+StackPanel^ ExpStack(wstring s,int fontsize) {
+	StackPanel^ expst=ref new StackPanel();
+	//expst->Children->Clear();
+	s = trim(s);
+	wstring vol, pre;
+	bool iv = 0;
+	auto stp = ref new StackPanel();
+	stp->Orientation = Orientation::Horizontal;
+	for (auto x : s)
+		if (!iv&&x == '[') {
+			pre = trim(pre);
+			if (pre != L"") {
+				auto tmp = ref new TextBlock();
+				tmp->Text = ref new String(trim(pre).c_str());
+				tmp->FontSize = fontsize;
+				tmp->Margin = Thickness(10, 0, 0, 0);
+				tmp->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
+				tmp->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+				stp->Children->Append(tmp);
+				expst->Children->Append(stp);
+				stp = ref new StackPanel();
+				stp->Orientation = Orientation::Horizontal;
+				pre.clear();
+			}
+			iv = 1;
+		}
+		else if (iv&&x == ']') {
+			auto tmp = ref new TextBlock();
+			tmp->Text = ref new String(trim(pre).c_str());
+			tmp->FontSize = fontsize;
+			tmp->FontWeight = Text::FontWeights::Bold;
+			tmp->Margin = Thickness(2, 1, 2, 1);
+			tmp->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
+			tmp->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+			auto bor = ref new Border();
+			bor->MinWidth = 50;
+			bor->Margin = Thickness(10, 0, 0, 4);
+			bor->BorderBrush = ref new SolidColorBrush(Windows::UI::Colors::Gray);
+			bor->BorderThickness = 2;
+			bor->Child = tmp;
+
+			stp->Children->Append(bor);
+			pre.clear();
+			iv = 0;
+		}
+		else pre += x;
+		if (pre != L"") {
+			auto tmp = ref new TextBlock();
+			tmp->Text = ref new String(trim(pre).c_str());
+			tmp->FontSize = fontsize;
+			tmp->Margin = Thickness(10, 0, 0, 0);
+			tmp->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
+			tmp->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+			stp->Children->Append(tmp);
+			expst->Children->Append(stp);
+		}
+		return expst;
 }

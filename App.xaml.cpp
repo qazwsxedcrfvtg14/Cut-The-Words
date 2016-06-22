@@ -36,7 +36,8 @@ using namespace Windows::UI::Xaml::Navigation;
 
 App::App()
 {
-	srand(time(NULL));
+	int data_version = 1;
+	srand((unsigned int)time(0));
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"setting.txt")) == nullptr)
 		DumpAppFile(L"setting.txt");
 	get_doc(L"setting.txt", setting);
@@ -45,22 +46,29 @@ App::App()
 	if (setting[L"theme"] == L"dark")
 		Application::RequestedTheme = ApplicationTheme::Dark;
 	if (setting[L"website"] == L"")
-		setting[L"website"] = L"http://localhost/words";
+		//setting[L"website"] = L"http://localhost/words";
+		setting[L"website"] = L"http://joe59491.azurewebsites.net";
 	if (setting[L"sound_url"] == L"")
 		setting[L"sound_url"] = L"http://dictionary.reference.com/browse/";
 	if (setting[L"sound_url2"] == L"")
 		setting[L"sound_url2"] = L"http://static.sfdict.com/staticrep/dictaudio";
 	if (setting[L"sound_type"] == L"")
 		setting[L"sound_type"] = L".mp3";
+	if (setting[L"data_version"] == L"")
+		setting[L"data_version"] = L"0";
 	SavingSetting();
-	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words.txt")) == nullptr) 
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words.txt")) == nullptr || StrToInt(setting[L"data_version"]) < data_version)
 		DumpAppFile(L"words.txt");
-	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"prefix.txt")) == nullptr)
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"prefix.txt")) == nullptr || StrToInt(setting[L"data_version"]) < data_version)
 		DumpAppFile(L"prefix.txt");
-	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"suffix.txt")) == nullptr)
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"suffix.txt")) == nullptr || StrToInt(setting[L"data_version"]) < data_version)
 		DumpAppFile(L"suffix.txt");
-	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"root.txt")) == nullptr)
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"root.txt")) == nullptr || StrToInt(setting[L"data_version"]) < data_version)
 		DumpAppFile(L"root.txt");
+	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"note.txt")) == nullptr || StrToInt(setting[L"data_version"]) < data_version)
+		DumpAppFile(L"note.txt");
+	setting[L"data_version"] = IntToStr(data_version);
+	SavingSetting();
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words_user.txt")) == nullptr)
 		StrToFile(L"", L"words_user.txt");
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"prefix_user.txt")) == nullptr)
@@ -71,8 +79,6 @@ App::App()
 		StrToFile(L"", L"root_user.txt");
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"note_user.txt")) == nullptr)
 		StrToFile(L"", L"note_user.txt");
-	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"note.txt")) == nullptr)
-		DumpAppFile(L"note.txt");
 	get_doc(L"words.txt", words, ok_words);
 	get_doc(L"prefix.txt", prefix);
 	get_doc(L"suffix.txt", suffix);
@@ -81,40 +87,50 @@ App::App()
 		DumpAppFile(L"favorite.txt");
 	get_doc(L"favorite.txt", favorite);
 	get_doc(L"note.txt", note);
-	for (auto x : words)
-		vocs.insert(w2s(x.f));
 
-	inited = 0;
-	create_task([=] {
+	/*create_task([=] {
+		auto nrtp = make_unique<map<wstring, set<wstring>>>();
 		for (auto &x : words) {
 			auto ve = Show2(x.f);
 			for (auto &y : ve) {
-				if(y!=x.f)rt[y].insert(x.f);
+				if (y.front() != '-'&&y.back() != '-')
+					y= WordRotToExp(y).s;
+				if(y!=x.f)
+					(*nrtp)[y].insert(x.f);
 			}
 		}
-		inited = 1;
-	});
+		swap(nrtp, rtp);
+	});*/
 	InitializeComponent();
 	auto database_sync = ref new DispatcherTimer();
 	Windows::Foundation::TimeSpan time;
-	time.Duration = 3000000000;
+	time.Duration = 300000000;
 	database_sync->Interval = time;
 	auto timerDelegate = [this](Object^ e, Object^ ags) {
 		StrToFile(dump_doc(setting), L"setting.txt");
 		StrToFile(dump_doc(favorite), L"favorite.txt");
-		StrToFile(dump_doc(words,ok_words), L"words.txt");
-		StrToFile(dump_doc(prefix), L"prefix.txt");
-		StrToFile(dump_doc(suffix), L"suffix.txt");
-		StrToFile(dump_doc(root), L"root.txt");
-		StrToFile(dump_doc(note), L"note.txt");
-		StrToFile(L"", L"words_user.txt");
-		StrToFile(L"", L"prefix_user.txt");
-		StrToFile(L"", L"suffix_user.txt");
-		StrToFile(L"", L"root_user.txt");
-		StrToFile(L"", L"note_user.txt");
+		/*create_task([=] {
+			auto nrtp = make_unique<map<wstring, set<wstring>>>();
+			for (auto &x : words) {
+				auto ve = Show2(x.f);
+				for (auto &y : ve) {
+					if (y.front() != '-'&&y.back() != '-')
+						y = WordRotToExp(y).s;
+					if (y != x.f)
+						(*nrtp)[y].insert(x.f);
+				}
+			}
+			swap(nrtp, rtp);
+		});*/
+		//StrToFile(dump_doc(words,ok_words), L"words_user.txt");
+		//StrToFile(dump_doc(prefix), L"prefix_user.txt");
+		//StrToFile(dump_doc(suffix), L"suffix_user.txt");
+		//StrToFile(dump_doc(root), L"root_user.txt");
+		//StrToFile(dump_doc(note), L"note_user.txt");
 	};
 	database_sync->Tick += ref new EventHandler<Object^>(timerDelegate);
 	database_sync->Start();
+	//InitializeLicense();
 	Suspending += ref new SuspendingEventHandler(this, &App::OnSuspending);
 }
 
@@ -125,7 +141,10 @@ App::App()
 /// <param name="e">Details about the launch request and process.</param>
 void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEventArgs^ e)
 {
-
+	if (e->PrelaunchActivated)
+	{
+		return;
+	}
 #if _DEBUG
     // Show graphics profiling information while debugging.
     if (IsDebuggerPresent())
@@ -150,15 +169,10 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
             // final launch steps after the restore is complete
 
         }
-		if (!e->PrelaunchActivated)
-		{
-			// TODO: Restore the saved session state only when appropriate, scheduling the
-			// final launch steps after the restore is complete
-
-		}
+		
 		
     }
-	else {
+	else if(false){
 		CoreApplicationView^ newView = CoreApplication::CreateNewView();
 		int newViewId ;
 		AWait(newView->Dispatcher->RunAsync(CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([&]()	
@@ -171,8 +185,13 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 			Window::Current->Activate();
 			newViewId = Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->Id;
 		})));
-		Windows::UI::ViewManagement::ApplicationViewSwitcher::TryShowAsStandaloneAsync(newViewId);
-
+		Windows::UI::ViewManagement::ApplicationViewSwitcher::TryShowAsStandaloneAsync(newViewId,
+			Windows::UI::ViewManagement::ViewSizePreference::Default,
+			Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->Id,
+			Windows::UI::ViewManagement::ViewSizePreference::Default
+		);
+		
+		//
 	}
 	//
     // Place our app shell in the current Window

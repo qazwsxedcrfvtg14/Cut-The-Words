@@ -20,7 +20,16 @@ namespace CutTheWords
         public:
             BasicPage();
 		private:
-			void host_name_TextChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::TextChangedEventArgs^ e);
+			int adCount = 0;
+			Microsoft::Advertising::WinRT::UI::InterstitialAd^ interstitialAd;
+			void RunInterstitialAd(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
+			void OnAdReady(Platform::Object^ sender, Platform::Object^ args);
+			void OnAdCancelled(Platform::Object^ sender, Platform::Object^ args);
+			void OnAdCompleted(Platform::Object^ sender, Platform::Object^ args);
+			void OnErrorOccurred2(Object ^ sender, Microsoft::Advertising::WinRT::UI::AdErrorEventArgs ^ e);
+			void OnErrorOccurred(Object ^ sender, Microsoft::Advertising::WinRT::UI::AdErrorEventArgs ^ e);
+			void OnAdRefreshed(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ args);
+			void Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		};
     }
 }

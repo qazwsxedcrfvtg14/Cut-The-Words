@@ -12,13 +12,13 @@ namespace Windows {
     namespace UI {
         namespace Xaml {
             namespace Controls {
+                ref class MediaElement;
                 ref class ScrollViewer;
                 ref class CommandBar;
                 ref class TextBlock;
                 ref class Button;
                 ref class ListView;
                 ref class StackPanel;
-                ref class MediaElement;
                 ref class TextBox;
                 ref class AppBarButton;
             }
@@ -32,6 +32,15 @@ namespace Windows {
                 namespace Animation {
                     ref class Storyboard;
                 }
+            }
+        }
+    }
+}
+namespace Microsoft {
+    namespace Advertising {
+        namespace WinRT {
+            namespace UI {
+                ref class AdControl;
             }
         }
     }
@@ -56,6 +65,7 @@ namespace CutTheWords
             class SingleVocPage_obj1_Bindings;
         
             ::XamlBindingInfo::XamlBindings^ Bindings;
+            private: ::Windows::UI::Xaml::Controls::MediaElement^ media;
             private: ::Windows::UI::Xaml::Controls::ScrollViewer^ scro;
             private: ::Windows::UI::Xaml::Media::Animation::Storyboard^ FadOutEditPanel;
             private: ::Windows::UI::Xaml::Media::Animation::Storyboard^ FadInEditPanel;
@@ -65,11 +75,13 @@ namespace CutTheWords
             private: ::Windows::UI::Xaml::Controls::TextBlock^ tivoc;
             private: ::Windows::UI::Xaml::Controls::Button^ play_but;
             private: ::Windows::UI::Xaml::Controls::TextBlock^ kk;
+            private: ::Windows::UI::Xaml::Controls::ScrollViewer^ expst;
             private: ::Windows::UI::Xaml::Controls::ScrollViewer^ note_view;
+            private: ::Windows::UI::Xaml::Controls::ListView^ alias_list;
+            private: ::Microsoft::Advertising::WinRT::UI::AdControl^ ad;
             private: ::Windows::UI::Xaml::Controls::ListView^ VocList;
             private: ::Windows::UI::Xaml::Controls::ScrollViewer^ EditPanel;
             private: ::Windows::UI::Xaml::Controls::StackPanel^ DelPanel;
-            private: ::Windows::UI::Xaml::Controls::MediaElement^ media;
             private: ::Windows::UI::Xaml::Controls::ListView^ DelList;
             private: ::Windows::UI::Xaml::Controls::TextBox^ block;
             private: ::Windows::UI::Xaml::Controls::ListView^ EditList;
@@ -78,7 +90,6 @@ namespace CutTheWords
             private: ::Windows::UI::Xaml::Controls::StackPanel^ pics;
             private: ::Windows::UI::Xaml::Controls::StackPanel^ voc_croot;
             private: ::Windows::UI::Xaml::Controls::StackPanel^ voc_root;
-            private: ::Windows::UI::Xaml::Controls::StackPanel^ expst;
             private: ::Windows::UI::Xaml::Controls::AppBarButton^ fav;
         };
     }

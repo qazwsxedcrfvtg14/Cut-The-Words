@@ -8,7 +8,7 @@
 using namespace Platform;
 
 #include "TestPage.g.h"
-
+#include "Voc.h"
 namespace CutTheWords
 {
 	namespace Views
@@ -26,14 +26,16 @@ namespace CutTheWords
 			virtual void OnNavigatedFrom(Windows::UI::Xaml::Navigation::NavigationEventArgs^ e) override;
 		private:
 			int ok = 0, wa = 0;
-			void ExpStack(wstring s, StackPanel ^ expst);
+			queue<Windows::Foundation::EventRegistrationToken>event_token_queue;
+			//void ExpStack(wstring s, StackPanel ^ expst);
 			void Init();
-			void ListView_ItemClick(Object^ sender, Windows::UI::Xaml::Controls::ItemClickEventArgs^ e);
 			void OnTextChanged(Platform::Object ^sender, Windows::UI::Xaml::Controls::TextChangedEventArgs ^e);
 			void OnRightTapped(Platform::Object ^sender, Windows::UI::Xaml::Input::RightTappedRoutedEventArgs ^e);
 			void fav_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 			void AppBarButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 			void OnTapped(Platform::Object ^sender, Windows::UI::Xaml::Input::TappedRoutedEventArgs ^e);
+			void OnLoaded(Platform::Object ^sender, Windows::UI::Xaml::RoutedEventArgs ^e);
+			void AppBarButton_Click_1(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 		};
 	}
 }

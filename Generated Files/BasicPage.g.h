@@ -11,7 +11,7 @@ namespace Windows {
     namespace UI {
         namespace Xaml {
             namespace Controls {
-                ref class TextBox;
+                ref class StackPanel;
             }
         }
     }
@@ -34,7 +34,7 @@ namespace CutTheWords
         private:
             bool _contentLoaded;
         
-            private: ::Windows::UI::Xaml::Controls::TextBox^ host_name;
+            private: ::Windows::UI::Xaml::Controls::StackPanel^ stp;
         };
     }
 }

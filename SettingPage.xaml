@@ -19,18 +19,27 @@
                 <TextBlock x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text="設定"/>
             </ctl:PageHeader.HeaderContent>
         </ctl:PageHeader>
-
-        <ListView x:Name="set_list" Grid.Row="1"
+        <StackPanel Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Margin="30,0,0,0" Text="更新伺服器位置：" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" x:Name="host_name" Margin="5,5,30,5" TextChanged="host_name_TextChanged"/>
+            </Grid>
+            <TextBlock Margin="3,3,3,10" Text="(伺服器位置留空後，重開應用程式會回復預設值)" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <ListView x:Name="set_list" Grid.Row="1"
                   EntranceNavigationTransitionInfo.IsTargetElement="True"
                   IsItemClickEnabled="True"
                   ItemClick="ListView_ItemClick">
-            <ListViewItem>設定主題色彩</ListViewItem>
-            <ListViewItem>聲音選項</ListViewItem>
-            <ListViewItem>單字庫選項</ListViewItem>
-            <ListViewItem>關於</ListViewItem>
-            <!--<ListViewItem>Test</ListViewItem>-->
-        </ListView>
-
+                <ListViewItem>設定主題色彩</ListViewItem>
+                <ListViewItem>聲音選項</ListViewItem>
+                <ListViewItem>單字庫選項</ListViewItem>
+                <ListViewItem>關於</ListViewItem>
+                <!--<ListViewItem>Test</ListViewItem>-->
+            </ListView>
+        </StackPanel>
 
     </Grid>
 

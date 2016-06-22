@@ -12,6 +12,7 @@ namespace Windows {
         namespace Xaml {
             namespace Controls {
                 ref class ListView;
+                ref class TextBox;
                 ref class TextBlock;
             }
         }
@@ -36,6 +37,7 @@ namespace CutTheWords
             bool _contentLoaded;
         
             private: ::Windows::UI::Xaml::Controls::ListView^ set_list;
+            private: ::Windows::UI::Xaml::Controls::TextBox^ host_name;
             private: ::Windows::UI::Xaml::Controls::TextBlock^ title;
         };
     }

@@ -70,6 +70,9 @@
     <ClCompile Include="PicPage.xaml.cpp" />
     <ClCompile Include="MALoginPage.xaml.cpp" />
     <ClCompile Include="MAPage.xaml.cpp" />
+    <ClCompile Include="TestPage.xaml.cpp" />
+    <ClCompile Include="TestPage2.xaml.cpp" />
+    <ClCompile Include="TestPage1.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -107,6 +110,9 @@
     <ClInclude Include="PicPage.xaml.h" />
     <ClInclude Include="MALoginPage.xaml.h" />
     <ClInclude Include="MAPage.xaml.h" />
+    <ClInclude Include="TestPage.xaml.h" />
+    <ClInclude Include="TestPage2.xaml.h" />
+    <ClInclude Include="TestPage1.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -186,6 +192,9 @@
       <Filter>Views</Filter>
     </Page>
     <Page Include="TestPage2.xaml">
+      <Filter>Views</Filter>
+    </Page>
+    <Page Include="TestPage1.xaml">
       <Filter>Views</Filter>
     </Page>
   </ItemGroup>
@@ -302,5 +311,8 @@
     <None Include="s2tw.json" />
     <None Include="s2twp.json" />
     <None Include="CutTheWords_TemporaryKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
+    <None Include="CutTheWords_StoreKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

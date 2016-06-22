@@ -23,51 +23,6 @@ void ::CutTheWords::Views::SingleRootPage::InitializeComponent()
     ::Windows::UI::Xaml::Application::LoadComponent(this, resourceLocator, ::Windows::UI::Xaml::Controls::Primitives::ComponentResourceLocation::Application);
 }
 
-
-/// <summary>
-/// Auto generated class for compiled bindings.
-/// </summary>
-class CutTheWords::Views::SingleRootPage::SingleRootPage_obj1_Bindings 
-    : public ::XamlBindingInfo::XamlBindingsBase<::CutTheWords::Views::SingleRootPage>
-{
-public:
-    SingleRootPage_obj1_Bindings()
-    {
-    }
-
-    void Connect(int __connectionId, ::Platform::Object^ __target)
-    {
-        switch(__connectionId)
-        {
-            case 8:
-                this->obj8 = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(__target);
-                break;
-        }
-    }
-private:
-    // Fields for each control that has bindings.
-    ::Windows::UI::Xaml::Controls::TextBlock^ obj8;
-
-    // Update methods for each path node used in binding steps.
-    void Update_(::CutTheWords::Views::SingleRootPage^ obj, int phase)
-    {
-        if (obj != nullptr)
-        {
-            if ((phase & (NOT_PHASED | (1 << 0))) != 0)
-            {
-                this->Update_Vocabulary(obj->Vocabulary, phase);
-            }
-        }
-    }
-    void Update_Vocabulary(::Platform::String^ obj, int phase)
-    {
-        if((phase & ((1 << 0) | NOT_PHASED )) != 0)
-        {
-            ::XamlBindingInfo::XamlBindingSetters::Set_Windows_UI_Xaml_Controls_TextBlock_Text(this->obj8, obj, nullptr);
-        }
-    }
-};
-
 void ::CutTheWords::Views::SingleRootPage::Connect(int __connectionId, ::Platform::Object^ __target)
 {
     switch (__connectionId)
@@ -109,58 +64,79 @@ void ::CutTheWords::Views::SingleRootPage::Connect(int __connectionId, ::Platfor
                 this->topbar = safe_cast<::Windows::UI::Xaml::Controls::CommandBar^>(__target);
             }
             break;
+        case 8:
+            {
+                this->title = safe_cast<::Windows::UI::Xaml::Controls::TextBlock^>(__target);
+            }
+            break;
         case 9:
+            {
+                this->alias_list = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::ListView^>(this->alias_list))->ItemClick += ref new ::Windows::UI::Xaml::Controls::ItemClickEventHandler(this, (void (::CutTheWords::Views::SingleRootPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::Controls::ItemClickEventArgs^))&SingleRootPage::alias_list_ItemClick);
+            }
+            break;
+        case 10:
+            {
+                ::Microsoft::Advertising::WinRT::UI::AdControl^ element10 = safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(__target);
+                (safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(element10))->AdRefreshed += ref new ::Windows::Foundation::EventHandler<::Windows::UI::Xaml::RoutedEventArgs^>(this, (void (::CutTheWords::Views::SingleRootPage::*)
+                    (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleRootPage::OnAdRefreshed);
+                (safe_cast<::Microsoft::Advertising::WinRT::UI::AdControl^>(element10))->ErrorOccurred += ref new ::Windows::Foundation::EventHandler<::Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^>(this, (void (::CutTheWords::Views::SingleRootPage::*)
+                    (::Platform::Object^, ::Microsoft::Advertising::WinRT::UI::AdErrorEventArgs^))&SingleRootPage::OnErrorOccurred);
+            }
+            break;
+        case 11:
             {
                 this->VocList = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::ListView^>(this->VocList))->ItemClick += ref new ::Windows::UI::Xaml::Controls::ItemClickEventHandler(this, (void (::CutTheWords::Views::SingleRootPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Controls::ItemClickEventArgs^))&SingleRootPage::VocListView_ItemClick);
             }
             break;
-        case 10:
+        case 12:
             {
                 this->EditPanel = safe_cast<::Windows::UI::Xaml::Controls::StackPanel^>(__target);
             }
             break;
-        case 11:
+        case 13:
             {
                 this->DelPanel = safe_cast<::Windows::UI::Xaml::Controls::StackPanel^>(__target);
             }
             break;
-        case 12:
+        case 14:
             {
                 this->DelList = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::ListView^>(this->DelList))->ItemClick += ref new ::Windows::UI::Xaml::Controls::ItemClickEventHandler(this, (void (::CutTheWords::Views::SingleRootPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Controls::ItemClickEventArgs^))&SingleRootPage::DelPanelListView_ItemClick);
             }
             break;
-        case 13:
+        case 15:
             {
                 this->block = safe_cast<::Windows::UI::Xaml::Controls::TextBox^>(__target);
             }
             break;
-        case 14:
+        case 16:
             {
                 this->EditList = safe_cast<::Windows::UI::Xaml::Controls::ListView^>(__target);
                 (safe_cast<::Windows::UI::Xaml::Controls::ListView^>(this->EditList))->ItemClick += ref new ::Windows::UI::Xaml::Controls::ItemClickEventHandler(this, (void (::CutTheWords::Views::SingleRootPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::Controls::ItemClickEventArgs^))&SingleRootPage::ListView_ItemClick);
             }
             break;
-        case 15:
+        case 17:
             {
                 this->voc_root = safe_cast<::Windows::UI::Xaml::Controls::StackPanel^>(__target);
             }
             break;
-        case 16:
+        case 18:
             {
-                ::Windows::UI::Xaml::Controls::AppBarButton^ element16 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
-                (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element16))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleRootPage::*)
+                ::Windows::UI::Xaml::Controls::AppBarButton^ element18 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element18))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleRootPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleRootPage::EditButton_Click);
             }
             break;
-        case 17:
+        case 19:
             {
-                ::Windows::UI::Xaml::Controls::AppBarButton^ element17 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
-                (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element17))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleRootPage::*)
+                ::Windows::UI::Xaml::Controls::AppBarButton^ element19 = safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(__target);
+                (safe_cast<::Windows::UI::Xaml::Controls::AppBarButton^>(element19))->Click += ref new ::Windows::UI::Xaml::RoutedEventHandler(this, (void (::CutTheWords::Views::SingleRootPage::*)
                     (::Platform::Object^, ::Windows::UI::Xaml::RoutedEventArgs^))&SingleRootPage::DeleteButton_Click);
             }
             break;
@@ -170,21 +146,9 @@ void ::CutTheWords::Views::SingleRootPage::Connect(int __connectionId, ::Platfor
 
 ::Windows::UI::Xaml::Markup::IComponentConnector^ ::CutTheWords::Views::SingleRootPage::GetBindingConnector(int __connectionId, ::Platform::Object^ __target)
 {
-    ::XamlBindingInfo::XamlBindings^ bindings = nullptr;
-    switch (__connectionId)
-    {
-        case 1:
-            {
-                ::Windows::UI::Xaml::Controls::Page^ element1 = safe_cast<::Windows::UI::Xaml::Controls::Page^>(__target);
-                SingleRootPage_obj1_Bindings* objBindings = new SingleRootPage_obj1_Bindings();
-                objBindings->SetDataRoot(this);
-                bindings = ref new ::XamlBindingInfo::XamlBindings(objBindings);
-                this->Bindings = bindings;
-                element1->Loading += ref new ::Windows::Foundation::TypedEventHandler<::Windows::UI::Xaml::FrameworkElement^, ::Platform::Object^>(bindings, &::XamlBindingInfo::XamlBindings::Loading);
-            }
-            break;
-    }
-    return bindings;
+    __connectionId;         // unreferenced
+    __target;               // unreferenced
+    return nullptr;
 }
 
 

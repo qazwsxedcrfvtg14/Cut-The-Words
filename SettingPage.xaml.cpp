@@ -24,6 +24,7 @@ using namespace Windows::UI::Xaml::Navigation;
 SettingPage::SettingPage()
 {
 	InitializeComponent();
+	host_name->Text = ref new String(setting[L"website"].c_str());
 }
 
 
@@ -31,7 +32,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 {
 	auto str=dynamic_cast<String^>(e->ClickedItem);
 	if (str == "重置單字庫") {
-		if (!inited) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
+		//if (rtp==nullptr) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
 		ShowLoading();
 		create_task([] {
 			//DumpAppFile(L"words.txt");
@@ -46,27 +47,11 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 			get_doc(L"prefix.txt", prefix);
 			get_doc(L"suffix.txt", suffix);
 			get_doc(L"root.txt", root);
-			vocs.clear();
-			for (auto x : words) {
-				string s;
-				for (auto y : x.f)
-					s += (char)y;
-				vocs.insert(s);
-			}
-			inited = 0;
-			create_task([=] {
-				for (auto &x : words) {
-					auto ve = Show2(x.f);
-					for (auto &y : ve) {
-						if (y != x.f)rt[y].insert(x.f);
-					}
-				}
-				inited = 1;
-			});
+			
 			}).then(HideLoading, task_continuation_context::use_current());
 	}
 	else if (str == "重置應用程式") {
-		if (!inited) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
+		//if (rtp==nullptr) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
 		ShowLoading();
 		create_task([] {
 			DumpAppFile(L"setting.txt");
@@ -88,65 +73,59 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 			get_doc(L"prefix.txt", prefix);
 			get_doc(L"suffix.txt", suffix);
 			get_doc(L"root.txt", root);
-			vocs.clear();
-			for (auto x : words) {
-				string s;
-				for (auto y : x.f)
-					s += (char)y;
-				vocs.insert(s);
-			}
-			inited = 0;
-			create_task([=] {
-				for (auto &x : words) {
-					auto ve = Show2(x.f);
-					for (auto &y : ve) {
-						if (y != x.f)rt[y].insert(x.f);
-					}
-				}
-				inited = 1;
-			});
+			
 			}).then(HideLoading, task_continuation_context::use_current());
 	}
 	else if (str == "上傳單字庫") {
-		if (!inited) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
+		//if (rtp==nullptr) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
 		ShowLoading();
 		loading_cnt = 0;
-		HttpMultipartFormDataContent^ post_data = ref new HttpMultipartFormDataContent();
-		post_data->Add(ref new HttpStringContent(ref new String((FileToStr(L"words.txt") + FileToStr(L"words_user.txt")).c_str())), "post");
-		post(setting[L"website"] +L"/words.php", post_data, [=](wstring s) {
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Upload Words Error!");loading_cnt++;});
-		post_data = ref new HttpMultipartFormDataContent();
-		post_data->Add(ref new HttpStringContent(ref new String((FileToStr(L"prefix.txt") + FileToStr(L"prefix_user.txt")).c_str())), "post");
-		post(setting[L"website"] +L"/prefix.php", post_data, [=](wstring s) {
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Upload Prefix Error!");loading_cnt++;});
-		post_data = ref new HttpMultipartFormDataContent();
-		post_data->Add(ref new HttpStringContent(ref new String((FileToStr(L"suffix.txt") + FileToStr(L"suffix_user.txt")).c_str())), "post");
-		post(setting[L"website"] +L"/suffix.php",post_data, [=](wstring s) {
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Upload Suffix Error!");loading_cnt++;});
-		post_data = ref new HttpMultipartFormDataContent();
-		post_data->Add(ref new HttpStringContent(ref new String((FileToStr(L"root.txt") + FileToStr(L"root_user.txt")).c_str())), "post");
-		post(setting[L"website"] + L"/root.php", post_data, [=](wstring s) {
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Upload Root Error!");loading_cnt++;});
-		post_data = ref new HttpMultipartFormDataContent();
-		post_data->Add(ref new HttpStringContent(ref new String((FileToStr(L"root.txt") + FileToStr(L"root_user.txt")).c_str())), "post");
-		post(setting[L"website"] + L"/root.php", post_data, [=](wstring s) {
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Upload Root Error!");loading_cnt++;});
-		post_data = ref new HttpMultipartFormDataContent();
-		post_data->Add(ref new HttpStringContent(ref new String((FileToStr(L"note.txt") + FileToStr(L"note_user.txt")).c_str())), "post");
-		post(setting[L"website"] + L"/note.php", post_data, [=](wstring s) {
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Upload Note Error!");loading_cnt++;});
+		post(setting[L"website"] + L"/version.php", L"", [=](wstring s) {
+			if (StrToInt(setting[L"data_version"]) < StrToInt(s)){
+				ShowMsg(L"Version Error!");
+				loading_cnt = 6;
+			}
+			else {
+				setting[L"data_version"] = IntToStr(StrToInt(setting[L"data_version"]) + 1);
+				SavingSetting();
+				HttpMultipartFormDataContent^ post_data = ref new HttpMultipartFormDataContent();
+				post_data->Add(ref new HttpStringContent(ref new String(setting[L"data_version"].c_str())), "post");
+				post(setting[L"website"] + L"/version.php", post_data, [=](wstring s) {
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Update Version Error!"); loading_cnt++; });
+				post_data = ref new HttpMultipartFormDataContent();
+				post_data->Add(ref new HttpStringContent(ref new String((dump_doc(words)).c_str())), "post");
+				post(setting[L"website"] + L"/words.php", post_data, [=](wstring s) {
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Upload Words Error!"); loading_cnt++; });
+				post_data = ref new HttpMultipartFormDataContent();
+				post_data->Add(ref new HttpStringContent(ref new String((dump_doc(prefix)).c_str())), "post");
+				post(setting[L"website"] + L"/prefix.php", post_data, [=](wstring s) {
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Upload Prefix Error!"); loading_cnt++; });
+				post_data = ref new HttpMultipartFormDataContent();
+				post_data->Add(ref new HttpStringContent(ref new String((dump_doc(suffix)).c_str())), "post");
+				post(setting[L"website"] + L"/suffix.php", post_data, [=](wstring s) {
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Upload Suffix Error!"); loading_cnt++; });
+				post_data = ref new HttpMultipartFormDataContent();
+				post_data->Add(ref new HttpStringContent(ref new String((dump_doc(root)).c_str())), "post");
+				post(setting[L"website"] + L"/root.php", post_data, [=](wstring s) {
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Upload Root Error!"); loading_cnt++; });
+				post_data = ref new HttpMultipartFormDataContent();
+				post_data->Add(ref new HttpStringContent(ref new String((dump_doc(note)).c_str())), "post");
+				post(setting[L"website"] + L"/note.php", post_data, [=](wstring s) {
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Upload Note Error!"); loading_cnt++; });
+			}
+		}, [=] {ShowMsg(L"Network Error!"); loading_cnt = 6; });
 		Windows::UI::Xaml::DispatcherTimer^ tempdispatchertime = ref new DispatcherTimer();
 		Windows::Foundation::TimeSpan time;
-		time.Duration = 10000;
+		time.Duration = 1000000;
 		tempdispatchertime->Interval = time;
 		auto timerDelegate = [=](Object^ e, Object^ ags) {
-			if (loading_cnt == 5) {
+			if (loading_cnt == 6) {
 				HideLoading();
 				tempdispatchertime->Stop();
 			}
@@ -155,58 +134,52 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		tempdispatchertime->Start();
 	}
 	else if (str == "更新單字庫") {
-		if (!inited) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
+		//if (rtp == nullptr) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
 		ShowLoading();
 		loading_cnt = 0;
-		post(setting[L"website"] +L"/words.php", L"", [=](wstring s) {
-			StrToFile(s, L"words.txt");
-			get_doc(L"words.txt", words, ok_words);
-			vocs.clear();
-			for (auto x : words) {
-				string s;
-				for (auto y : x.f)
-					s += (char)y;
-				vocs.insert(s);
+		post(setting[L"website"] + L"/version.php", L"", [=](wstring s) {
+			if (StrToInt(setting[L"data_version"]) < StrToInt(s)) {
+				setting[L"data_version"] = s;
+				SavingSetting();
+				post(setting[L"website"] + L"/words.php", L"", [=](wstring s) {
+					StrToFile(s, L"words.txt");
+					get_doc(L"words.txt", words, ok_words);
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Download Words Error!"); loading_cnt++; });
+				post(setting[L"website"] + L"/prefix.php", L"", [=](wstring s) {
+					StrToFile(s, L"prefix.txt");
+					get_doc(L"prefix.txt", prefix);
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Download Prefix Error!"); loading_cnt++; });
+				post(setting[L"website"] + L"/suffix.php", L"", [=](wstring s) {
+					StrToFile(s, L"suffix.txt");
+					get_doc(L"suffix.txt", suffix);
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Download Suffix Error!"); loading_cnt++; });
+				post(setting[L"website"] + L"/root.php", L"", [=](wstring s) {
+					StrToFile(s, L"root.txt");
+					get_doc(L"root.txt", root);
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Download Root Error!"); loading_cnt++; });
+				post(setting[L"website"] + L"/note.php", L"", [=](wstring s) {
+					StrToFile(s, L"note.txt");
+					get_doc(L"note.txt", note);
+					loading_cnt++;
+				}, [=] {ShowMsg(L"Download Note Error!"); loading_cnt++; });
 			}
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Download Words Error!");loading_cnt++;});
-		post(setting[L"website"] +L"/prefix.php", L"", [=](wstring s) {
-			StrToFile(s, L"prefix.txt");
-			get_doc(L"prefix.txt", prefix);
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Download Prefix Error!");loading_cnt++;});
-		post(setting[L"website"] +L"/suffix.php", L"", [=](wstring s) {
-			StrToFile(s, L"suffix.txt");
-			get_doc(L"suffix.txt", suffix);
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Download Suffix Error!");loading_cnt++;});
-		post(setting[L"website"] + L"/root.php", L"", [=](wstring s) {
-			StrToFile(s, L"root.txt");
-			get_doc(L"root.txt", root);
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Download Root Error!");loading_cnt++;});
-		post(setting[L"website"] + L"/note.php", L"", [=](wstring s) {
-			StrToFile(s, L"note.php");
-			get_doc(L"note.txt", root);
-			loading_cnt++;
-		}, [=] {ShowMsg(L"Download Note Error!");loading_cnt++;});
+			else {
+				ShowMsg(L"You already have the latest version of words.");
+				loading_cnt = 5;
+			}
+		}, [=] {ShowMsg(L"Network Error!"); loading_cnt = 5; });
 		Windows::UI::Xaml::DispatcherTimer^ tempdispatchertime = ref new DispatcherTimer();
 		Windows::Foundation::TimeSpan time;
-		time.Duration = 10000;
+		time.Duration = 1000000;
 		tempdispatchertime->Interval = time;
 		auto timerDelegate = [=](Object^ e, Object^ ags) {
 			if (loading_cnt == 5) {
 				HideLoading();
-				inited = 0;
-				create_task([=] {
-					for (auto &x : words) {
-						auto ve = Show2(x.f);
-						for (auto &y : ve) {
-							if (y != x.f)rt[y].insert(x.f);
-						}
-					}
-					inited = 1;
-				});
+				
 				tempdispatchertime->Stop();
 			}
 		};
@@ -226,7 +199,8 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 	}
 	else if (str == "單字庫選項") {
 		set_list->Items->Clear();
-		set_list->Items->Append("上傳單字庫");
+		if(setting[L"website"]==L"http://192.168.1.110/words")
+			set_list->Items->Append("上傳單字庫");
 		set_list->Items->Append("更新單字庫");
 		set_list->Items->Append("重置單字庫");
 		set_list->Items->Append("重置應用程式");
@@ -243,6 +217,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		set_list->Items->Append("設定主題色彩");
 		set_list->Items->Append("聲音選項");
 		set_list->Items->Append("單字庫選項");
+		set_list->Items->Append("關於");
 	}
 	else if (str == "聲音選項") {
 		set_list->Items->Clear();
@@ -285,7 +260,15 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		ShowMsg(L"設定成功");
 	}
 	else if (str == "關於") {
-		ShowMsg(L"版本號:ver 1.0.33");
+
+		auto package = Package::Current;
+		auto packageId = package->Id;
+		auto version = packageId->Version;
+
+		//return string.Format("{0}.{1}.{2}.{3}", version.Major, version.Minor, version.Build, version.Revision);
+		//auto major = version.Major;
+
+		ShowMsg(L"版本號:ver " + IntToStr(version.Major) + L"." + IntToStr(version.Minor) + L"." + IntToStr(version.Build) + L"." + IntToStr(version.Revision) );
 	}
 	else if (str == "Test") {
 		auto ocrLanguage = ref new Windows::Globalization::Language("en");
@@ -300,4 +283,13 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		e->ClickedItem,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 	*/
+}
+
+void CutTheWords::Views::SettingPage::host_name_TextChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::TextChangedEventArgs^ e)
+{
+	setting[L"website"] = host_name->Text->Data();
+	wstring out;
+	for (auto &x : setting)
+		out += x.f + L"," + x.s + L"\n";
+	StrToFile(out, L"setting.txt");
 }
