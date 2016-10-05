@@ -27,8 +27,8 @@ TestPage2::TestPage2()
 	InitializeComponent();
 }
 
-unordered_map<int, pair<wstring, vector<wstring>>> TestPage2_Navigate_Obj;
-unordered_map<int, bool> TestPage2_Lock;
+unordered_map<long long int, pair<wstring, vector<wstring>>> TestPage2_Navigate_Obj;
+unordered_map<long long int, bool> TestPage2_Lock;
 void TestPage2::OnNavigatedTo(NavigationEventArgs^ e)
 {
 	auto score = dynamic_cast<Array<int>^>(e->Parameter);
@@ -64,7 +64,12 @@ void TestPage2::OnNavigatedTo(NavigationEventArgs^ e)
 		vector<wstring> words_ve;
 		for (auto x : words)words_ve.push_back(x.f);
 		prob.push_back(ans);
-		for (int i = 0; i < 5; i++) {
+		int pbs;
+		if (setting[L"sellect_prob_cnt"] == L"")
+			pbs = 5;
+		else
+			pbs = max(2, min(100, StrToInt(setting[L"sellect_prob_cnt"])));
+		for (int i = 0; i < pbs-1; i++) {
 			for (int j = 0;; j++) {
 				int p =RandomInt((int)words_ve.size());
 				int dis = LevenshteinDistance(words_ve[p], ans);
@@ -121,7 +126,7 @@ void CutTheWords::Views::TestPage2::OnItemClick(Platform::Object ^sender, Window
 		tb->Text = "正確";
 		tb->Foreground = ref new SolidColorBrush(Colors::ForestGreen);
 		test_stp->Children->Append(tb);
-		if (!TestPage2_Lock[uuid]) {
+		if (!TestPage2_Lock[uuid]&&favorite.find(ans)!=favorite.end()) {
 			int x = StrToInt(favorite[ans]);
 			favorite[ans] = IntToStr((int)max(1, x / 1.2));
 			AppendStrToFile(ans + L"," + favorite[ans] + L"\n", L"favorite.txt");
@@ -134,7 +139,7 @@ void CutTheWords::Views::TestPage2::OnItemClick(Platform::Object ^sender, Window
 		tb->Text = "錯誤";
 		tb->Foreground = ref new SolidColorBrush(Colors::OrangeRed);
 		test_stp->Children->Append(tb);
-		if (!TestPage2_Lock[uuid]) {
+		if (!TestPage2_Lock[uuid]&& favorite.find(ans) != favorite.end()) {
 			int x = StrToInt(favorite[ans]);
 			favorite[ans] = IntToStr(max(1, x + 32));
 			AppendStrToFile(ans + L"," + favorite[ans] + L"\n", L"favorite.txt");

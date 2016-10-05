@@ -37,12 +37,12 @@ void FindVocPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }
 
-unordered_map<int, bool> match_running;
+unordered_map<long long int, bool> match_running;
 
-unordered_map<int, Object^> SearchRootPage_Navigate_Obj1;
-unordered_map<int, Object^> SearchRootPage_Navigate_Obj2;
+unordered_map<long long int, Object^> SearchRootPage_Navigate_Obj1;
+unordered_map<long long int, Object^> SearchRootPage_Navigate_Obj2;
 void FindVocPage::OnNavigatedTo(NavigationEventArgs^ e)
-{
+{/*
 	auto svp = dynamic_cast<String^>(SearchRootPage_Navigate_Obj1[GetCurrentID()]);
 	if (svp != nullptr) {
 		input_voc->Text = svp;
@@ -60,13 +60,13 @@ void FindVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 		}
 	}
 	match_running[GetCurrentID()] = 0;
-	scroll_load_not_finish[GetCurrentID()] = 0;
+	scroll_load_not_finish[GetCurrentID()] = 0;*/
 	Page::OnNavigatedTo(e);
 }
 void FindVocPage::OnNavigatedFrom(NavigationEventArgs^ e)
 {
-	SearchRootPage_Navigate_Obj1[GetCurrentID()] = input_voc->Text;
-	SearchRootPage_Navigate_Obj2[GetCurrentID()] = VocList;
+	/*SearchRootPage_Navigate_Obj1[GetCurrentID()] = input_voc->Text;
+	SearchRootPage_Navigate_Obj2[GetCurrentID()] = VocList;*/
 	Page::OnNavigatedFrom(e);
 }
 void FindVocPage::UpdateVocList(Platform::Object^ sender, ItemClickEventArgs^ e)

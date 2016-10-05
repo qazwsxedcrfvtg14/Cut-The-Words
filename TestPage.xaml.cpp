@@ -64,11 +64,11 @@ TestPage::TestPage()
 {
 	InitializeComponent();
 }
-unordered_map<int, Object^> TestPage_Navigate_Obj;
-unordered_map<int, int> TestPage_Navigate_ok, TestPage_Navigate_wa;
-unordered_map<int, double> TestPage_Navigate_offset;
+unordered_map<long long int, Object^> TestPage_Navigate_Obj;
+unordered_map<long long int, int> TestPage_Navigate_ok, TestPage_Navigate_wa;
+unordered_map<long long int, double> TestPage_Navigate_offset;
 void TestPage::OnNavigatedTo(NavigationEventArgs^ e)
-{	
+{
 	auto nvo = dynamic_cast<StackPanel^>(TestPage_Navigate_Obj[GetCurrentID()]);
 	if (nvo != nullptr) {
 		ok = TestPage_Navigate_ok[GetCurrentID()];
@@ -150,7 +150,7 @@ void CutTheWords::Views::TestPage::OnRightTapped(Platform::Object ^sender, Windo
 			target->Visibility = Windows::UI::Xaml::Visibility::Visible;
 		else
 			target->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
-		auto x=ref new String();
+		//auto x=ref new String();
 	}
 }
 
@@ -162,7 +162,7 @@ void CutTheWords::Views::TestPage::fav_Click(Platform::Object^ sender, Windows::
 	ar[1] = 0;
 	ar[2] = RandomInt();
 	Frame->Navigate(
-		TypeName(TestPage2::typeid),
+		TypeName(TestPage1::typeid),
 		ar,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 
@@ -198,7 +198,7 @@ void CutTheWords::Views::TestPage::AppBarButton_Click_1(Platform::Object^ sender
 	ar[1] = 0;
 	ar[2] = RandomInt();
 	Frame->Navigate(
-		TypeName(TestPage1::typeid),
+		TypeName(TestPage2::typeid),
 		ar,
 		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 }

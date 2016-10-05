@@ -6,6 +6,7 @@
 #include "pch.h"
 #include "AppShell.xaml.h"
 #include "BasicPage.xaml.h"
+#include "SearchVocPage.xaml.h"
 #include "LandingPage.xaml.h"
 #include "LoadingPage.xaml.h"
 #include "NullPage.xaml.h"
@@ -36,7 +37,7 @@ using namespace Windows::UI::Xaml::Navigation;
 
 App::App()
 {
-	int data_version = 1;
+	int data_version = 6;
 	srand((unsigned int)time(0));
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"setting.txt")) == nullptr)
 		DumpAppFile(L"setting.txt");
@@ -67,7 +68,8 @@ App::App()
 		DumpAppFile(L"root.txt");
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"note.txt")) == nullptr || StrToInt(setting[L"data_version"]) < data_version)
 		DumpAppFile(L"note.txt");
-	setting[L"data_version"] = IntToStr(data_version);
+	if (StrToInt(setting[L"data_version"]) < data_version)
+		setting[L"data_version"] = IntToStr(data_version);
 	SavingSetting();
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words_user.txt")) == nullptr)
 		StrToFile(L"", L"words_user.txt");
@@ -102,6 +104,7 @@ App::App()
 		swap(nrtp, rtp);
 	});*/
 	InitializeComponent();
+	/*
 	auto database_sync = ref new DispatcherTimer();
 	Windows::Foundation::TimeSpan time;
 	time.Duration = 300000000;
@@ -109,19 +112,6 @@ App::App()
 	auto timerDelegate = [this](Object^ e, Object^ ags) {
 		StrToFile(dump_doc(setting), L"setting.txt");
 		StrToFile(dump_doc(favorite), L"favorite.txt");
-		/*create_task([=] {
-			auto nrtp = make_unique<map<wstring, set<wstring>>>();
-			for (auto &x : words) {
-				auto ve = Show2(x.f);
-				for (auto &y : ve) {
-					if (y.front() != '-'&&y.back() != '-')
-						y = WordRotToExp(y).s;
-					if (y != x.f)
-						(*nrtp)[y].insert(x.f);
-				}
-			}
-			swap(nrtp, rtp);
-		});*/
 		//StrToFile(dump_doc(words,ok_words), L"words_user.txt");
 		//StrToFile(dump_doc(prefix), L"prefix_user.txt");
 		//StrToFile(dump_doc(suffix), L"suffix_user.txt");
@@ -129,7 +119,7 @@ App::App()
 		//StrToFile(dump_doc(note), L"note_user.txt");
 	};
 	database_sync->Tick += ref new EventHandler<Object^>(timerDelegate);
-	database_sync->Start();
+	database_sync->Start();*/
 	//InitializeLicense();
 	Suspending += ref new SuspendingEventHandler(this, &App::OnSuspending);
 }
@@ -175,22 +165,24 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 	else if(false){
 		CoreApplicationView^ newView = CoreApplication::CreateNewView();
 		int newViewId ;
-		AWait(newView->Dispatcher->RunAsync(CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([&]()	
+		AWait(newView->Dispatcher->RunAsync(CoreDispatcherPriority::Normal, ref new Windows::UI::Core::DispatchedHandler([&newViewId]()
 		{
+			auto theView = Windows::UI::ViewManagement::ApplicationView::GetForCurrentView();
+			newViewId = theView->Id;
 			//Frame^ frame = ref new Frame();
-			auto shell=ref new AppShell();
-			shell->AppFrame->Navigate(TypeName(Views::BasicPage::typeid));
+			auto shell=ref new AppShell(); 
+			if (setting[L"home_page"] == L"search")
+				shell->AppFrame->Navigate(TypeName(Views::SearchVocPage::typeid));
+			else
+				shell->AppFrame->Navigate(TypeName(Views::BasicPage::typeid));
 			Window::Current->Content = shell;
 			// You have to activate the window in order to show it later.
 			Window::Current->Activate();
-			newViewId = Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->Id;
+			
 		})));
-		Windows::UI::ViewManagement::ApplicationViewSwitcher::TryShowAsStandaloneAsync(newViewId,
-			Windows::UI::ViewManagement::ViewSizePreference::Default,
-			Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->Id,
-			Windows::UI::ViewManagement::ViewSizePreference::Default
-		);
-		
+		create_task(Windows::UI::ViewManagement::ApplicationViewSwitcher::TryShowAsStandaloneAsync(newViewId)).then([](bool b) {
+			
+		});
 		//
 	}
 	//
@@ -204,8 +196,11 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
         // suppressing the initial entrance animation and configuring the new 
         // page by passing required information as a navigation parameter
 		//shell->AppFrame->Navigate(TypeName(Views::LandingPage::typeid), e->Arguments, ref new Windows::UI::Xaml::Media::Animation::SuppressNavigationTransitionInfo());
-		shell->AppFrame->Navigate(TypeName(Views::BasicPage::typeid), e->Arguments, ref new Windows::UI::Xaml::Media::Animation::SuppressNavigationTransitionInfo());
-		}
+		if(setting[L"home_page"] == L"search")
+			shell->AppFrame->Navigate(TypeName(Views::SearchVocPage::typeid), e->Arguments, ref new Windows::UI::Xaml::Media::Animation::SuppressNavigationTransitionInfo());
+		else
+			shell->AppFrame->Navigate(TypeName(Views::BasicPage::typeid), e->Arguments, ref new Windows::UI::Xaml::Media::Animation::SuppressNavigationTransitionInfo());
+	}
 	
     // Ensure the current window is active
     Window::Current->Activate();

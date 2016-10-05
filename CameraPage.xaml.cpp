@@ -85,10 +85,10 @@ CameraPage::CameraPage()
 /// </summary>
 /// <param name="e"></param>
 
-unordered_map<int, Object^> CameraPage_Navigate_Obj1;
-unordered_map<int, Object^> CameraPage_Navigate_Obj2;
-unordered_map<int, OcrResult^> CameraPage_Navigate_ocrResult;
-unordered_map<int, shared_ptr<SoftwareBitmap^>> CameraPage_Navigate_bitmap;
+unordered_map<long long int, Object^> CameraPage_Navigate_Obj1;
+unordered_map<long long int, Object^> CameraPage_Navigate_Obj2;
+unordered_map<long long int, OcrResult^> CameraPage_Navigate_ocrResult;
+unordered_map<long long int, shared_ptr<SoftwareBitmap^>> CameraPage_Navigate_bitmap;
 void CameraPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
 	//orientationChangedEventToken = displayInformation->OrientationChanged += ref new Windows::Foundation::TypedEventHandler<Windows::Graphics::Display::DisplayInformation ^, Platform::Object ^>(this, &SDKTemplate::CameraPage::DisplayInformation_OrientationChanged);

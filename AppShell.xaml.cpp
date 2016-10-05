@@ -24,6 +24,7 @@
 #include "AppShell.xaml.h"
 #include "MAPage.xaml.h"
 #include "MALoginPage.xaml.h"
+#include "MindMapPage.xaml.h"
 
 using namespace Platform;
 using namespace Windows::UI::Core;
@@ -96,7 +97,7 @@ namespace CutTheWords
 		navlist->Append(
 			ref new NavMenuItem(
 				"單字測驗",
-				Symbol::Link,
+				Symbol::Tag,
 				TypeName(Views::TestPage::typeid)));
 		/*navlist->Append(
 			ref new NavMenuItem(
@@ -113,6 +114,11 @@ namespace CutTheWords
 				"相機掃描",
 				Symbol::Camera,
 				TypeName(Views::CameraPage::typeid)));
+		navlist->Append(
+			ref new NavMenuItem(
+				"心智圖",
+				Symbol::Link,
+				TypeName(Views::MindMapPage::typeid)));
 		/*navlist->Append(
 			ref new NavMenuItem(
 				"設定",
@@ -219,7 +225,14 @@ namespace CutTheWords
 		{
 			if (item->DestPage.Name != AppFrame->CurrentSourcePageType.Name)
 			{
+				/*auto frm = ref new Windows::UI::Xaml::Controls::Frame();
+				frm->Margin = Thickness(0, 4, 0, 0);
+				frm->Navigating += ref new NavigatingCancelEventHandler(this, &AppShell::OnNavigatingToPage);
+				frm->Navigated += ref new NavigatedEventHandler(this, &AppShell::OnNavigatedToPage);
+				frm->Navigate(item->DestPage, item->Arguments);
+				grame_grid->Children->Append(frm);*/
 				AppFrame->Navigate(item->DestPage, item->Arguments);
+				//AppFrame->Navigate(TypeName(Views::BasicPage::typeid), item->Arguments);
 			}
 		}
 	}

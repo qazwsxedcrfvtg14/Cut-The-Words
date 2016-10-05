@@ -41,13 +41,14 @@ void SingleVocPage::Init(wstring data,bool first) {
 	Explanation = ref new String(wds.f.c_str());
 	expst->Content = ExpStack(wds.f,20);
 	if (first) {
+		if(setting[L"network_sound"]!=L"false")
 		get(setting[L"sound_url"] + data, [=](wstring s) {
 			auto be = s.find(setting[L"sound_url2"]);
 			if (be == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000001)");*/  return; }
 			s = s.substr(be);
 			auto ed = s.find(setting[L"sound_type"]);
 			if (ed == std::wstring::npos) { /*ShowMsg(L"解析錯誤!(0x00000002)");*/ return; }
-			s = s.substr(0, ed + 4);
+			s = s.substr(0, ed + setting[L"sound_type"].length());
 			while (1) {
 				auto pos = s.substr(1).find(setting[L"sound_url2"]);
 				if (pos == wstring::npos)break;
@@ -59,6 +60,7 @@ void SingleVocPage::Init(wstring data,bool first) {
 			play_but->Visibility = Windows::UI::Xaml::Visibility::Visible;
 
 		}, [=] {});
+		if (setting[L"network_picture"] != L"false")
 		get(L"https://www.bing.com/images/search?q=" + data, [=](wstring s) {
 			pics->Children->Clear();
 			for (int i = 0; i < 4; i++) {
@@ -79,6 +81,7 @@ void SingleVocPage::Init(wstring data,bool first) {
 				s = s.substr(ed - 1);
 			}
 		}, [=] {});
+		if (setting[L"network_kk"] != L"false")
 		get(L"http://tw.dictionary.search.yahoo.com/search?p=" + (wstring)data, [=](wstring web) {
 			int len = int(web.length());
 			auto beg = web.find(L">KK[");
@@ -92,7 +95,6 @@ void SingleVocPage::Init(wstring data,bool first) {
 			if (beg == wstring::npos)return;
 			web = web.substr(0, beg + 1);
 			kk->Text = ref new String(web.c_str());
-
 		}, [] {});
 	}
 	auto ve = Show(data);
@@ -526,6 +528,8 @@ void SingleVocPage::DelPanelListView_ItemClick(Object^ sender, Windows::UI::Xaml
 	if (str == "確定") {
 		wstring s(Vocabulary->Data());
 		words.erase(s);
+		if (ok_words.find(s) != ok_words.end())
+			ok_words.erase(s);
 		AppendStrToFile(L"$"+s+L"\n", L"words_user.txt");
 		DeleteButton_Click(sender, e);
 		if (Frame != nullptr && Frame->CanGoBack)
@@ -564,7 +568,7 @@ void SingleVocPage::OnSelectionChanged(Platform::Object^ sender, Windows::UI::Xa
 	ComboBox^ senderComboBox = dynamic_cast<ComboBox^>(sender);
 	for (int i = 0;i<(int)voc_croot->Children->Size;i++)
 		if (voc_croot->Children->GetAt(i) == senderComboBox) {
-			if (wds.s.size() < i + 1)wds.s.resize(i + 1);
+			if ((int)wds.s.size() < i + 1)wds.s.resize(i + 1);
 			wds.s[i] = senderComboBox->SelectedIndex;
 			wstring a(Vocabulary->Data());
 			words[a] = MakeExp(make_pair(GetExpSimpleOrg(words[a]),wds.s));

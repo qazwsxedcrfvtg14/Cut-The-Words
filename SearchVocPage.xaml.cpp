@@ -28,7 +28,7 @@ SearchVocPage::SearchVocPage()
 	InitializeComponent();
 }
 
-unordered_map<int, Object^> SearchVocPage_Navigate_Obj;
+unordered_map<long long int, Object^> SearchVocPage_Navigate_Obj;
 void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
 	auto svp = dynamic_cast<String^>(SearchVocPage_Navigate_Obj[GetCurrentID()]);
@@ -98,7 +98,7 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 						stp->Children->Append(tmp);
 						tmp = ref new TextBlock();
 						int len = (int)x.length();
-						wstring _exp = GetExp(words[x]).f;
+						wstring _exp = GetExpSimple(words[x]);
 						_exp = trim(_exp);
 						tmp->Text = ref new String(_exp.c_str());
 						tmp->Margin = Thickness(20, 0, 0, 0);

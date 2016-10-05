@@ -11,6 +11,7 @@ namespace Windows {
     namespace UI {
         namespace Xaml {
             namespace Controls {
+                ref class StackPanel;
                 ref class ListView;
                 ref class TextBox;
                 ref class TextBlock;
@@ -36,6 +37,7 @@ namespace CutTheWords
         private:
             bool _contentLoaded;
         
+            private: ::Windows::UI::Xaml::Controls::StackPanel^ st;
             private: ::Windows::UI::Xaml::Controls::ListView^ set_list;
             private: ::Windows::UI::Xaml::Controls::TextBox^ host_name;
             private: ::Windows::UI::Xaml::Controls::TextBlock^ title;

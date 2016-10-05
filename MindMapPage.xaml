@@ -1,0 +1,36 @@
+﻿<Page
+    x:Class="CutTheWords.Views.MindMapPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:CutTheWords.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
+    xmlns:canvas="using:Microsoft.Graphics.Canvas.UI.Xaml"
+    mc:Ignorable="d"
+    Unloaded="Page_Unloaded"
+    >
+
+    <!--ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299427"-->
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+          EntranceNavigationTransitionInfo.IsTargetElement="True">
+        <TextBlock Text="空白鍵：暫停 F5：活化節點 F6：縮小畫面 F7：放大畫面 右鍵：查看單字詳細內容"/>
+        <ScrollViewer x:Name="scroll"
+                      ZoomMode="Enabled" 
+                      HorizontalScrollBarVisibility="Hidden" 
+                      VerticalScrollBarVisibility="Hidden"
+                      HorizontalScrollMode="Enabled"
+                      VerticalScrollMode="Enabled"
+                      ManipulationMode="TranslateX,TranslateY"
+                      ManipulationDelta="canvas_ManipulationDelta"
+                      >
+            <Grid x:Name="grid" Padding="0,0,30,30">
+                <canvas:CanvasAnimatedControl x:Name="canvas" 
+                                              Draw="canvas_Draw_1" 
+                                              CreateResources="canvas_CreateResources"
+                                              />
+                <!--<canvas:CanvasControl x:Name="canvas" Draw="canvas_Draw"/>-->
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

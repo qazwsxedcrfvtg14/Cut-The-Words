@@ -170,8 +170,8 @@ void PhraseExtract::ExtractSuffixes() {
         min(static_cast<LengthType>(wordMaxLength + suffixSetLength),
                  text.UTF8Length());
     const UTF8StringSlice& slice = text.Left(suffixLength);
-    suffixes.push_back(UTF8StringSlice8Bit(slice.CString(), slice.UTF8Length(),
-                                           slice.ByteLength()));
+    suffixes.push_back(UTF8StringSlice8Bit(slice.CString(), (unsigned char)slice.UTF8Length(),
+		(unsigned char)slice.ByteLength()));
   }
   suffixes.shrink_to_fit();
   // Sort suffixes
@@ -188,8 +188,8 @@ void PhraseExtract::ExtractPrefixes() {
         min(static_cast<LengthType>(wordMaxLength + prefixSetLength),
                  text.UTF8Length());
     const UTF8StringSlice& slice = text.Right(prefixLength);
-    prefixes.push_back(UTF8StringSlice8Bit(slice.CString(), slice.UTF8Length(),
-                                           slice.ByteLength()));
+    prefixes.push_back(UTF8StringSlice8Bit(slice.CString(), (unsigned char)slice.UTF8Length(),
+		(unsigned char)slice.ByteLength()));
   }
   prefixes.shrink_to_fit();
   // Sort suffixes reversely
@@ -206,7 +206,7 @@ void PhraseExtract::CalculateFrequency() {
   }
   for (const auto& suffix : suffixes) {
     for (size_t i = 1; i <= suffix.UTF8Length() && i <= wordMaxLength; i++) {
-      const UTF8StringSlice8Bit wordCandidate = suffix.Left(i);
+      const UTF8StringSlice8Bit wordCandidate = suffix.Left((unsigned char)i);
       signals->AddKey(wordCandidate).frequency++;
       totalOccurrence++;
     }
@@ -270,18 +270,18 @@ void CalculatePrefixSuffixEntropy(
         continue;
       }
       const auto& wordCandidate =
-          SUFFIX ? presuffix.Left(length) : presuffix.Right(length);
+          SUFFIX ? presuffix.Left((unsigned char)length) : presuffix.Right((unsigned char)length);
       if (wordCandidate != lastWord) {
         updateEntropy(lastWord, adjacentSet);
         lastWord = wordCandidate;
       }
       if (length + setLength <= presuffix.UTF8Length()) {
         if (SUFFIX) {
-          const auto& wordSuffix = presuffix.SubString(length, setLength);
+          const auto& wordSuffix = presuffix.SubString((unsigned char)length, (unsigned char)setLength);
           adjacentSet[wordSuffix]++;
         } else {
           const auto& wordPrefix = presuffix.SubString(
-              presuffix.UTF8Length() - length - setLength, setLength);
+			  (unsigned char)presuffix.UTF8Length() - (unsigned char)length - (unsigned char)setLength, (unsigned char)setLength);
           adjacentSet[wordPrefix]++;
         }
       }
@@ -391,11 +391,11 @@ double PhraseExtract::CalculateCohesion(
     const UTF8StringSlice8Bit& wordCandidate) const {
   // TODO Try average value
   double minPMI = INFINITY;
-  for (LengthType leftLength = 1; leftLength <= wordCandidate.UTF8Length() - 1;
+  for (LengthType leftLength = 1; (unsigned char)leftLength <= wordCandidate.UTF8Length() - 1;
        leftLength++) {
-    const auto& leftPart = wordCandidate.Left(leftLength);
+    const auto& leftPart = wordCandidate.Left((unsigned char)leftLength);
     const auto& rightPart =
-        wordCandidate.Right(wordCandidate.UTF8Length() - leftLength);
+        wordCandidate.Right((unsigned char)wordCandidate.UTF8Length() - (unsigned char)leftLength);
     double pmi = PMI(wordCandidate, leftPart, rightPart);
     minPMI = min(pmi, minPMI);
   }

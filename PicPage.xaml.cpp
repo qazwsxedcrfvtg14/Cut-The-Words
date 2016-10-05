@@ -70,8 +70,8 @@ PicPage::PicPage()// : rootPage(MainPage::Current)
 /// </summary>
 /// <param name="e"></param>
 
-unordered_map<int, Object^> PicPage_Navigate_Obj1;
-unordered_map<int, Object^> PicPage_Navigate_Obj2;
+unordered_map<long long int, Object^> PicPage_Navigate_Obj1;
+unordered_map<long long int, Object^> PicPage_Navigate_Obj2;
 //vector<CutTheWords::WordOverlay^> PicPage_Navigate_wordBoxes;
 void PicPage::OnNavigatedTo(NavigationEventArgs^ e)
 {

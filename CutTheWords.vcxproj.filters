@@ -73,6 +73,7 @@
     <ClCompile Include="TestPage.xaml.cpp" />
     <ClCompile Include="TestPage2.xaml.cpp" />
     <ClCompile Include="TestPage1.xaml.cpp" />
+    <ClCompile Include="MindMapPage.xaml.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="TestPage.xaml.h" />
     <ClInclude Include="TestPage2.xaml.h" />
     <ClInclude Include="TestPage1.xaml.h" />
+    <ClInclude Include="MindMapPage.xaml.h" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest" />
@@ -195,6 +197,9 @@
       <Filter>Views</Filter>
     </Page>
     <Page Include="TestPage1.xaml">
+      <Filter>Views</Filter>
+    </Page>
+    <Page Include="MindMapPage.xaml">
       <Filter>Views</Filter>
     </Page>
   </ItemGroup>

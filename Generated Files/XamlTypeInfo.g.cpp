@@ -24,6 +24,7 @@
 #include "LoadingPage.xaml.h"
 #include "MALoginPage.xaml.h"
 #include "MAPage.xaml.h"
+#include "MindMapPage.xaml.h"
 #include "NullPage.xaml.h"
 #include "PageHeader.xaml.h"
 #include "App.xaml.h"
@@ -52,6 +53,7 @@
 #include "LoadingPage.g.hpp"
 #include "MALoginPage.g.hpp"
 #include "MAPage.g.hpp"
+#include "MindMapPage.g.hpp"
 #include "NullPage.g.hpp"
 #include "PageHeader.g.hpp"
 #include "App.g.hpp"
@@ -117,6 +119,72 @@ template<typename TDeclaringType, typename TValue>
 ::Platform::Object^ GetValueTypeMember_IsEngaged(::Platform::Object^ instance)
 {
     return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->IsEngaged);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_Dpi(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->Dpi);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_UseSharedDevice(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->UseSharedDevice);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_TargetElapsedTime(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->TargetElapsedTime);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_Paused(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->Paused);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_IsFixedTimeStep(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->IsFixedTimeStep);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_ForceSoftwareRenderer(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->ForceSoftwareRenderer);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_DpiScale(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->DpiScale);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_ClearColor(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->ClearColor);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_HasGameLoopThreadAccess(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->HasGameLoopThreadAccess);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_ReadyToDraw(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->ReadyToDraw);
+}
+
+template<typename TDeclaringType, typename TValue>
+::Platform::Object^ GetValueTypeMember_Size(::Platform::Object^ instance)
+{
+    return ref new ::Platform::Box<TValue>(safe_cast<TDeclaringType^>(instance)->Size);
 }
 
 template<typename TDeclaringType, typename TValue>
@@ -192,6 +260,18 @@ template<typename TDeclaringType>
 }
 
 template<typename TDeclaringType>
+::Platform::Object^ GetReferenceTypeMember_Device(::Platform::Object^ instance)
+{
+    return safe_cast<TDeclaringType^>(instance)->Device;
+}
+
+template<typename TDeclaringType>
+::Platform::Object^ GetReferenceTypeMember_CustomDevice(::Platform::Object^ instance)
+{
+    return safe_cast<TDeclaringType^>(instance)->CustomDevice;
+}
+
+template<typename TDeclaringType>
 ::Platform::Object^ GetReferenceTypeMember_Explanation(::Platform::Object^ instance)
 {
     return safe_cast<TDeclaringType^>(instance)->Explanation;
@@ -213,6 +293,48 @@ template<typename TDeclaringType, typename TValue>
 void SetValueTypeMember_IsAutoRefreshEnabled(::Platform::Object^ instance, ::Platform::Object^ value)
 {
     safe_cast<TDeclaringType^>(instance)->IsAutoRefreshEnabled = safe_cast<::Platform::IBox<TValue>^>(value)->Value;
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetValueTypeMember_UseSharedDevice(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->UseSharedDevice = safe_cast<::Platform::IBox<TValue>^>(value)->Value;
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetValueTypeMember_TargetElapsedTime(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->TargetElapsedTime = safe_cast<::Platform::IBox<TValue>^>(value)->Value;
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetValueTypeMember_Paused(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->Paused = safe_cast<::Platform::IBox<TValue>^>(value)->Value;
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetValueTypeMember_IsFixedTimeStep(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->IsFixedTimeStep = safe_cast<::Platform::IBox<TValue>^>(value)->Value;
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetValueTypeMember_ForceSoftwareRenderer(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->ForceSoftwareRenderer = safe_cast<::Platform::IBox<TValue>^>(value)->Value;
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetValueTypeMember_DpiScale(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->DpiScale = safe_cast<::Platform::IBox<TValue>^>(value)->Value;
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetValueTypeMember_ClearColor(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->ClearColor = safe_cast<::Platform::IBox<TValue>^>(value)->Value;
 }
 
 template<typename TDeclaringType, typename TValue>
@@ -255,6 +377,12 @@ template<typename TDeclaringType, typename TValue>
 void SetReferenceTypeMember_Message(::Platform::Object^ instance, ::Platform::Object^ value)
 {
     safe_cast<TDeclaringType^>(instance)->Message = safe_cast<TValue^>(value);
+}
+
+template<typename TDeclaringType, typename TValue>
+void SetReferenceTypeMember_CustomDevice(::Platform::Object^ instance, ::Platform::Object^ value)
+{
+    safe_cast<TDeclaringType^>(instance)->CustomDevice = safe_cast<TValue^>(value);
 }
 
 template<typename TDeclaringType, typename TValue>
@@ -308,250 +436,298 @@ TypeInfo TypeInfos[] =
     0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
     //   3
-    L"Double", L"",
+    L"Single", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
     //   4
-    L"Boolean", L"",
+    L"Double", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
     //   5
+    L"Boolean", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //   6
+    L"Windows.UI.Color", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    7, // System.ValueType
+    0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, false, true,  false,
+    //   7
+    L"System.ValueType", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    2, // Object
+    0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, false, false, false,
+    //   8
     L"CutTheWords.AppShell", L"",
     &ActivateType<::CutTheWords::AppShell>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    24, // Windows.UI.Xaml.Controls.Page
     0, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
-    //   6
+    //   9
     L"CutTheWords.ExamPage", L"",
     &ActivateType<::CutTheWords::ExamPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    24, // Windows.UI.Xaml.Controls.Page
     2, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
-    //   7
+    //  10
+    L"Windows.Foundation.Size", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    2, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
+    //  11
     L"CutTheWords.WordOverlay", L"",
     nullptr, nullptr, nullptr, nullptr,
     2, // Object
     2, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, true, 
-    //   8
+    //  12
     L"CutTheWords.Views.MAPage", L"",
     &ActivateType<::CutTheWords::Views::MAPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
-    //   9
+    //  13
     L"Windows.UI.Xaml.UIElement", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  10
+    //  14
     L"CutTheWords.Views.PicPage", L"",
     &ActivateType<::CutTheWords::Views::PicPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
-    //  11
+    //  15
     L"Windows.UI.Xaml.Thickness", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  12
+    //  16
     L"CutTheWords.Views.NullPage", L"",
     &ActivateType<::CutTheWords::Views::NullPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  13
-    L"CutTheWords.Views.TestPage", L"",
-    &ActivateType<::CutTheWords::Views::TestPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  14
-    L"CutTheWords.Views.BasicPage", L"",
-    &ActivateType<::CutTheWords::Views::BasicPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  15
-    L"CutTheWords.Views.TestPage1", L"",
-    &ActivateType<::CutTheWords::Views::TestPage1>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  16
-    L"CutTheWords.Views.TestPage2", L"",
-    &ActivateType<::CutTheWords::Views::TestPage2>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  17
-    L"CutTheWords.Views.AddVocPage", L"",
-    &ActivateType<::CutTheWords::Views::AddVocPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.TestPage", L"",
+    &ActivateType<::CutTheWords::Views::TestPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  18
-    L"CutTheWords.Views.CameraPage", L"",
-    &ActivateType<::CutTheWords::Views::CameraPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.BasicPage", L"",
+    &ActivateType<::CutTheWords::Views::BasicPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  19
-    L"Windows.UI.Xaml.Controls.Page", L"",
+    L"Windows.Foundation.TimeSpan", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
     //  20
-    L"CutTheWords.Views.DrillInPage", L"",
-    &ActivateType<::CutTheWords::Views::DrillInPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.TestPage1", L"",
+    &ActivateType<::CutTheWords::Views::TestPage1>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  21
-    L"CutTheWords.Views.FindVocPage", L"",
-    &ActivateType<::CutTheWords::Views::FindVocPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.TestPage2", L"",
+    &ActivateType<::CutTheWords::Views::TestPage2>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  22
-    L"CutTheWords.Views.HistoryPage", L"",
-    &ActivateType<::CutTheWords::Views::HistoryPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.AddVocPage", L"",
+    &ActivateType<::CutTheWords::Views::AddVocPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  23
-    L"CutTheWords.Views.LandingPage", L"",
-    &ActivateType<::CutTheWords::Views::LandingPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.CameraPage", L"",
+    &ActivateType<::CutTheWords::Views::CameraPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  24
-    L"CutTheWords.Views.LoadingPage", L"",
-    &ActivateType<::CutTheWords::Views::LoadingPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
+    L"Windows.UI.Xaml.Controls.Page", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    -1,
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, true,  false, false,
     //  25
-    L"CutTheWords.Views.MALoginPage", L"",
-    &ActivateType<::CutTheWords::Views::MALoginPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.DrillInPage", L"",
+    &ActivateType<::CutTheWords::Views::DrillInPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  26
-    L"CutTheWords.Views.SettingPage", L"",
-    &ActivateType<::CutTheWords::Views::SettingPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    L"CutTheWords.Views.FindVocPage", L"",
+    &ActivateType<::CutTheWords::Views::FindVocPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  27
+    L"CutTheWords.Views.HistoryPage", L"",
+    &ActivateType<::CutTheWords::Views::HistoryPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  28
+    L"CutTheWords.Views.LandingPage", L"",
+    &ActivateType<::CutTheWords::Views::LandingPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  29
+    L"CutTheWords.Views.LoadingPage", L"",
+    &ActivateType<::CutTheWords::Views::LoadingPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  30
+    L"CutTheWords.Views.MALoginPage", L"",
+    &ActivateType<::CutTheWords::Views::MALoginPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  31
+    L"CutTheWords.Views.MindMapPage", L"",
+    &ActivateType<::CutTheWords::Views::MindMapPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  32
+    L"CutTheWords.Views.SettingPage", L"",
+    &ActivateType<::CutTheWords::Views::SettingPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  33
     L"Windows.UI.Xaml.Controls.Frame", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  28
+    //  34
     L"Windows.UI.Xaml.Controls.Panel", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  29
+    //  35
     L"CutTheWords.Views.BasicSubPage", L"",
     &ActivateType<::CutTheWords::Views::BasicSubPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    24, // Windows.UI.Xaml.Controls.Page
     5, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
-    //  30
+    //  36
     L"CutTheWords.Views.FavoritePage", L"",
     &ActivateType<::CutTheWords::Views::FavoritePage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
+    24, // Windows.UI.Xaml.Controls.Page
     6, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  31
-    L"CutTheWords.Controls.PageHeader", L"",
-    &ActivateType<::CutTheWords::Controls::PageHeader>, nullptr, nullptr, nullptr,
-    39, // Windows.UI.Xaml.Controls.UserControl
-    6, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  32
-    L"CutTheWords.Views.SearchVocPage", L"",
-    &ActivateType<::CutTheWords::Views::SearchVocPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    7, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  33
-    L"CutTheWords.Views.SingleVocPage", L"",
-    &ActivateType<::CutTheWords::Views::SingleVocPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    7, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  34
-    L"CutTheWords.Views.CommandBarPage", L"",
-    &ActivateType<::CutTheWords::Views::CommandBarPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  35
-    L"CutTheWords.Views.SearchRootPage", L"",
-    &ActivateType<::CutTheWords::Views::SearchRootPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
-    true,  false, false, false,
-    //  36
-    L"CutTheWords.Views.SingleRootPage", L"",
-    &ActivateType<::CutTheWords::Views::SingleRootPage>, nullptr, nullptr, nullptr,
-    19, // Windows.UI.Xaml.Controls.Page
-    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
     //  37
+    L"CutTheWords.Controls.PageHeader", L"",
+    &ActivateType<::CutTheWords::Controls::PageHeader>, nullptr, nullptr, nullptr,
+    45, // Windows.UI.Xaml.Controls.UserControl
+    6, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  38
+    L"CutTheWords.Views.SearchVocPage", L"",
+    &ActivateType<::CutTheWords::Views::SearchVocPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    7, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  39
+    L"CutTheWords.Views.SingleVocPage", L"",
+    &ActivateType<::CutTheWords::Views::SingleVocPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    7, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  40
+    L"CutTheWords.Views.CommandBarPage", L"",
+    &ActivateType<::CutTheWords::Views::CommandBarPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  41
+    L"CutTheWords.Views.SearchRootPage", L"",
+    &ActivateType<::CutTheWords::Views::SearchRootPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  42
+    L"CutTheWords.Views.SingleRootPage", L"",
+    &ActivateType<::CutTheWords::Views::SingleRootPage>, nullptr, nullptr, nullptr,
+    24, // Windows.UI.Xaml.Controls.Page
+    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    true,  false, false, false,
+    //  43
     L"Windows.UI.Xaml.Controls.ListView", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  38
+    //  44
     L"Windows.UI.Xaml.Controls.StackPanel", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  39
+    //  45
     L"Windows.UI.Xaml.Controls.UserControl", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  40
+    //  46
     L"CutTheWords.Controls.NavMenuListView", L"",
     &ActivateType<::CutTheWords::Controls::NavMenuListView>, nullptr, nullptr, nullptr,
-    37, // Windows.UI.Xaml.Controls.ListView
+    43, // Windows.UI.Xaml.Controls.ListView
     9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Custom,
     true,  false, false, false,
-    //  41
+    //  47
     L"Windows.UI.Xaml.Controls.ItemsControl", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1,
     9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, true,  false, false,
-    //  42
+    //  48
+    L"Microsoft.Graphics.Canvas.CanvasDevice", L"",
+    nullptr, nullptr, nullptr, nullptr,
+    2, // Object
+    9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, false, true,  false,
+    //  49
     L"Microsoft.Advertising.WinRT.UI.AdControl", L"",
     &ActivateType<::Microsoft::Advertising::WinRT::UI::AdControl>, nullptr, nullptr, nullptr,
-    38, // Windows.UI.Xaml.Controls.StackPanel
+    44, // Windows.UI.Xaml.Controls.StackPanel
     9, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
+    false, false, false, false,
+    //  50
+    L"Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl", L"",
+    &ActivateType<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl>, nullptr, nullptr, nullptr,
+    45, // Windows.UI.Xaml.Controls.UserControl
+    19, 0, ::Windows::UI::Xaml::Interop::TypeKind::Metadata,
     false, false, false, false,
     //  Last type here is for padding
     L"", L"",
     nullptr, nullptr, nullptr, nullptr,
     -1, 
-    19, 0,::Windows::UI::Xaml::Interop::TypeKind::Custom,
+    32, 0,::Windows::UI::Xaml::Interop::TypeKind::Custom,
     false, false, false, false,
 };
 
@@ -563,41 +739,56 @@ UINT TypeInfoLookup[] = {
       0,   //   4
       0,   //   5
       1,   //   6
-      4,   //   7
-      5,   //   8
-      5,   //   9
-      5,   //  10
-      5,   //  11
-      5,   //  12
-      5,   //  13
-      5,   //  14
-      5,   //  15
-      5,   //  16
-      5,   //  17
-      5,   //  18
-      5,   //  19
-      5,   //  20
-      7,   //  21
-      7,   //  22
-      7,   //  23
-      8,   //  24
-      9,   //  25
-     12,   //  26
-     14,   //  27
-     17,   //  28
-     19,   //  29
-     27,   //  30
-     31,   //  31
-     34,   //  32
-     37,   //  33
-     38,   //  34
-     38,   //  35
-     39,   //  36
-     41,   //  37
-     42,   //  38
-     42,   //  39
-     42,   //  40
-     43,   //  41
+      5,   //   7
+      6,   //   8
+      6,   //   9
+      6,   //  10
+      6,   //  11
+      6,   //  12
+      6,   //  13
+      6,   //  14
+      6,   //  15
+      6,   //  16
+      8,   //  17
+      8,   //  18
+      8,   //  19
+      8,   //  20
+     10,   //  21
+     10,   //  22
+     10,   //  23
+     12,   //  24
+     13,   //  25
+     16,   //  26
+     18,   //  27
+     22,   //  28
+     24,   //  29
+     33,   //  30
+     37,   //  31
+     40,   //  32
+     43,   //  33
+     44,   //  34
+     44,   //  35
+     45,   //  36
+     47,   //  37
+     48,   //  38
+     49,   //  39
+     49,   //  40
+     50,   //  41
+     50,   //  42
+     50,   //  43
+     50,   //  44
+     50,   //  45
+     50,   //  46
+     50,   //  47
+     50,   //  48
+     50,   //  49
+     50,   //  50
+     50,   //  51
+     50,   //  52
+     50,   //  53
+     50,   //  54
+     50,   //  55
+     51,   //  56
 };
 
 struct MemberInfo 
@@ -618,35 +809,35 @@ MemberInfo MemberInfos[] =
     L"AppFrame",
     &GetReferenceTypeMember_AppFrame<::CutTheWords::AppShell>,
     nullptr,
-    27, // Windows.UI.Xaml.Controls.Frame
+    33, // Windows.UI.Xaml.Controls.Frame
     -1,
     true,  false, false,
     //   1 - CutTheWords.AppShell.AppTopFrame
     L"AppTopFrame",
     &GetReferenceTypeMember_AppTopFrame<::CutTheWords::AppShell>,
     nullptr,
-    27, // Windows.UI.Xaml.Controls.Frame
+    33, // Windows.UI.Xaml.Controls.Frame
     -1,
     true,  false, false,
     //   2 - CutTheWords.WordOverlay.WordHeight
     L"WordHeight",
     &GetValueTypeMember_WordHeight<::CutTheWords::WordOverlay, ::default::float64>,
     nullptr,
-    3, // Double
+    4, // Double
     -1,
     true,  false, false,
     //   3 - CutTheWords.WordOverlay.WordWidth
     L"WordWidth",
     &GetValueTypeMember_WordWidth<::CutTheWords::WordOverlay, ::default::float64>,
     nullptr,
-    3, // Double
+    4, // Double
     -1,
     true,  false, false,
     //   4 - CutTheWords.WordOverlay.WordPosition
     L"WordPosition",
     &GetValueTypeMember_WordPosition<::CutTheWords::WordOverlay, ::Windows::UI::Xaml::Thickness>,
     nullptr,
-    11, // Windows.UI.Xaml.Thickness
+    15, // Windows.UI.Xaml.Thickness
     -1,
     true,  false, false,
     //   5 - CutTheWords.Views.BasicSubPage.Message
@@ -660,7 +851,7 @@ MemberInfo MemberInfos[] =
     L"HeaderContent",
     &GetReferenceTypeMember_HeaderContent<::CutTheWords::Controls::PageHeader>,
     &SetReferenceTypeMember_HeaderContent<::CutTheWords::Controls::PageHeader, ::Windows::UI::Xaml::UIElement>,
-    9, // Windows.UI.Xaml.UIElement
+    13, // Windows.UI.Xaml.UIElement
     -1,
     false, true,  false,
     //   7 - CutTheWords.Views.SingleVocPage.Explanation
@@ -695,14 +886,14 @@ MemberInfo MemberInfos[] =
     L"HasAd",
     &GetValueTypeMember_HasAd<::Microsoft::Advertising::WinRT::UI::AdControl, ::Platform::Boolean>,
     nullptr,
-    4, // Boolean
+    5, // Boolean
     -1,
     true,  false, false,
     //  12 - Microsoft.Advertising.WinRT.UI.AdControl.IsSuspended
     L"IsSuspended",
     &GetValueTypeMember_IsSuspended<::Microsoft::Advertising::WinRT::UI::AdControl, ::Platform::Boolean>,
     nullptr,
-    4, // Boolean
+    5, // Boolean
     -1,
     true,  false, false,
     //  13 - Microsoft.Advertising.WinRT.UI.AdControl.PostalCode
@@ -737,14 +928,105 @@ MemberInfo MemberInfos[] =
     L"IsAutoRefreshEnabled",
     &GetValueTypeMember_IsAutoRefreshEnabled<::Microsoft::Advertising::WinRT::UI::AdControl, ::Platform::Boolean>,
     &SetValueTypeMember_IsAutoRefreshEnabled<::Microsoft::Advertising::WinRT::UI::AdControl, ::Platform::Boolean>,
-    4, // Boolean
+    5, // Boolean
     -1,
     false, false, false,
     //  18 - Microsoft.Advertising.WinRT.UI.AdControl.IsEngaged
     L"IsEngaged",
     &GetValueTypeMember_IsEngaged<::Microsoft::Advertising::WinRT::UI::AdControl, ::Platform::Boolean>,
     nullptr,
-    4, // Boolean
+    5, // Boolean
+    -1,
+    true,  false, false,
+    //  19 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.Device
+    L"Device",
+    &GetReferenceTypeMember_Device<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl>,
+    nullptr,
+    48, // Microsoft.Graphics.Canvas.CanvasDevice
+    -1,
+    true,  false, false,
+    //  20 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.Dpi
+    L"Dpi",
+    &GetValueTypeMember_Dpi<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::default::float32>,
+    nullptr,
+    3, // Single
+    -1,
+    true,  false, false,
+    //  21 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.UseSharedDevice
+    L"UseSharedDevice",
+    &GetValueTypeMember_UseSharedDevice<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    &SetValueTypeMember_UseSharedDevice<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    5, // Boolean
+    -1,
+    false, false, false,
+    //  22 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.TargetElapsedTime
+    L"TargetElapsedTime",
+    &GetValueTypeMember_TargetElapsedTime<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Windows::Foundation::TimeSpan>,
+    &SetValueTypeMember_TargetElapsedTime<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Windows::Foundation::TimeSpan>,
+    19, // Windows.Foundation.TimeSpan
+    -1,
+    false, false, false,
+    //  23 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.Paused
+    L"Paused",
+    &GetValueTypeMember_Paused<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    &SetValueTypeMember_Paused<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    5, // Boolean
+    -1,
+    false, false, false,
+    //  24 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.IsFixedTimeStep
+    L"IsFixedTimeStep",
+    &GetValueTypeMember_IsFixedTimeStep<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    &SetValueTypeMember_IsFixedTimeStep<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    5, // Boolean
+    -1,
+    false, false, false,
+    //  25 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.ForceSoftwareRenderer
+    L"ForceSoftwareRenderer",
+    &GetValueTypeMember_ForceSoftwareRenderer<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    &SetValueTypeMember_ForceSoftwareRenderer<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    5, // Boolean
+    -1,
+    false, false, false,
+    //  26 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.DpiScale
+    L"DpiScale",
+    &GetValueTypeMember_DpiScale<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::default::float32>,
+    &SetValueTypeMember_DpiScale<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::default::float32>,
+    3, // Single
+    -1,
+    false, false, false,
+    //  27 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.CustomDevice
+    L"CustomDevice",
+    &GetReferenceTypeMember_CustomDevice<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl>,
+    &SetReferenceTypeMember_CustomDevice<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Microsoft::Graphics::Canvas::CanvasDevice>,
+    48, // Microsoft.Graphics.Canvas.CanvasDevice
+    -1,
+    false, false, false,
+    //  28 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.ClearColor
+    L"ClearColor",
+    &GetValueTypeMember_ClearColor<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Windows::UI::Color>,
+    &SetValueTypeMember_ClearColor<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Windows::UI::Color>,
+    6, // Windows.UI.Color
+    -1,
+    false, false, false,
+    //  29 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.HasGameLoopThreadAccess
+    L"HasGameLoopThreadAccess",
+    &GetValueTypeMember_HasGameLoopThreadAccess<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    nullptr,
+    5, // Boolean
+    -1,
+    true,  false, false,
+    //  30 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.ReadyToDraw
+    L"ReadyToDraw",
+    &GetValueTypeMember_ReadyToDraw<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Platform::Boolean>,
+    nullptr,
+    5, // Boolean
+    -1,
+    true,  false, false,
+    //  31 - Microsoft.Graphics.Canvas.UI.Xaml.CanvasAnimatedControl.Size
+    L"Size",
+    &GetValueTypeMember_Size<::Microsoft::Graphics::Canvas::UI::Xaml::CanvasAnimatedControl, ::Windows::Foundation::Size>,
+    nullptr,
+    10, // Windows.Foundation.Size
     -1,
     true,  false, false,
 };

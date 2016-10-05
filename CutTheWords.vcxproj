@@ -205,6 +205,9 @@
     <ClInclude Include="MAPage.xaml.h">
       <DependentUpon>MAPage.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="MindMapPage.xaml.h">
+      <DependentUpon>MindMapPage.xaml</DependentUpon>
+    </ClInclude>
     <ClInclude Include="NavMenuItem.h" />
     <ClInclude Include="NavMenuListView.h" />
     <ClInclude Include="NullPage.xaml.h">
@@ -298,6 +301,9 @@
     <Page Include="MAPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="MindMapPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="NullPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -389,6 +395,9 @@
     </ClCompile>
     <ClCompile Include="MAPage.xaml.cpp">
       <DependentUpon>MAPage.xaml</DependentUpon>
+    </ClCompile>
+    <ClCompile Include="MindMapPage.xaml.cpp">
+      <DependentUpon>MindMapPage.xaml</DependentUpon>
     </ClCompile>
     <ClCompile Include="NavMenuItem.cpp" />
     <ClCompile Include="NavMenuListView.cpp" />
@@ -543,11 +552,13 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="packages\boost.1.61.0.0\build\native\boost.targets" Condition="Exists('packages\boost.1.61.0.0\build\native\boost.targets')" />
+    <Import Project="packages\Win2D.uwp.1.18.0\build\native\Win2D.uwp.targets" Condition="Exists('packages\Win2D.uwp.1.18.0\build\native\Win2D.uwp.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('packages\boost.1.61.0.0\build\native\boost.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\boost.1.61.0.0\build\native\boost.targets'))" />
+    <Error Condition="!Exists('packages\Win2D.uwp.1.18.0\build\native\Win2D.uwp.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Win2D.uwp.1.18.0\build\native\Win2D.uwp.targets'))" />
   </Target>
 </Project>

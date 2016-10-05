@@ -756,9 +756,9 @@ class BitVector {
 
   void set(std::size_t id, bool bit) {
     if (bit) {
-      units_[id / UNIT_SIZE] |= (size_t)( 1 << (id % UNIT_SIZE));
+      units_[id / UNIT_SIZE] |= (size_t)((size_t)1 << (size_t)(id % UNIT_SIZE));
     } else {
-      units_[id / UNIT_SIZE] &= (size_t)(~(1 << (id % UNIT_SIZE)));
+      units_[id / UNIT_SIZE] &= (size_t)(~((size_t)1 << (size_t)(id % UNIT_SIZE)));
     }
   }
 

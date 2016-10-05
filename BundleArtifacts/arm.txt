@@ -1,3 +1,0 @@
-MainPackage=D:\joe_data\Documents\Visual Studio 2015\Projects\Cut The Words\ARM\Release\CutTheWords\CutTheWords_1.2.14.0_ARM.appx
-SymbolPackage=D:\joe_data\Documents\Visual Studio 2015\Projects\Cut The Words\AppPackages\CutTheWords\CutTheWords_1.2.14.0_Test\CutTheWords_1.2.14.0_ARM.appxsym
-ResourcePack=D:\joe_data\Documents\Visual Studio 2015\Projects\Cut The Words\ARM\Release\CutTheWords\CutTheWords_1.2.14.0_scale-100.appx

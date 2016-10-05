@@ -27,8 +27,8 @@ TestPage1::TestPage1()
 	InitializeComponent();
 }
 
-unordered_map<int, wstring> TestPage1_Navigate_Obj;
-unordered_map<int, bool> TestPage1_Lock;
+unordered_map<long long int, wstring> TestPage1_Navigate_Obj;
+unordered_map<long long int, bool> TestPage1_Lock;
 void TestPage1::OnNavigatedTo(NavigationEventArgs^ e)
 {
 	auto score = dynamic_cast<Array<int>^>(e->Parameter);
@@ -78,6 +78,7 @@ void TestPage1::OnNavigatedTo(NavigationEventArgs^ e)
 	block->Children->Append(prob);
 	auto anst = ref new TextBox();
 	anst->TextChanged += ref new Windows::UI::Xaml::Controls::TextChangedEventHandler(this, &CutTheWords::Views::TestPage1::OnTextChanged);
+	anst->Loaded += ref new Windows::UI::Xaml::RoutedEventHandler(this, &CutTheWords::Views::TestPage1::OnLoaded);
 	block->Children->Append(anst);
 	auto tit = ref new TextBlock();
 	tit->Text = ref new String(trim(ans).c_str());
@@ -103,7 +104,7 @@ void CutTheWords::Views::TestPage1::OnNavigatedFrom(Windows::UI::Xaml::Navigatio
 void CutTheWords::Views::TestPage1::OnRightTapped(Platform::Object ^sender, Windows::UI::Xaml::Input::RightTappedRoutedEventArgs ^e)
 {
 
-	if (!TestPage1_Lock[uuid]) {
+	if (!TestPage1_Lock[uuid]&& favorite.find(ans) != favorite.end()) {
 		int x = StrToInt(favorite[ans]);
 		favorite[ans] = IntToStr(max(1, x +16));
 		AppendStrToFile(ans+L","+favorite[ans] + L"\n", L"favorite.txt");
@@ -137,7 +138,7 @@ void CutTheWords::Views::TestPage1::OnTextChanged(Platform::Object ^sender, Wind
 			ok++;
 			auto block = (StackPanel^)(test_stp->Children->GetAt(0));
 			auto tb = (TextBox^)(block->Children->GetAt(1));
-			if (((TextBlock^)(block->Children->GetAt(2)))->Text == tb->Text && !TestPage1_Lock[uuid]) {
+			if (((TextBlock^)(block->Children->GetAt(2)))->Text == tb->Text && !TestPage1_Lock[uuid]&& favorite.find(ans) != favorite.end()) {
 				int x = StrToInt(favorite[ans]);
 				favorite[ans] = IntToStr(max(1, x / 2));
 				AppendStrToFile(ans + L"," + favorite[ans] + L"\n", L"favorite.txt");
@@ -196,3 +197,10 @@ void CutTheWords::Views::TestPage1::AppBarButton_Click(Platform::Object^ sender,
 void TestPage1::OnErrorOccurred(Object^ sender, AdErrorEventArgs^ e) {}
 
 void TestPage1::OnAdRefreshed(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ args) {}
+
+void CutTheWords::Views::TestPage1::OnLoaded(Platform::Object ^sender, Windows::UI::Xaml::RoutedEventArgs ^e)
+{
+	auto tmp = dynamic_cast<TextBox^>(sender);
+	if (tmp == nullptr)return;
+	tmp->Focus(Windows::UI::Xaml::FocusState::Programmatic);
+}

@@ -19,7 +19,7 @@
                 <TextBlock x:Name="title" Style="{ThemeResource PageTitleTextBlockStyle}" Text="設定"/>
             </ctl:PageHeader.HeaderContent>
         </ctl:PageHeader>
-        <StackPanel Grid.Row="1">
+        <StackPanel x:Name="st" Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -36,6 +36,10 @@
                 <ListViewItem>設定主題色彩</ListViewItem>
                 <ListViewItem>聲音選項</ListViewItem>
                 <ListViewItem>單字庫選項</ListViewItem>
+                <ListViewItem>測驗選項</ListViewItem>
+                <ListViewItem>心智圖選項</ListViewItem>
+                <ListViewItem>啟動選項</ListViewItem>
+                <ListViewItem>網路選項</ListViewItem>
                 <ListViewItem>關於</ListViewItem>
                 <!--<ListViewItem>Test</ListViewItem>-->
             </ListView>

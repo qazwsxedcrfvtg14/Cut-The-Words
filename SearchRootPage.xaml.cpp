@@ -28,9 +28,10 @@ SearchRootPage::SearchRootPage()
 	InitializeComponent();
 }
 
-unordered_map<int, Object^> SearchRootPage_Navigate_Obj;
+unordered_map<long long int, Object^> SearchRootPage_Navigate_Obj;
 void SearchRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
+
 	auto svp = dynamic_cast<String^>(SearchRootPage_Navigate_Obj[GetCurrentID()]);
 	if (svp != nullptr) {
 		input_voc->Text = svp;

@@ -25,8 +25,9 @@
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="6.單字測驗：練習自訂單字表中的單字"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="7.圖片掃描：辨識圖片中的英文單字"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="8.相機掃描：辨識相機鏡頭中的英文單字(需要相機功能)"/>
-                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="9.下方笑臉：意見反饋"/>
-                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="10.下方齒輪：設定介面顏色、自動發音開關、更新單字庫"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="9.心智圖：用心智圖的方式觀察自訂單字表中的單字"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="10.下方笑臉：意見反饋"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="11.下方齒輪：設定介面顏色、自動發音開關、更新單字庫"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="  (第7跟第8項功能需在電腦設定-地區與語言中新增英文語言)"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="  (【右鍵】在觸碰螢幕中代表著【長按後放開】)"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="  (字根字首部分不保證完全正確)"/>

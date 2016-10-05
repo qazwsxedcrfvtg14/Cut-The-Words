@@ -30,7 +30,13 @@ SettingPage::SettingPage()
 
 void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArgs^ e)
 {
-	auto str=dynamic_cast<String^>(e->ClickedItem);
+	String^ str;
+	if (e != nullptr)
+		str=dynamic_cast<String^>(e->ClickedItem);
+	else
+		str= dynamic_cast<String^>(sender);
+	if (str == nullptr)
+		return;
 	if (str == "重置單字庫") {
 		//if (rtp==nullptr) { ShowMsg(L"應用程式初始化中，請稍後重試。"); return; }
 		ShowLoading();
@@ -94,7 +100,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 					loading_cnt++;
 				}, [=] {ShowMsg(L"Update Version Error!"); loading_cnt++; });
 				post_data = ref new HttpMultipartFormDataContent();
-				post_data->Add(ref new HttpStringContent(ref new String((dump_doc(words)).c_str())), "post");
+				post_data->Add(ref new HttpStringContent(ref new String((dump_doc(words,ok_words)).c_str())), "post");
 				post(setting[L"website"] + L"/words.php", post_data, [=](wstring s) {
 					loading_cnt++;
 				}, [=] {ShowMsg(L"Upload Words Error!"); loading_cnt++; });
@@ -202,7 +208,7 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		if(setting[L"website"]==L"http://192.168.1.110/words")
 			set_list->Items->Append("上傳單字庫");
 		set_list->Items->Append("更新單字庫");
-		set_list->Items->Append("重置單字庫");
+		//set_list->Items->Append("重置單字庫");
 		set_list->Items->Append("重置應用程式");
 		set_list->Items->Append("回設定主頁");
 	}
@@ -217,6 +223,10 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		set_list->Items->Append("設定主題色彩");
 		set_list->Items->Append("聲音選項");
 		set_list->Items->Append("單字庫選項");
+		set_list->Items->Append("測驗選項");
+		set_list->Items->Append("心智圖選項");
+		set_list->Items->Append("啟動選項");
+		set_list->Items->Append("網路選項");
 		set_list->Items->Append("關於");
 	}
 	else if (str == "聲音選項") {
@@ -274,8 +284,109 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		auto ocrLanguage = ref new Windows::Globalization::Language("en");
 		auto ocrEngine = Windows::Media::Ocr::OcrEngine::TryCreateFromLanguage(ocrLanguage);
 	}
+	else if (str == "心智圖選項") {
+		set_list->Items->Clear();
+		set_list->Items->Append("關閉心智圖選項");
+		auto s = ref new StackPanel();
+		s->Orientation = Orientation::Horizontal;
+		auto tp = ref new TextBlock();
+		tp->Text = "節點數量：";
+		auto tmp = ref new TextBox();
+		tmp->Text = ref new String(setting[L"mind_map_cnt"].c_str());
+		tmp->TextChanged += ref new TextChangedEventHandler([=](Object^ sender, TextChangedEventArgs^ e) {
+			setting[L"mind_map_cnt"] = tmp->Text->Data();
+			SavingSetting();
+		});
+		s->Children->Append(tp);
+		s->Children->Append(tmp);
+		st->Children->Append(s);
+	}
+	else if (str == "關閉心智圖選項") {
+		st->Children->RemoveAtEnd();
+		ListView_ItemClick(ref new String(L"回設定主頁"),nullptr);
+	}
+	else if (str == "測驗選項") {
+		set_list->Items->Clear();
+		set_list->Items->Clear();
+		set_list->Items->Append("關閉測驗選項");
+		auto s = ref new StackPanel();
+		s->Orientation = Orientation::Horizontal;
+		auto tp = ref new TextBlock();
+		tp->Text = "選擇題選項數量(2~100)：";
+		auto tmp = ref new TextBox();
+		if (setting[L"sellect_prob_cnt"] == L"")
+			setting[L"sellect_prob_cnt"] = L"5";
+		tmp->Text = ref new String(setting[L"sellect_prob_cnt"].c_str());
+		tmp->TextChanged += ref new TextChangedEventHandler([=](Object^ sender, TextChangedEventArgs^ e) {
+			setting[L"sellect_prob_cnt"] = tmp->Text->Data();
+			SavingSetting();
+		});
+		s->Children->Append(tp);
+		s->Children->Append(tmp);
+		st->Children->Append(s);
+	}
+	else if (str == "關閉測驗選項") {
+		st->Children->RemoveAtEnd();
+		ListView_ItemClick(ref new String(L"回設定主頁"), nullptr);
+	}
+	else if (str == "啟動選項") {
+		set_list->Items->Clear();
+		set_list->Items->Append("啟動後進入首頁");
+		set_list->Items->Append("啟動後進入單字搜尋頁面");
+		set_list->Items->Append("回設定主頁");
+	}
+	else if (str == "啟動後進入首頁") {
+		setting[L"home_page"] = L"home";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "啟動後進入單字搜尋頁面") {
+		setting[L"home_page"] = L"search";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "網路選項") {
+		set_list->Items->Clear();
+		set_list->Items->Append("開啟網路音標");
+		set_list->Items->Append("關閉網路音標");
+		set_list->Items->Append("開啟網路發音");
+		set_list->Items->Append("關閉網路發音");
+		set_list->Items->Append("開啟網路圖片");
+		set_list->Items->Append("關閉網路圖片");
+		set_list->Items->Append("回設定主頁");
+	}
+	else if (str == "開啟網路音標") {
+		setting[L"network_kk"] = L"true";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "關閉網路音標") {
+		setting[L"network_kk"] = L"false";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "開啟網路發音") {
+		setting[L"network_sound"] = L"true";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "關閉網路發音") {
+		setting[L"network_sound"] = L"false";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "開啟網路圖片") {
+		setting[L"network_picture"] = L"true";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "關閉網路圖片") {
+		setting[L"network_picture"] = L"false";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
 	else {
-		throw("Error");
+		throw("Option 404 Error");
 	}
 	//if()
 	/*Frame->Navigate(

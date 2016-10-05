@@ -116,7 +116,12 @@ void get_doc(wstring inp, DataMap &words, DataMap &ok, bool user) {
 			else a.back() += s[i], d += s[i];
 			for (auto &c : a) {
 				if (trim(c) == L"")continue;
-				if (dis) { words.erase(c); continue; }
+				if (dis) { 
+					if (ok.find(c) != ok.end())
+						ok.erase(c);
+					words.erase(c); 
+					continue; 
+				}
 				words[c] = b;
 				if (star)ok[c] = d;
 			}
@@ -185,51 +190,6 @@ std::wstring& trimx(std::wstring &s)
 	return s;
 }
 
-wstring make_tail2(wstring org, wstring tail) {
-	wstring all = org;
-	auto st = all.find(L'['), ed = all.find(L']');
-	if (st == wstring::npos || ed == wstring::npos)return L"";
-	wstring x = all.substr(st, ed - st + 1);
-	auto pos = tail.find(x);
-	if (pos == wstring::npos) {
-		if (ed + 1 < all.length())
-			return make_tail2(all.substr(ed + 1), tail);
-		else
-			return L"";
-	}
-	wstring ret;
-	for (int i = (int)pos - 1;i >= 0 && tail[i] != L'/';i--)
-		ret = tail[i] + ret;
-	ret += x;
-	return L"/" + trimx(ret);
-}
-wstring make_tail(wstring org, wstring tail) {
-	if (words.find(org) == words.end())return tail;
-	wstring all = words[org];
-	auto st = all.find(L'['), ed = all.find(L']');
-	if (st == wstring::npos || ed == wstring::npos)return tail;
-	wstring x = all.substr(st, ed - st + 1);
-	auto pos = tail.find(x);
-	if (pos == wstring::npos) {
-		if (ed + 1 < all.length()) {
-			auto tmp = make_tail2(all.substr(ed + 1), tail);
-			if (tmp != L"")
-				return tmp.substr(1);
-			else
-				return tail;
-		}
-		else
-			return tail;
-	}
-	wstring ret;
-	for (int i = (int)pos - 1;i >= 0 && tail[i] != L'/';i--)
-		ret = tail[i] + ret;
-	ret += x;
-	if (ed + 1 < all.length())
-		return trimx(ret) + make_tail2(all.substr(ed + 1), tail);
-	else
-		return trimx(ret);
-}
 void  match(wstring match, vector<wstring>&ve, wstring beg) {
 	ve.clear();
 	try {
@@ -244,14 +204,14 @@ void  match(wstring match, vector<wstring>&ve, wstring beg) {
 			if (match[i] == L'*'/* || match[i] == L'-'*/) {
 				if (i&&match[i-1] == '*')continue;
 				if (i&&star&&match[i-1] == '?')continue;
-				ma += L"zzzzzzzzzzzzzzzzz";
+				ma += (wchar_t)0xeffff;
 				reg_wstring += L".*";
 				tg = 0;
 				star = true;
 			}
 			else if (match[i] == L'?') {
-				if (tg)mi += L"a";
-				ma += L"z";
+				if (tg)mi += (wchar_t)0;
+				ma += (wchar_t)0xeffff;
 				reg_wstring += L".";
 			}
 			else if (match[i] >= 'a'&&match[i] <= L'z') {
@@ -324,8 +284,8 @@ void  match_rot(wstring match, vector<wstring>&ve, wstring beg) {
 				tg = 0;
 			}
 			else if (match[i] == L'?') {
-				if (tg)mi += L"a";
-				ma += L"z";
+				if (tg)mi += (wchar_t)0;
+				ma += (wchar_t)0xeffff;
 				reg_wstring += L"[.";
 			}
 			else if (match[i] >= 'A'&&match[i] <= L'Z') {
@@ -472,7 +432,7 @@ vector<wstring> Show2(wstring s) {
 		for (int i = 0; i < len; i++)
 			for (int j = i; j < len; j++) {
 				wstring now = s.substr(i, j - i + 1);
-				dp[i][j] = j - i;
+				dp[i][j] = j - i - 1;
 				dps[i][j] = now;
 				if (i == 0 && j == len - 1) {
 					dp[i][j] = j-i + max(17 / (j - i + 1), 1);
@@ -494,12 +454,12 @@ vector<wstring> Show2(wstring s) {
 					if (dp[i][j] < score)
 						dp[i][j] = score, dps[i][j] = L"-" + now + L"-";
 				}
-				if ((i != 0 || j != len - 1) && (j - i >= 3||(j-i==2&& (j==len-1||i==0) ) )&& words.find(now) != words.end()) {
+				if ((i != 0 || j != len - 1) && (j - i >= 3 || (j - i == 2 && (j == len - 1 || i == 0))) && words.find(now) != words.end()) {
 					int score = (j - i) * 2;
 					if (dp[i][j] < score)
 						dp[i][j] = score, dps[i][j] = now;
 				}
-				if ((i != 0 || j != len - 2) && j - i>3 && words.find(now + L"e") != words.end()) {
+				if ((i != 0 || j != len - 2) && (j - i >= 3 || (j - i == 2 && (j == len - 1 || i == 0))) && words.find(now + L"e") != words.end()) {
 					int score = (j - i) * 2 - 1;
 					if (dp[i][j] < score)
 						dp[i][j] = score, dps[i][j] = now;
@@ -516,7 +476,7 @@ vector<wstring> Show2(wstring s) {
 		for (int i = 0; i < len; i++,out+=L'\n')
 			for (int j = 0; j < len; j++)
 				out += IntToStr(dp[i][j]) +L' ';
-		if(s==L"acumen")
+		if(s==L"simplicity")
 			ShowMsg(out);*/
 		for (int i = 0; i < len; i++) {
 			d[i] = dp[0][i];
@@ -874,7 +834,7 @@ wstring GetRootExpOrg(wstring s) {
 	}
 }
 //unique_ptr<map<wstring, set<wstring>>> rtp=nullptr;
-//map<wstring, set<wstring>>rt;
+map<wstring, set<wstring>>rt;
 int loading_cnt;
 wstring LowwerCase(wstring s) {
 	for (auto &x : s)
@@ -924,7 +884,7 @@ sqlite3_free(sql);
 //char* query = sqlite3_mprintf("insert into tbl5 values ('%q');", s);
 */
 
-unordered_map<int, bool> scroll_load_not_finish ;
+unordered_map<long long int, bool> scroll_load_not_finish ;
 wstring erase_quote(wstring s) {
 	s = trim(s);
 	if (s.front() == '"'&&s.back() == '"') {
@@ -1313,7 +1273,7 @@ int LevenshteinDistance(wstring s, wstring t)
 
 	return v1[m];
 }
-int GetCurrentID() {
+long long int GetCurrentID() {
 	//return 0;
 	return Windows::UI::ViewManagement::ApplicationView::GetForCurrentView()->Id;
 }

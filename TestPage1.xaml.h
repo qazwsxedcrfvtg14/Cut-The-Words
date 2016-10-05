@@ -35,6 +35,7 @@ namespace CutTheWords
 			void AppBarButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e);
 			void OnErrorOccurred(Object^ sender, AdErrorEventArgs^ e);
 			void OnAdRefreshed(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ args);
+			void OnLoaded(Platform::Object ^sender, Windows::UI::Xaml::RoutedEventArgs ^e);
 		};
 	}
 }
