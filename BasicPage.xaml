@@ -36,14 +36,14 @@
                 </StackPanel>
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="以下是些小小的廣告"/>
                 <ads:AdControl
-                ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299575"
+                ApplicationId="5c959e61-ce5a-4232-ab9a-d5b409749c32" AdUnitId="316538"
                 AdRefreshed="OnAdRefreshed"
                 Width="300"
                 Height="250"
                 ErrorOccurred="OnErrorOccurred"
                 Margin="20"/>
                 <ads:AdControl
-                ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299427"
+                ApplicationId="5c959e61-ce5a-4232-ab9a-d5b409749c32" AdUnitId="316538"
                 AdRefreshed="OnAdRefreshed"
                 Width="728"
                 Height="90"

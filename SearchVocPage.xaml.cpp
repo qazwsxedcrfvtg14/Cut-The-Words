@@ -42,10 +42,10 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 	time.Duration = 2000000;
 	tempdispatchertime_upd_sync->Interval = time;
 	auto timerDelegate = [this](Object^ e, Object^ ags) {
-		if(target != input_voc->Text->Data()) {
+		if(target != trim(input_voc->Text->Data())) {
 			scroll_load_not_finish[GetCurrentID()] = 0;
-			target = input_voc->Text->Data();
-			wstring q = input_voc->Text->Data();
+			target = trim(input_voc->Text->Data());
+			wstring q = trim(input_voc->Text->Data());
 			create_task([=] {
 				vector<wstring> ve;
 				match(q + L"*", ve); 
@@ -53,7 +53,7 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 			}).then([this,q](vector<wstring>ve) {
 				Dispatcher->RunAsync(CoreDispatcherPriority::High, ref new DispatchedHandler([this, ve,q]()
 				{
-					if (target != input_voc->Text->Data()||target!=q)return;
+					if (target != trim(input_voc->Text->Data())||target!=q)return;
 					VocList->Items->Clear();
 					int cnt = 0;
 					for (auto x : ve) {
@@ -69,7 +69,7 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 						tmp->Text = ref new String(_exp.c_str());
 						tmp->Margin = Thickness(20, 0, 0, 0);
 						stp->Children->Append(tmp);
-						if (target != input_voc->Text->Data())return;
+						if (target != trim(input_voc->Text->Data()))return;
 						VocList->Items->Append(stp);
 					}
 					if (ve.size())
@@ -81,7 +81,7 @@ void SearchVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 		}
 		if (scro->VerticalOffset >= scro->ScrollableHeight - 200 && scroll_load_not_finish[GetCurrentID()] && VocList->Items->Size) {
 			scroll_load_not_finish[GetCurrentID()] = 0;
-			wstring q = input_voc->Text->Data(),qq= ((TextBlock^)(((StackPanel^)(VocList->Items->GetAt(VocList->Items->Size - 1)))->Children->GetAt(0)))->Text->Data();
+			wstring q = trim(input_voc->Text->Data()),qq= ((TextBlock^)(((StackPanel^)(VocList->Items->GetAt(VocList->Items->Size - 1)))->Children->GetAt(0)))->Text->Data();
 			auto tsk = create_task([=] {
 				vector<wstring> ve;
 				match(q + L"*", ve, qq); 

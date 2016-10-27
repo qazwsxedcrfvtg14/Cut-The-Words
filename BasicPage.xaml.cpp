@@ -55,8 +55,8 @@ void BasicPage::RunInterstitialAd(Object^ sender, Windows::UI::Xaml::RoutedEvent
 	// The application id and ad unit are passed in here.
 	// The application id and ad unit id can be obtained from Dev Center.
 	// See "Monetize with Ads" at https://msdn.microsoft.com/en-us/library/windows/apps/mt170658.aspx
-	interstitialAd->RequestAd(AdType::Video, L"715b2d98-32ca-41d3-800f-367a6dfe912e", L"299428");
-	interstitialAd->RequestAd(AdType::Video, L"d25517cb-12d4-4699-8bdc-52040c712cab", L"11389925");
+	interstitialAd->RequestAd(AdType::Video, L"5c959e61-ce5a-4232-ab9a-d5b409749c32", L"316538");
+	//interstitialAd->RequestAd(AdType::Video, L"d25517cb-12d4-4699-8bdc-52040c712cab", L"11389925");
 }
 
 // This is an event handler for the interstitial ad. It is triggered when the interstitial ad information has been downloaded and is ready to show.

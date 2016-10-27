@@ -28,7 +28,7 @@
         </ScrollViewer>
         <ads:AdControl
                 Grid.Row="3"
-                ApplicationId="715b2d98-32ca-41d3-800f-367a6dfe912e" AdUnitId="299427"
+                ApplicationId="5c959e61-ce5a-4232-ab9a-d5b409749c32" AdUnitId="316538"
                 AdRefreshed="OnAdRefreshed"
                 ErrorOccurred="OnErrorOccurred"
                 Width="728"

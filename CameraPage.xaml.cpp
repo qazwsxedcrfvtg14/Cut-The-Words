@@ -594,13 +594,13 @@ task<void> CameraPage::InitializeCameraAsync()
 		}
 
 
-		/*
+		
 		auto focusSettings = ref new Windows::Media::Devices::FocusSettings();
 		focusSettings->AutoFocusRange = Windows::Media::Devices::AutoFocusRange::FullRange;
 		focusSettings->Mode = Windows::Media::Devices::FocusMode::Auto;
 		focusSettings->WaitForFocus = true;
 		focusSettings->DisableDriverFallback = false;
-		mediaCapture->VideoDeviceController->FocusConarol->Configure(focusSettings);*/
+		mediaCapture->VideoDeviceController->FocusControl->Configure(focusSettings);
 		isInitialized = true;
 		Camera_init = true;
 		// If initialization succeeded, start the preview.

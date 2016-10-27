@@ -406,6 +406,6 @@ void CutTheWords::AppShell::SettingsNavPaneButton_Click(Platform::Object^ sender
 void CutTheWords::AppShell::FeedbackNavPaneButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 
-	auto success = AWait(Windows::System::Launcher::LaunchUriAsync(ref new Uri("ms-windows-store://pdp/?ProductId=9nblggh4wfmb")));
+	auto success = AWait(Windows::System::Launcher::LaunchUriAsync(ref new Uri("ms-windows-store://pdp/?ProductId=9nblggh432kk")));
 
 }
