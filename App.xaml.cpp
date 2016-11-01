@@ -178,7 +178,8 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 			Window::Current->Content = shell;
 			// You have to activate the window in order to show it later.
 			Window::Current->Activate();
-			
+			ShowMsg(L"Please install the new version of this app!");
+			auto success = AWait(Windows::System::Launcher::LaunchUriAsync(ref new Uri("ms-windows-store://pdp/?ProductId=9nblggh432kk")));
 		})));
 		create_task(Windows::UI::ViewManagement::ApplicationViewSwitcher::TryShowAsStandaloneAsync(newViewId)).then([](bool b) {
 			

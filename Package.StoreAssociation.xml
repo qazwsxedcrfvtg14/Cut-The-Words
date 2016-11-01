@@ -358,13 +358,13 @@
     <Language Code="zu-za" InMinimumRequirementSet="true" />
   </SupportedLocales>
   <ProductReservedInfo>
-    <MainPackageIdentityName>58230.Cut</MainPackageIdentityName>
+    <MainPackageIdentityName>58230.CutTheWords</MainPackageIdentityName>
     <ReservedNames>
-      <ReservedName>Cut 字根字首字典</ReservedName>
+      <ReservedName>Cut The Words</ReservedName>
     </ReservedNames>
   </ProductReservedInfo>
   <AccountPackageIdentityNames>
-    <MainPackageIdentityName>58230.CutTheWords</MainPackageIdentityName>
+    <MainPackageIdentityName>58230.Cut</MainPackageIdentityName>
   </AccountPackageIdentityNames>
-  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NBLGGH432KK" />
+  <PackageInfoList LandingUrl="https://developer.microsoft.com/dashboard/Application?appId=9NBLGGH4WFMB" />
 </StoreAssociation>
