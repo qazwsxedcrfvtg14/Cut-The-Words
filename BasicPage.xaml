@@ -31,6 +31,7 @@
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="  (第7跟第8項功能需在電腦設定-地區與語言中新增英文語言)"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="  (【右鍵】在觸碰螢幕中代表著【長按後放開】)"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="  (字根字首部分不保證完全正確)"/>
+                    <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="本程式大部分的資料來源為Bing辭典"/>
                     <TextBlock HorizontalAlignment="Left" VerticalAlignment="Center" Margin="2" Text="建議第一次使用前先更新單字庫"/>
                     <Button Content="資料格式說明" Margin="4" HorizontalAlignment="Center" Click="Button_Click"/>
                 </StackPanel>

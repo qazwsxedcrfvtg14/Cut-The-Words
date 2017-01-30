@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="58230.CutTheWords" Publisher="CN=38C2F0AD-B38E-4622-86C9-FC94ED6B8EC6" Version="1.2.31.0" />
-  <mp:PhoneIdentity PhoneProductId="03f08da4-cf37-4ab3-ab96-894c6ce9ae27" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="58230.CutTheWords" Publisher="CN=38C2F0AD-B38E-4622-86C9-FC94ED6B8EC6" Version="1.2.38.0" />
+  <mp:PhoneIdentity PhoneProductId="e64f30d2-1fb2-4b2b-a381-2a8c22702af7" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Cut The Words</DisplayName>
     <PublisherDisplayName>周逸</PublisherDisplayName>

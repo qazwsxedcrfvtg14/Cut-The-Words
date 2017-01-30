@@ -7,8 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
-    mc:Ignorable="d"
-    KeyDown="PageKeyDown">
+    mc:Ignorable="d">
 
     <ScrollViewer x:Name="scro" VerticalScrollBarVisibility="Auto">
         <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
@@ -107,7 +106,7 @@
                   IsItemClickEnabled="True"
                   ItemClick="alias_list_ItemClick"/>
             <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <StackPanel x:Name="voc_root" Orientation="Horizontal"/>
+                <StackPanel x:Name="voc_root" Orientation="Vertical"/>
             </ScrollViewer>
             <ads:AdControl
                 Grid.Row="4"

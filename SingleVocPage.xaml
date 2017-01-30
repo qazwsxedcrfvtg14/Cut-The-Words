@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ads="using:Microsoft.Advertising.WinRT.UI"
     mc:Ignorable="d"
-    KeyDown="PageKeyDown"
     >
     <Page.Resources>
         <MediaElement x:Name="media" Visibility="Collapsed" AutoPlay="False"/>
@@ -91,6 +90,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -107,20 +107,19 @@
             <TextBlock x:Name="tivoc" Grid.Row="1" VerticalAlignment="Center" Text="{x:Bind Vocabulary}" Margin="20" Style="{ThemeResource TitleTextBlockStyle}"/>
             <Button Grid.Row="1" Grid.Column="1" x:Name="play_but" FontFamily="Segoe MDL2 Assets" Content="&#xE767;" Background="Transparent" Click="PlayButton_Click" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="0,7,0,0" />
             <TextBlock Grid.Row="1" Grid.Column="1" x:Name="kk" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="40,7,0,0" />
-            <ScrollViewer x:Name="expst" Grid.Row="2" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled"/>
-            <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <ScrollViewer x:Name="expst" Grid.Row="2" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" IsHorizontalRailEnabled="False" IsVerticalRailEnabled="False"/>
+            <ScrollViewer Grid.Row="3" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" IsHorizontalRailEnabled="False" IsVerticalRailEnabled="False">
                 <StackPanel x:Name="voc_root" Orientation="Horizontal"/>
             </ScrollViewer>
-            <ScrollViewer Grid.Row="4" Grid.ColumnSpan="2"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <ScrollViewer Grid.Row="4" Grid.ColumnSpan="2"  HorizontalScrollBarVisibility="Auto"  VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" IsHorizontalRailEnabled="False" IsVerticalRailEnabled="False">
                 <StackPanel x:Name="voc_croot" Orientation="Horizontal"/>
             </ScrollViewer>
-            <ScrollViewer x:Name="note_view" Grid.Row="5" Grid.ColumnSpan="2"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            </ScrollViewer>
+            <ScrollViewer x:Name="note_view" Grid.Row="5" Grid.ColumnSpan="2"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" IsHorizontalRailEnabled="False" IsVerticalRailEnabled="False"/>
             <ListView x:Name="alias_list" Grid.Row="6" Grid.ColumnSpan="2" 
                   EntranceNavigationTransitionInfo.IsTargetElement="True"
                   IsItemClickEnabled="True"
                   ItemClick="alias_list_ItemClick"/>
-            <ScrollViewer Grid.Row="7" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+            <ScrollViewer Grid.Row="7" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" VerticalScrollMode="Disabled" IsHorizontalRailEnabled="False" IsVerticalRailEnabled="False">
                 <StackPanel x:Name="pics"  Orientation="Horizontal" Margin="20,0,0,0"/>
             </ScrollViewer>
             <ads:AdControl
@@ -129,11 +128,14 @@
                 ApplicationId="5c959e61-ce5a-4232-ab9a-d5b409749c32" AdUnitId="316538"
                 Width="728" Height="90"
                 Margin="20,5,5,5"/>
-            <ListView Grid.Row="9" Grid.ColumnSpan="2" x:Name="VocList" 
+            <ScrollViewer x:Name="sent" Grid.Row="9" Grid.ColumnSpan="2"  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled"  VerticalScrollMode="Disabled" IsHorizontalRailEnabled="False" IsVerticalRailEnabled="False">
+                <Button Content="例句" Margin="30,5,0,5" HorizontalAlignment="Left" Click="Button_Click"/>
+            </ScrollViewer>
+            <ListView Grid.Row="10" Grid.ColumnSpan="2" x:Name="VocList" 
                   EntranceNavigationTransitionInfo.IsTargetElement="True"
                   IsItemClickEnabled="True"
-                  ItemClick="VocListView_ItemClick" />
-            <ScrollViewer  x:Name="EditPanel" Opacity="0" Visibility="Visible" Grid.Row="3" Grid.RowSpan="7" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                  ItemClick="VocListView_ItemClick" Margin="0,0,0,10" />
+            <ScrollViewer  x:Name="EditPanel" Opacity="0" Visibility="Visible" Grid.Row="3" Grid.RowSpan="8" Grid.ColumnSpan="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <StackPanel Orientation="Vertical" 
                         Background="{ThemeResource MenuFlyoutItemFocusedBackgroundThemeBrush}">
                     <TextBlock Text="應該如何拆解?" Margin="10"/>
@@ -167,7 +169,7 @@
                     </ListView>
                 </StackPanel>
             </ScrollViewer>
-            <StackPanel Grid.Row="3" Grid.RowSpan="7" Grid.ColumnSpan="2" Orientation="Vertical" 
+            <StackPanel Grid.Row="3" Grid.RowSpan="8" Grid.ColumnSpan="2" Orientation="Vertical" 
                         x:Name="DelPanel" Opacity="0" Visibility="Visible" 
                         Background="{ThemeResource MenuFlyoutItemFocusedBackgroundThemeBrush}">
                 <TextBlock Text="確定刪除?" Margin="10" HorizontalAlignment="Center"/>

@@ -163,3 +163,5 @@ extern bool IsTrial;
 void InitializeLicense();
 pair<wstring, wstring> WordRotToExp(wstring now);
 StackPanel^ ExpStack(wstring s,int fontsize=16);
+void str_replace(wstring & strBig, const wstring & strsrc, const wstring &strdst=L"");
+wstring html_decode(wstring input);

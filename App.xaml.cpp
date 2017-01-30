@@ -37,7 +37,7 @@ using namespace Windows::UI::Xaml::Navigation;
 
 App::App()
 {
-	int data_version = 6;
+	int data_version = 18;
 	srand((unsigned int)time(0));
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"setting.txt")) == nullptr)
 		DumpAppFile(L"setting.txt");
@@ -50,14 +50,13 @@ App::App()
 		//setting[L"website"] = L"http://localhost/words";
 		setting[L"website"] = L"http://joe59491.azurewebsites.net";
 	if (setting[L"sound_url"] == L"")
-		setting[L"sound_url"] = L"http://dictionary.reference.com/browse/";
+		setting[L"sound_url"] = L"http://cn.bing.com/dict/search?mkt=zh-cn&q=";
 	if (setting[L"sound_url2"] == L"")
-		setting[L"sound_url2"] = L"http://static.sfdict.com/staticrep/dictaudio";
+		setting[L"sound_url2"] = L"https://dictionary.blob.core.chinacloudapi.cn/media/audio/tom";
 	if (setting[L"sound_type"] == L"")
 		setting[L"sound_type"] = L".mp3";
 	if (setting[L"data_version"] == L"")
 		setting[L"data_version"] = L"0";
-	SavingSetting();
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"words.txt")) == nullptr || StrToInt(setting[L"data_version"]) < data_version)
 		DumpAppFile(L"words.txt");
 	if (AWait(ApplicationData::Current->LocalFolder->TryGetItemAsync(L"prefix.txt")) == nullptr || StrToInt(setting[L"data_version"]) < data_version)
@@ -178,8 +177,8 @@ void App::OnLaunched(Windows::ApplicationModel::Activation::LaunchActivatedEvent
 			Window::Current->Content = shell;
 			// You have to activate the window in order to show it later.
 			Window::Current->Activate();
-			ShowMsg(L"Please install the new version of this app!");
-			auto success = AWait(Windows::System::Launcher::LaunchUriAsync(ref new Uri("ms-windows-store://pdp/?ProductId=9nblggh432kk")));
+			//ShowMsg(L"Please install the new version of this app!");
+			//auto success = AWait(Windows::System::Launcher::LaunchUriAsync(ref new Uri("ms-windows-store://pdp/?ProductId=9nblggh432kk")));
 		})));
 		create_task(Windows::UI::ViewManagement::ApplicationViewSwitcher::TryShowAsStandaloneAsync(newViewId)).then([](bool b) {
 			

@@ -30,13 +30,15 @@ SingleVocPage::SingleVocPage()
 }
 
 bool note_bool;
+Windows::Foundation::EventRegistrationToken SingleVocPage_EventRegistrationToken;
 void SingleVocPage::OnNavigatedFrom(NavigationEventArgs^ e) {
+	Window::Current->CoreWindow->KeyDown -= SingleVocPage_EventRegistrationToken;
 	//SystemNavigationManager::GetForCurrentView()->AppViewBackButtonVisibility = AppViewBackButtonVisibility::Collapsed;
-
 	Page::OnNavigatedFrom(e);
 	}
 void SingleVocPage::Init(wstring data,bool first) {
 	tivoc->Text = ref new String(data.c_str());
+	tivoc->IsTextSelectionEnabled = true;
 	wds = GetExp(words[data]);
 	Explanation = ref new String(wds.f.c_str());
 	expst->Content = ExpStack(wds.f,20);
@@ -78,11 +80,11 @@ void SingleVocPage::Init(wstring data,bool first) {
 				tmp->Margin = Thickness(10, 0, 0, 0);
 				tmp->Height = 150;
 				pics->Children->Append(tmp);
-				s = s.substr(ed - 1);
+				//s = s.substr(ed - 1);
 			}
 		}, [=] {});
 		if (setting[L"network_kk"] != L"false")
-		get(L"http://tw.dictionary.search.yahoo.com/search?p=" + (wstring)data, [=](wstring web) {
+			get(L"http://tw.dictionary.search.yahoo.com/search?p=" + (wstring)data, [=](wstring web) {
 			int len = int(web.length());
 			auto beg = web.find(L">KK[");
 			if (beg == wstring::npos)return;
@@ -95,7 +97,109 @@ void SingleVocPage::Init(wstring data,bool first) {
 			if (beg == wstring::npos)return;
 			web = web.substr(0, beg + 1);
 			kk->Text = ref new String(web.c_str());
+			kk->IsTextSelectionEnabled = true;
 		}, [] {});
+		if (setting[L"network_sent"] != L"false") {
+			StackPanel^ sentst = ref new StackPanel();
+			sentst->Margin = Thickness(20, 0, 10, 20);
+			sent->Content = sentst;
+			get(L"http://cn.bing.com/dict/search?mkt=zh-cn&q=" + (wstring)data, [=](wstring web) {
+				wstring str, tmp;
+				while (true) {
+					auto beg = web.find(L"<div class=\"sen_en\">");
+					if (beg == wstring::npos)break;
+					web = web.substr(beg);
+					//ShowMsg(web);
+					beg = web.find(L"</div>");
+					if (beg == wstring::npos)break;
+					tmp = web.substr(0, beg);
+					bool inhtml = 0;
+					for (auto &x : tmp)
+						if (x == '<')inhtml = 1;
+						else if (x == '>')inhtml = 0;
+						else if (!inhtml) {
+							if (x == '[')str += '(';
+							else if (x == '\n')str += ' ';
+							else if (x == ']')str += ')';
+							else str += x;
+						}
+						str += L"\n";
+						beg = web.find(L"<div class=\"sen_cn\">");
+						if (beg == wstring::npos)break;
+						web = web.substr(beg);
+						//ShowMsg(web);
+						beg = web.find(L"</div>");
+						if (beg == wstring::npos)break;
+						tmp = web.substr(0, beg);
+						inhtml = 0;
+						bool qut = 0;
+						wstring cn = L"";
+						for (auto &x : tmp) {
+							if (x == '<')inhtml = 1;
+							else if (x == '>')inhtml = 0;
+							else if (!inhtml) {
+								if (x == '[')cn += '(';
+								else if (x == '\n')cn += ' ';
+								else if (x == ']')cn += ')';
+								//else if (x == '“')str += L"「";
+								//else if (x == '”')str += L"」";
+								else cn += x;
+							}
+						}
+						str += s2t(cn);
+						str += L"\n";
+				}
+				str = html_decode(str);
+				str_replace(str, L"“", L"「");
+				str_replace(str, L"”", L"」");
+				/*str_replace(str, L"&nbsp;", L" ");
+				str_replace(str, L"&lt;", L"<");
+				str_replace(str, L"&gt;", L">");
+				str_replace(str, L"&amp;", L"&");
+				str_replace(str, L"&quot;", L"\"");
+				str_replace(str, L"&apos;", L"'");
+				*/
+
+				StackPanel^ sentst = ref new StackPanel();
+				sentst->Margin = Thickness(20, 0, 10, 20);
+				wstringstream stream(str);
+				wstring tmp2;
+				while (getline(stream, tmp)) {
+					getline(stream, tmp2);
+					wstringstream stream2(tmp);
+					wstring tmp3;
+					auto stp = ref new StackPanel();
+					stp->Orientation = Orientation::Horizontal;
+					while (stream2 >> tmp3) {
+						auto txt = ref new TextBlock();
+						txt->Text = ref new String(trim(tmp3).c_str());
+						txt->FontSize = 18;
+						txt->Margin = Thickness(5, 15, 0, 0);
+						txt->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
+						txt->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+						txt->Tapped += ref new Windows::UI::Xaml::Input::TappedEventHandler(this, &CutTheWords::Views::SingleVocPage::OnTapped3);
+						stp->Children->Append(txt);
+					}
+					sentst->Children->Append(stp);
+					stp = ref new StackPanel();
+					stp->Orientation = Orientation::Horizontal;
+					auto txt = ref new TextBlock();
+					txt->Text = ref new String(trim(tmp2).c_str());
+					txt->FontSize = 16;
+					txt->Margin = Thickness(10, 0, 0, 0);
+					txt->Foreground= dynamic_cast<Brush^>(Application::Current->Resources->Lookup("ApplicationSecondaryForegroundThemeBrush"));
+					//Application.Current.Resources["SystemAccentColor"]
+					txt->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
+					txt->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+					txt->IsTextSelectionEnabled = true;
+					stp->Children->Append(txt);
+					sentst->Children->Append(stp);
+				}
+				sent->Content = sentst;
+				//ShowMsg(str);
+				//kk->Text = ref new String(web.c_str());
+			}, [] {});
+		}
 	}
 	auto ve = Show(data);
 	vector<ComboBox^> tp;
@@ -152,14 +256,23 @@ void SingleVocPage::Init(wstring data,bool first) {
 			vector<wstring> ve;
 			if (data.length() == 1 || data.find(' ') != wstring::npos)
 				return ve;
+			wstring data2;
+			for (wchar_t c : data) {
+				if (c >= 'a'&&c <= L'z')
+					data2 += wstring(L"[") + c + wchar_t(c - 'a' + 'A') + wstring(L"]");
+				else if (c >= 'A'&&c <= L'Z')
+					data2 += wstring(L"[") + c + wchar_t(c - 'A' + 'a') + wstring(L"]");
+				else
+					data2 += c;
+			}
 			wstring reg_string;
 			int len = (int)data.length();
-			if (len > 2 && data.back() == 'e')
-				reg_string = L".*" + data.substr(0, len - 1) + L".*";
-			else if (len > 2 && data.back() == 'y')
-				reg_string = L".*" + data.substr(0, len - 1) + L"[iy].*";
+			if (len > 2 && (data.back() == 'e' || data.back() == 'E'))
+				reg_string = L".*" + data2.substr(0, len - 4) + L".*";
+			else if (len > 2 && (data.back() == 'y' || data.back() == 'Y'))
+				reg_string = L".*" + data2.substr(0, len - 4) + L"[iIyY].*";
 			else
-				reg_string = L".*" + data + L".*";
+				reg_string = L".*" + data2 + L".*";
 			wregex reg(reg_string);
 			int cnt = 0;
 			for (auto &x : words) {
@@ -167,7 +280,7 @@ void SingleVocPage::Init(wstring data,bool first) {
 				auto s2 = Show2(x.f);
 				for (auto &y : s2) {
 					if (y.front() == '-' || y.back() == '-')continue;
-					if (WordRotToExp(y).s == data) {
+					if (!_wcsicmp(WordRotToExp(y).s.c_str(), data.c_str())) {
 						ve.push_back(x.f);
 						break;
 					}
@@ -209,6 +322,7 @@ void SingleVocPage::Init(wstring data,bool first) {
 }
 void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
+	SingleVocPage_EventRegistrationToken = (Window::Current->CoreWindow->KeyDown += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow ^, Windows::UI::Core::KeyEventArgs ^>(this, &CutTheWords::Views::SingleVocPage::OnKeyDown));
 	play_but->Visibility = Windows::UI::Xaml::Visibility::Collapsed;
 	EditPanel->Visibility::set(Windows::UI::Xaml::Visibility::Collapsed);
 	DelPanel->Visibility::set(Windows::UI::Xaml::Visibility::Collapsed);
@@ -277,23 +391,26 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 					wstring tmp = web.substr(0, ed), str;
 					bool inhtml = 0;
 					for (auto &x : tmp)
-						if (x == '[')str += '(';
-						else if (x == ']')str += ')';
-						else if (x == '<')inhtml = 1;
+						if (x == '<')inhtml = 1;
 						else if (x == '>')inhtml = 0;
-						else if (!inhtml)str += x;
-						disc += str + L" ";
+						else if (!inhtml) {
+							if (x == '[')str += '(';
+							else if (x == '\n')str += ' ';
+							else if (x == ']')str += ')';
+							else str += x;
+						}
+					disc += str + L" ";
 				}
 				while (1) {
 					auto be = web.find(L"<span class=\"pos web\">");
 					if (be == std::wstring::npos || be + 22 >= web.size()) { break; }
 					web = web.substr(be + 22);
-					auto ed = web.find(L"</span><span class=\"def\"><span>");
-					if (ed == std::wstring::npos || ed + 31 >= web.size()) { break; }
+					auto ed = web.find(L"</span><span class=\"def\"><");
+					if (ed == std::wstring::npos || ed + 25 >= web.size()) { break; }
 					disc += L"[" + web.substr(0, ed) + L"]";
-					web = web.substr(ed + 31);
+					web = web.substr(ed + 25);
 					if (ed == std::wstring::npos) { break; }
-					ed = web.find(L"</span></span>");
+					ed = web.find(L"</span></");
 					if (ed == std::wstring::npos) { break; }
 					wstring tmp = web.substr(0, ed),str;
 					bool inhtml = 0;
@@ -318,7 +435,10 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 
 				if (disc2 == L"") { HideLoading();ShowMsg(L"查無此字");return; }
 				HideLoading();
+				nt = html_decode(nt);
+				disc = html_decode(disc);
 				disc = s2t(disc2);
+				disc = html_decode(disc);
 				words[npa] = disc;
 				if (nt != L"")
 					note[npa] = s2t(nt), AppendStrToFile(npa + L"," + nt + L"\n", L"note_user.txt");
@@ -546,24 +666,6 @@ void SingleVocPage::DelPanelListView_ItemClick(Object^ sender, Windows::UI::Xaml
 
 }
 
-void SingleVocPage::PageKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e) {
-	if (e->Key == Windows::System::VirtualKey::Back&&!DelPanelVis&&!EditPanelVis&&!note_bool) {
-		if (Frame != nullptr && Frame->CanGoBack)
-			Frame->GoBack(ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
-		else
-			Frame->Navigate(
-				TypeName(SearchVocPage::typeid),
-				Vocabulary,
-				ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
-	}
-	else if (e->Key == Windows::System::VirtualKey::Enter&&!DelPanelVis&&!EditPanelVis&&note_bool) {
-			dynamic_cast<TextBox^>(note_view->Content)->IsEnabled = false;
-			dynamic_cast<TextBox^>(note_view->Content)->IsEnabled = true;
-	}
-	else if (e->Key == Windows::System::VirtualKey::F5 && !DelPanelVis && !EditPanelVis && !note_bool) {
-		F5Button_Click(nullptr, nullptr);
-	}
-}
 void SingleVocPage::OnSelectionChanged(Platform::Object^ sender, Windows::UI::Xaml::Controls::SelectionChangedEventArgs^ e) {
 	ComboBox^ senderComboBox = dynamic_cast<ComboBox^>(sender);
 	for (int i = 0;i<(int)voc_croot->Children->Size;i++)
@@ -642,6 +744,22 @@ void CutTheWords::Views::SingleVocPage::OnTapped2(Platform::Object ^sender, Wind
 	tb->Loaded += ref new Windows::UI::Xaml::RoutedEventHandler(this, &CutTheWords::Views::SingleVocPage::OnLoaded);
 	tb->LostFocus += ref new Windows::UI::Xaml::RoutedEventHandler(this, &CutTheWords::Views::SingleVocPage::OnLostFocus);
 	note_view->Content = tb;
+	//dynamic_cast<TextBox^>(note_view->Content)->Focus(Windows::UI::Xaml::FocusState::Pointer);
+}
+void CutTheWords::Views::SingleVocPage::OnTapped3(Platform::Object ^ sender, Windows::UI::Xaml::Input::TappedRoutedEventArgs ^ e)
+{
+	TextBlock^ tmp = dynamic_cast<TextBlock^>(sender);
+	wstring s = tmp->Text->Data();
+	if (s.empty())return;
+	s.erase(0, s.find_first_of(L"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"));
+	if (s.empty())return;
+	s.erase(s.find_last_of(L"qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM")+1);
+	if (s.empty())return;
+	Frame->Navigate(
+		TypeName(SingleVocPage::typeid),
+		ref new String(s.c_str()),
+		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+	//ShowMsg(tmp->Text->Data());
 	//dynamic_cast<TextBox^>(note_view->Content)->Focus(Windows::UI::Xaml::FocusState::Pointer);
 }
 void CutTheWords::Views::SingleVocPage::OnLostFocus(Platform::Object ^sender, Windows::UI::Xaml::RoutedEventArgs ^e)
@@ -745,12 +863,12 @@ void CutTheWords::Views::SingleVocPage::F5Button_Click(Platform::Object^ sender,
 			auto be = web.find(L"<span class=\"pos web\">");
 			if (be == std::wstring::npos || be + 22 >= web.size()) { break; }
 			web = web.substr(be + 22);
-			auto ed = web.find(L"</span><span class=\"def\"><span>");
-			if (ed == std::wstring::npos || ed + 31 >= web.size()) { break; }
+			auto ed = web.find(L"</span><span class=\"def\"><");
+			if (ed == std::wstring::npos || ed + 25 >= web.size()) { break; }
 			disc += L"[" + web.substr(0, ed) + L"]";
-			web = web.substr(ed + 31);
+			web = web.substr(ed + 25);
 			if (ed == std::wstring::npos) { break; }
-			ed = web.find(L"</span></span>");
+			ed = web.find(L"</span></");
 			if (ed == std::wstring::npos) { break; }
 			wstring tmp = web.substr(0, ed), str;
 			bool inhtml = 0;
@@ -775,7 +893,10 @@ void CutTheWords::Views::SingleVocPage::F5Button_Click(Platform::Object^ sender,
 
 			if (disc2 == L"") { HideLoading(); ShowMsg(L"查無此字"); return; }
 			HideLoading();
+			nt = html_decode(nt);
+			disc = html_decode(disc);
 			disc = s2t(disc2);
+			disc = html_decode(disc);
 			words[npa] = disc;
 			if (nt != L"")
 				note[npa] = s2t(nt), AppendStrToFile(npa + L"," + nt + L"\n", L"note_user.txt");
@@ -810,5 +931,128 @@ void CutTheWords::Views::SingleVocPage::alias_list_ItemClick(Platform::Object^ s
 			TypeName(SingleVocPage::typeid),
 			str,
 			ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+	}
+}
+
+
+void CutTheWords::Views::SingleVocPage::Button_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
+{
+
+	StackPanel^ sentst = ref new StackPanel();
+	sentst->Margin = Thickness(20, 0, 10, 20);
+	sent->Content = sentst;
+	get(L"http://cn.bing.com/dict/search?mkt=zh-cn&q=" + (wstring)tivoc->Text->Data(), [=](wstring web) {
+		wstring str, tmp;
+		while (true) {
+			auto beg = web.find(L"<div class=\"sen_en\">");
+			if (beg == wstring::npos)break;
+			web = web.substr(beg);
+			//ShowMsg(web);
+			beg = web.find(L"</div>");
+			if (beg == wstring::npos)break;
+			tmp = web.substr(0, beg);
+			bool inhtml = 0;
+			for (auto &x : tmp)
+				if (x == '<')inhtml = 1;
+				else if (x == '>')inhtml = 0;
+				else if (!inhtml) {
+					if (x == '[')str += '(';
+					else if (x == '\n')str += ' ';
+					else if (x == ']')str += ')';
+					else str += x;
+				}
+				str += L"\n";
+				beg = web.find(L"<div class=\"sen_cn\">");
+				if (beg == wstring::npos)break;
+				web = web.substr(beg);
+				//ShowMsg(web);
+				beg = web.find(L"</div>");
+				if (beg == wstring::npos)break;
+				tmp = web.substr(0, beg);
+				inhtml = 0;
+				bool qut = 0;
+				wstring cn = L"";
+				for (auto &x : tmp) {
+					if (x == '<')inhtml = 1;
+					else if (x == '>')inhtml = 0;
+					else if (!inhtml) {
+						if (x == '[')cn += '(';
+						else if (x == '\n')cn += ' ';
+						else if (x == ']')cn += ')';
+						//else if (x == '“')str += L"「";
+						//else if (x == '”')str += L"」";
+						else cn += x;
+					}
+				}
+				str += s2t(cn);
+				str += L"\n";
+		}
+
+		str = html_decode(str);
+		str_replace(str, L"“", L"「");
+		str_replace(str, L"”", L"」");
+		/*str_replace(str, L"&nbsp;", L" ");
+		str_replace(str, L"&lt;", L"<");
+		str_replace(str, L"&gt;", L">");
+		str_replace(str, L"&amp;", L"&");
+		str_replace(str, L"&quot;", L"\"");
+		str_replace(str, L"&apos;", L"'");*/
+
+
+		StackPanel^ sentst = ref new StackPanel();
+		sentst->Margin = Thickness(20, 0, 10, 20);
+		wstringstream stream(str);
+		wstring tmp2;
+		while (getline(stream, tmp)) {
+			getline(stream, tmp2);
+			wstringstream stream2(tmp);
+			wstring tmp3;
+			auto stp = ref new StackPanel();
+			stp->Orientation = Orientation::Horizontal;
+			while (stream2 >> tmp3) {
+				auto txt = ref new TextBlock();
+				txt->Text = ref new String(trim(tmp3).c_str());
+				txt->FontSize = 18;
+				txt->Margin = Thickness(5, 15, 0, 0);
+				txt->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
+				txt->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+				txt->Tapped += ref new Windows::UI::Xaml::Input::TappedEventHandler(this, &CutTheWords::Views::SingleVocPage::OnTapped3);
+				stp->Children->Append(txt);
+			}
+			sentst->Children->Append(stp);
+			stp = ref new StackPanel();
+			stp->Orientation = Orientation::Horizontal;
+			auto txt = ref new TextBlock();
+			txt->Text = ref new String(trim(tmp2).c_str());
+			txt->FontSize = 18;
+			txt->Margin = Thickness(10, 0, 0, 0);
+			txt->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
+			txt->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+			txt->IsTextSelectionEnabled = true;
+			stp->Children->Append(txt);
+			sentst->Children->Append(stp);
+		}
+		sent->Content = sentst; 
+	}, [] {});
+}
+
+
+void CutTheWords::Views::SingleVocPage::OnKeyDown(Windows::UI::Core::CoreWindow ^sender, Windows::UI::Core::KeyEventArgs ^e)
+{
+	if (e->VirtualKey == Windows::System::VirtualKey::Back && !DelPanelVis && !EditPanelVis && !note_bool) {
+		if (Frame != nullptr && Frame->CanGoBack)
+			Frame->GoBack(ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+		else
+			Frame->Navigate(
+				TypeName(SearchVocPage::typeid),
+				Vocabulary,
+				ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::Enter && !DelPanelVis && !EditPanelVis&&note_bool) {
+		dynamic_cast<TextBox^>(note_view->Content)->IsEnabled = false;
+		dynamic_cast<TextBox^>(note_view->Content)->IsEnabled = true;
+	}
+	else if (e->VirtualKey == Windows::System::VirtualKey::F5 && !DelPanelVis && !EditPanelVis && !note_bool) {
+		F5Button_Click(nullptr, nullptr);
 	}
 }

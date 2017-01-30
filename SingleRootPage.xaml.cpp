@@ -7,6 +7,7 @@
 #include "SingleRootPage.xaml.h"
 #include "SearchRootPage.xaml.h"
 #include "SingleVocPage.xaml.h"
+#include "SearchVocPage.xaml.h"
 #include "Voc.h"
 using namespace Platform;
 using namespace Windows::UI::Core;
@@ -29,14 +30,16 @@ SingleRootPage::SingleRootPage()
 }
 
 
+Windows::Foundation::EventRegistrationToken SingleRootPage_EventRegistrationToken;
 void SingleRootPage::OnNavigatedFrom(NavigationEventArgs^ e) {
 	//SystemNavigationManager::GetForCurrentView()->AppViewBackButtonVisibility = AppViewBackButtonVisibility::Collapsed;
-
+	Window::Current->CoreWindow->KeyDown -= SingleRootPage_EventRegistrationToken;
 	Page::OnNavigatedFrom(e);
 }
 
 void SingleRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 {
+	SingleRootPage_EventRegistrationToken = (Window::Current->CoreWindow->KeyDown += ref new Windows::Foundation::TypedEventHandler<Windows::UI::Core::CoreWindow ^, Windows::UI::Core::KeyEventArgs ^>(this, &CutTheWords::Views::SingleRootPage::OnKeyDown));
 	EditPanel->Visibility::set(Windows::UI::Xaml::Visibility::Collapsed);
 	DelPanel->Visibility::set(Windows::UI::Xaml::Visibility::Collapsed);
 	EditPanelVis = 0;
@@ -52,6 +55,7 @@ void SingleRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 		//Vocabulary = ref new String(buffer);
 		wstring s = param->Data();
 		title->Text = param;
+		title->IsTextSelectionEnabled = true;
 		_voc = trim(s);
 		_exp = GetRootExp(s);
 		vector<TextBlock^> tmp;
@@ -59,6 +63,7 @@ void SingleRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 		for (auto x : CutExp(_exp)) {
 			tmp.push_back(ref new TextBlock());
 			tmp.back()->Text = ref new String(x.c_str());
+			tmp.back()->IsTextSelectionEnabled = true;
 			tmp.back()->Margin = 20;
 			tmp.back()->FontSize = 20;
 			voc_root->Children->Append(tmp.back());
@@ -92,7 +97,7 @@ void SingleRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 		VocList->Items->Append("讀取中...");
 		create_task([=] {
 			vector<wstring> ve;
-			wstring data;
+			wstring data,data2;
 			wstring reg_string;
 			int len = (int)_voc.length();
 			if (_voc[0] == '-' && _voc.back() == '-')
@@ -101,14 +106,22 @@ void SingleRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 				data = _voc.substr(0, len - 1);
 			else if (_voc[0] == '-' && _voc.back() != '-')
 				data = _voc.substr(1, len - 1);
+			for(wchar_t c:data){
+				if (c >= 'a'&&c <= L'z') 
+					data2 += wstring(L"[") + c + wchar_t(c - 'a' + 'A') + wstring(L"]");
+				else if (c >= 'A'&&c <= L'Z') 
+					data2 += wstring(L"[") + c + wchar_t(c - 'A' + 'a') + wstring(L"]");
+				else
+					data2 += c;
+			}
 
-			reg_string = L".*" + data + L".*";
+			reg_string = L".*" + data2 + L".*";
 			if (data.length() == 1)
 			{
 				if (_voc[0] == '-')
-					reg_string = L".*" + data;
+					reg_string = L".*" + data2;
 				else
-					reg_string = data + L".*";
+					reg_string = data2 + L".*";
 
 			}
 			wregex reg(reg_string);
@@ -120,7 +133,7 @@ void SingleRootPage::OnNavigatedTo(NavigationEventArgs^ e)
 				if (!regex_match(x.f, reg) || x.f == data)continue;
 				auto s2 = Show2(x.f);
 				for (auto &y : s2) {
-					if (y == _voc) {
+					if (!_wcsicmp(y.c_str(), _voc.c_str())) {
 						ve.push_back(x.f);
 						if (++cnt2 == 50)brk = true;
 					}
@@ -324,17 +337,6 @@ void SingleRootPage::DelPanelListView_ItemClick(Object^ sender, Windows::UI::Xam
 		DeleteButton_Click(sender, e);
 }
 
-void SingleRootPage::PageKeyDown(Object^ sender, Windows::UI::Xaml::Input::KeyRoutedEventArgs^ e) {
-	if (e->Key == Windows::System::VirtualKey::Back&&!DelPanelVis&&!EditPanelVis) {
-		if (Frame != nullptr && Frame->CanGoBack)
-			Frame->GoBack(ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
-		else
-			Frame->Navigate(
-				TypeName(SingleRootPage::typeid),
-				ref new String(_voc.c_str()),
-				ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
-	}
-}
 
 void SingleRootPage::VocListView_ItemClick(Platform::Object^ sender, ItemClickEventArgs^ e)
 {
@@ -364,5 +366,19 @@ void CutTheWords::Views::SingleRootPage::alias_list_ItemClick(Platform::Object^ 
 			TypeName(SingleRootPage::typeid),
 			str,
 			ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+	}
+}
+
+
+void CutTheWords::Views::SingleRootPage::OnKeyDown(Windows::UI::Core::CoreWindow ^sender, Windows::UI::Core::KeyEventArgs ^e)
+{
+	if (e->VirtualKey == Windows::System::VirtualKey::Back && !DelPanelVis && !EditPanelVis) {
+		if (Frame != nullptr && Frame->CanGoBack)
+			Frame->GoBack(ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+		else
+			Frame->Navigate(
+				TypeName(SingleRootPage::typeid),
+				ref new String(_voc.c_str()),
+				ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
 	}
 }

@@ -353,6 +353,8 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 		set_list->Items->Append("關閉網路發音");
 		set_list->Items->Append("開啟網路圖片");
 		set_list->Items->Append("關閉網路圖片");
+		set_list->Items->Append("開啟網路例句");
+		set_list->Items->Append("關閉網路例句");
 		set_list->Items->Append("回設定主頁");
 	}
 	else if (str == "開啟網路音標") {
@@ -382,6 +384,16 @@ void SettingPage::ListView_ItemClick(Platform::Object^ sender, ItemClickEventArg
 	}
 	else if (str == "關閉網路圖片") {
 		setting[L"network_picture"] = L"false";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "開啟網路例句") {
+		setting[L"network_sent"] = L"true";
+		SavingSetting();
+		ShowMsg(L"設定成功");
+	}
+	else if (str == "關閉網路例句") {
+		setting[L"network_sent"] = L"false";
 		SavingSetting();
 		ShowMsg(L"設定成功");
 	}

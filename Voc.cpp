@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "Voc.h"
 #include <assert.h>
 #include <stack>
@@ -288,10 +288,15 @@ void  match_rot(wstring match, vector<wstring>&ve, wstring beg) {
 				ma += (wchar_t)0xeffff;
 				reg_wstring += L"[.";
 			}
+			else if (match[i] >= 'a'&&match[i] <= L'z') {
+				reg_wstring += wstring(L"[") + match[i] + wchar_t(match[i] - 'a' + 'A') + wstring(L"]");
+				ma += match[i];
+				if (tg)mi += match[i];
+			}
 			else if (match[i] >= 'A'&&match[i] <= L'Z') {
-				reg_wstring += (char)match[i] - 'A' + 'a';
-				ma += (char)match[i] - 'A' + 'a';
-				if (tg)mi += (char)match[i] - 'A' + 'a';
+				reg_wstring += wstring(L"[") + match[i] + wchar_t(match[i] - 'A' + 'a') + wstring(L"]");
+				ma += match[i];
+				if (tg)mi += match[i];
 			}
 			else {
 				reg_wstring += (char)match[i];
@@ -1343,6 +1348,7 @@ StackPanel^ ExpStack(wstring s,int fontsize) {
 				tmp->Margin = Thickness(10, 0, 0, 0);
 				tmp->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
 				tmp->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+				tmp->IsTextSelectionEnabled = true;
 				stp->Children->Append(tmp);
 				expst->Children->Append(stp);
 				stp = ref new StackPanel();
@@ -1359,6 +1365,7 @@ StackPanel^ ExpStack(wstring s,int fontsize) {
 			tmp->Margin = Thickness(2, 1, 2, 1);
 			tmp->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
 			tmp->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+			tmp->IsTextSelectionEnabled = true;
 			auto bor = ref new Border();
 			bor->MinWidth = 50;
 			bor->Margin = Thickness(10, 0, 0, 4);
@@ -1378,8 +1385,304 @@ StackPanel^ ExpStack(wstring s,int fontsize) {
 			tmp->Margin = Thickness(10, 0, 0, 0);
 			tmp->HorizontalAlignment = Windows::UI::Xaml::HorizontalAlignment::Center;
 			tmp->VerticalAlignment = Windows::UI::Xaml::VerticalAlignment::Center;
+			tmp->IsTextSelectionEnabled = true;
 			stp->Children->Append(tmp);
 			expst->Children->Append(stp);
 		}
 		return expst;
+}
+
+void str_replace(wstring & strBig, const wstring & strsrc, const wstring &strdst){
+	wstring::size_type pos = 0;
+	wstring::size_type srclen = strsrc.length();
+	wstring::size_type dstlen = strdst.length();
+	while ((pos = strBig.find(strsrc, pos)) != wstring::npos)
+	{
+		strBig.replace(pos, srclen, strdst);
+		pos += dstlen;
+	}
+}
+
+map<wstring,wstring> NAMED_ENTITIES={
+	{ L"AElig;", L"Æ" },
+	{ L"Aacute;", L"Á" },
+	{ L"Acirc;", L"Â" },
+	{ L"Agrave;", L"À" },
+	{ L"Alpha;", L"Α" },
+	{ L"Aring;", L"Å" },
+	{ L"Atilde;", L"Ã" },
+	{ L"Auml;", L"Ä" },
+	{ L"Beta;", L"Β" },
+	{ L"Ccedil;", L"Ç" },
+	{ L"Chi;", L"Χ" },
+	{ L"Dagger;", L"‡" },
+	{ L"Delta;", L"Δ" },
+	{ L"ETH;", L"Ð" },
+	{ L"Eacute;", L"É" },
+	{ L"Ecirc;", L"Ê" },
+	{ L"Egrave;", L"È" },
+	{ L"Epsilon;", L"Ε" },
+	{ L"Eta;", L"Η" },
+	{ L"Euml;", L"Ë" },
+	{ L"Gamma;", L"Γ" },
+	{ L"Iacute;", L"Í" },
+	{ L"Icirc;", L"Î" },
+	{ L"Igrave;", L"Ì" },
+	{ L"Iota;", L"Ι" },
+	{ L"Iuml;", L"Ï" },
+	{ L"Kappa;", L"Κ" },
+	{ L"Lambda;", L"Λ" },
+	{ L"Mu;", L"Μ" },
+	{ L"Ntilde;", L"Ñ" },
+	{ L"Nu;", L"Ν" },
+	{ L"OElig;", L"Œ" },
+	{ L"Oacute;", L"Ó" },
+	{ L"Ocirc;", L"Ô" },
+	{ L"Ograve;", L"Ò" },
+	{ L"Omega;", L"Ω" },
+	{ L"Omicron;", L"Ο" },
+	{ L"Oslash;", L"Ø" },
+	{ L"Otilde;", L"Õ" },
+	{ L"Ouml;", L"Ö" },
+	{ L"Phi;", L"Φ" },
+	{ L"Pi;", L"Π" },
+	{ L"Prime;", L"″" },
+	{ L"Psi;", L"Ψ" },
+	{ L"Rho;", L"Ρ" },
+	{ L"Scaron;", L"Š" },
+	{ L"Sigma;", L"Σ" },
+	{ L"THORN;", L"Þ" },
+	{ L"Tau;", L"Τ" },
+	{ L"Theta;", L"Θ" },
+	{ L"Uacute;", L"Ú" },
+	{ L"Ucirc;", L"Û" },
+	{ L"Ugrave;", L"Ù" },
+	{ L"Upsilon;", L"Υ" },
+	{ L"Uuml;", L"Ü" },
+	{ L"Xi;", L"Ξ" },
+	{ L"Yacute;", L"Ý" },
+	{ L"Yuml;", L"Ÿ" },
+	{ L"Zeta;", L"Ζ" },
+	{ L"aacute;", L"á" },
+	{ L"acirc;", L"â" },
+	{ L"acute;", L"´" },
+	{ L"aelig;", L"æ" },
+	{ L"agrave;", L"à" },
+	{ L"alefsym;", L"ℵ" },
+	{ L"alpha;", L"α" },
+	{ L"amp;", L"&" },
+	{ L"and;", L"∧" },
+	{ L"ang;", L"∠" },
+	{ L"apos;", L"'" },
+	{ L"aring;", L"å" },
+	{ L"asymp;", L"≈" },
+	{ L"atilde;", L"ã" },
+	{ L"auml;", L"ä" },
+	{ L"bdquo;", L"„" },
+	{ L"beta;", L"β" },
+	{ L"brvbar;", L"¦" },
+	{ L"bull;", L"•" },
+	{ L"cap;", L"∩" },
+	{ L"ccedil;", L"ç" },
+	{ L"cedil;", L"¸" },
+	{ L"cent;", L"¢" },
+	{ L"chi;", L"χ" },
+	{ L"circ;", L"ˆ" },
+	{ L"clubs;", L"♣" },
+	{ L"cong;", L"≅" },
+	{ L"copy;", L"©" },
+	{ L"crarr;", L"↵" },
+	{ L"cup;", L"∪" },
+	{ L"curren;", L"¤" },
+	{ L"dArr;", L"⇓" },
+	{ L"dagger;", L"†" },
+	{ L"darr;", L"↓" },
+	{ L"deg;", L"°" },
+	{ L"delta;", L"δ" },
+	{ L"diams;", L"♦" },
+	{ L"divide;", L"÷" },
+	{ L"eacute;", L"é" },
+	{ L"ecirc;", L"ê" },
+	{ L"egrave;", L"è" },
+	{ L"empty;", L"∅" },
+	{ L"epsilon;", L"ε" },
+	{ L"equiv;", L"≡" },
+	{ L"eta;", L"η" },
+	{ L"eth;", L"ð" },
+	{ L"euml;", L"ë" },
+	{ L"euro;", L"€" },
+	{ L"exist;", L"∃" },
+	{ L"fnof;", L"ƒ" },
+	{ L"forall;", L"∀" },
+	{ L"frac12;", L"½" },
+	{ L"frac14;", L"¼" },
+	{ L"frac34;", L"¾" },
+	{ L"frasl;", L"⁄" },
+	{ L"gamma;", L"γ" },
+	{ L"ge;", L"≥" },
+	{ L"gt;", L">" },
+	{ L"hArr;", L"⇔" },
+	{ L"harr;", L"↔" },
+	{ L"hearts;", L"♥" },
+	{ L"hellip;", L"…" },
+	{ L"iacute;", L"í" },
+	{ L"icirc;", L"î" },
+	{ L"iexcl;", L"¡" },
+	{ L"igrave;", L"ì" },
+	{ L"image;", L"ℑ" },
+	{ L"infin;", L"∞" },
+	{ L"int;", L"∫" },
+	{ L"iota;", L"ι" },
+	{ L"iquest;", L"¿" },
+	{ L"isin;", L"∈" },
+	{ L"iuml;", L"ï" },
+	{ L"kappa;", L"κ" },
+	{ L"lArr;", L"⇐" },
+	{ L"lambda;", L"λ" },
+	{ L"lang;", L"〈" },
+	{ L"laquo;", L"«" },
+	{ L"larr;", L"←" },
+	{ L"lceil;", L"⌈" },
+	{ L"ldquo;", L"“" },
+	{ L"le;", L"≤" },
+	{ L"lfloor;", L"⌊" },
+	{ L"lowast;", L"∗" },
+	{ L"loz;", L"◊" },
+	{ L"lsaquo;", L"‹" },
+	{ L"lsquo;", L"‘" },
+	{ L"lt;", L"<" },
+	{ L"macr;", L"¯" },
+	{ L"mdash;", L"—" },
+	{ L"micro;", L"µ" },
+	{ L"middot;", L"·" },
+	{ L"minus;", L"−" },
+	{ L"mu;", L"μ" },
+	{ L"nabla;", L"∇" },
+	{ L"ndash;", L"–" },
+	{ L"ne;", L"≠" },
+	{ L"ni;", L"∋" },
+	{ L"not;", L"¬" },
+	{ L"notin;", L"∉" },
+	{ L"nsub;", L"⊄" },
+	{ L"ntilde;", L"ñ" },
+	{ L"nu;", L"ν" },
+	{ L"oacute;", L"ó" },
+	{ L"ocirc;", L"ô" },
+	{ L"oelig;", L"œ" },
+	{ L"ograve;", L"ò" },
+	{ L"oline;", L"‾" },
+	{ L"omega;", L"ω" },
+	{ L"omicron;", L"ο" },
+	{ L"oplus;", L"⊕" },
+	{ L"or;", L"∨" },
+	{ L"ordf;", L"ª" },
+	{ L"ordm;", L"º" },
+	{ L"oslash;", L"ø" },
+	{ L"otilde;", L"õ" },
+	{ L"otimes;", L"⊗" },
+	{ L"ouml;", L"ö" },
+	{ L"para;", L"¶" },
+	{ L"part;", L"∂" },
+	{ L"permil;", L"‰" },
+	{ L"perp;", L"⊥" },
+	{ L"phi;", L"φ" },
+	{ L"pi;", L"π" },
+	{ L"piv;", L"ϖ" },
+	{ L"plusmn;", L"±" },
+	{ L"pound;", L"£" },
+	{ L"prime;", L"′" },
+	{ L"prod;", L"∏" },
+	{ L"prop;", L"∝" },
+	{ L"psi;", L"ψ" },
+	{ L"quot;", L"\"" },
+	{ L"rArr;", L"⇒" },
+	{ L"radic;", L"√" },
+	{ L"rang;", L"〉" },
+	{ L"raquo;", L"»" },
+	{ L"rarr;", L"→" },
+	{ L"rceil;", L"⌉" },
+	{ L"rdquo;", L"”" },
+	{ L"real;", L"ℜ" },
+	{ L"reg;", L"®" },
+	{ L"rfloor;", L"⌋" },
+	{ L"rho;", L"ρ" },
+	{ L"rsaquo;", L"›" },
+	{ L"rsquo;", L"’" },
+	{ L"sbquo;", L"‚" },
+	{ L"scaron;", L"š" },
+	{ L"sdot;", L"⋅" },
+	{ L"sect;", L"§" },
+	{ L"sigma;", L"σ" },
+	{ L"sigmaf;", L"ς" },
+	{ L"sim;", L"∼" },
+	{ L"spades;", L"♠" },
+	{ L"sub;", L"⊂" },
+	{ L"sube;", L"⊆" },
+	{ L"sum;", L"∑" },
+	{ L"sup1;", L"¹" },
+	{ L"sup2;", L"²" },
+	{ L"sup3;", L"³" },
+	{ L"sup;", L"⊃" },
+	{ L"supe;", L"⊇" },
+	{ L"szlig;", L"ß" },
+	{ L"tau;", L"τ" },
+	{ L"there4;", L"∴" },
+	{ L"theta;", L"θ" },
+	{ L"thetasym;", L"ϑ" },
+	{ L"thorn;", L"þ" },
+	{ L"tilde;", L"˜" },
+	{ L"times;", L"×" },
+	{ L"trade;", L"™" },
+	{ L"uArr;", L"⇑" },
+	{ L"uacute;", L"ú" },
+	{ L"uarr;", L"↑" },
+	{ L"ucirc;", L"û" },
+	{ L"ugrave;", L"ù" },
+	{ L"uml;", L"¨" },
+	{ L"upsih;", L"ϒ" },
+	{ L"upsilon;", L"υ" },
+	{ L"uuml;", L"ü" },
+	{ L"weierp;", L"℘" },
+	{ L"xi;", L"ξ" },
+	{ L"yacute;", L"ý" },
+	{ L"yen;", L"¥" },
+	{ L"yuml;", L"ÿ" },
+	{ L"zeta;", L"ζ" }
+};
+wstring html_decode(wstring input) {
+	wstring ret;
+	int len = input.length();
+	for (int i = 0; i < len; i++) {
+		if (input[i] == '&') {
+			if (i == len - 1)
+				ret += '&';
+			else if (input[i + 1] == '#') {
+				int pos = input.find(';', i);
+				if (pos == wstring::npos)
+					ret += '&';
+				else {
+					wstring s = input.substr(i + 2, pos - i - 2);
+					ret += StrToInt(s);
+					i += s.length() + 2;
+				}
+			}
+			else {
+				int pos = input.find(';', i);
+				if (pos == wstring::npos)
+					ret += '&';
+				else {
+					wstring s = input.substr(i + 1, pos - i);
+					if (NAMED_ENTITIES.find(s) != NAMED_ENTITIES.end())
+						ret += NAMED_ENTITIES[s],
+						i += s.length();
+					else
+						ret += '&';
+				}
+			}
+
+		}
+		else
+			ret += input[i];
+	}
+	return ret;
 }

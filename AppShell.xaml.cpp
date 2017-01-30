@@ -396,16 +396,18 @@ namespace CutTheWords
 
 void CutTheWords::AppShell::SettingsNavPaneButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
+
+
+	TogglePaneButton->IsChecked = false;
 	AppFrame->Navigate(
 		TypeName(Views::SettingPage::typeid),
-		nullptr,
-		ref new Windows::UI::Xaml::Media::Animation::DrillInNavigationTransitionInfo());
+		nullptr);
 }
 
 
 void CutTheWords::AppShell::FeedbackNavPaneButton_Click(Platform::Object^ sender, Windows::UI::Xaml::RoutedEventArgs^ e)
 {
 
-	auto success = AWait(Windows::System::Launcher::LaunchUriAsync(ref new Uri("ms-windows-store://pdp/?ProductId=9nblggh432kk")));
+	auto success = AWait(Windows::System::Launcher::LaunchUriAsync(ref new Uri("ms-windows-store://pdp/?productid=9nblggh4wfmb")));
 
 }
