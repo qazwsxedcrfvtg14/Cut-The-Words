@@ -267,10 +267,11 @@ void SingleVocPage::Init(wstring data,bool first) {
 			}
 			wstring reg_string;
 			int len = (int)data.length();
+			int len2 = (int)data2.length();
 			if (len > 2 && (data.back() == 'e' || data.back() == 'E'))
-				reg_string = L".*" + data2.substr(0, len - 4) + L".*";
+				reg_string = L".*" + data2.substr(0, len2 - 4) + L".*";
 			else if (len > 2 && (data.back() == 'y' || data.back() == 'Y'))
-				reg_string = L".*" + data2.substr(0, len - 4) + L"[iIyY].*";
+				reg_string = L".*" + data2.substr(0, len2 - 4) + L"[iIyY].*";
 			else
 				reg_string = L".*" + data2 + L".*";
 			wregex reg(reg_string);
