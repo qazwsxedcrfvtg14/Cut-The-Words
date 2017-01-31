@@ -387,7 +387,8 @@ void SingleVocPage::OnNavigatedTo(NavigationEventArgs^ e)
 					disc += L"[" + web.substr(0, ed) + L"]";
 					web = web.substr(ed + 31);
 					if (ed == std::wstring::npos) { break; }
-					ed = web.find(L"</span></span>");
+					ed = web.find(L"</span></");
+					if (ed == std::wstring::npos) { break; }
 					wstring tmp = web.substr(0, ed), str;
 					bool inhtml = 0;
 					for (auto &x : tmp)
@@ -848,7 +849,7 @@ void CutTheWords::Views::SingleVocPage::F5Button_Click(Platform::Object^ sender,
 			disc += L"[" + web.substr(0, ed) + L"]";
 			web = web.substr(ed + 31);
 			if (ed == std::wstring::npos) { break; }
-			ed = web.find(L"</span></span>");
+			ed = web.find(L"</span></");
 			wstring tmp = web.substr(0, ed), str;
 			bool inhtml = 0;
 			for (auto &x : tmp)

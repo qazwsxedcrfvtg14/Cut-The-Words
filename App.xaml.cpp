@@ -50,9 +50,9 @@ App::App()
 		//setting[L"website"] = L"http://localhost/words";
 		setting[L"website"] = L"http://joe59491.azurewebsites.net";
 	if (setting[L"sound_url"] == L"")
-		setting[L"sound_url"] = L"http://cn.bing.com/dict/search?mkt=zh-cn&q=";
+		setting[L"sound_url"] = L"http://dictionary.reference.com/browse/";
 	if (setting[L"sound_url2"] == L"")
-		setting[L"sound_url2"] = L"https://dictionary.blob.core.chinacloudapi.cn/media/audio/tom";
+		setting[L"sound_url2"] = L"http://static.sfdict.com/staticrep/dictaudio";
 	if (setting[L"sound_type"] == L"")
 		setting[L"sound_type"] = L".mp3";
 	if (setting[L"data_version"] == L"")
