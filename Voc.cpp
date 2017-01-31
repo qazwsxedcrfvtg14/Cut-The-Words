@@ -277,6 +277,9 @@ void  match_rot(wstring match, vector<wstring>&ve, wstring beg) {
 		wstring reg_wstring;
 		wstring mi, ma;
 		bool tg = 1;
+		bool noteng = false;
+		if (match.length() && match[0] == '^')
+			noteng = true, match = match.substr(1);
 		for (int i = 0;match[i];i++) {
 			if (match[i] == L'*'/* || match[i] == L'-'*/) {
 				ma += 0xEFFF;
@@ -298,35 +301,63 @@ void  match_rot(wstring match, vector<wstring>&ve, wstring beg) {
 				ma += match[i];
 				if (tg)mi += match[i];
 			}
+			else if (match[i] >= 0 && match[i] <= 128) {
+				reg_wstring += match[i];
+				ma += match[i];
+				if (tg)mi += match[i];
+			}
 			else {
-				reg_wstring += (char)match[i];
-				ma += (char)match[i];
-				if (tg)mi += (char)match[i];
+				noteng = true;
+				reg_wstring += match[i];
+				ma += match[i];
+				if (tg)mi += match[i];
 			}
 		}
 		wregex reg(reg_wstring);
+		wregex reg2(L".*" + reg_wstring + L".*");
 		int cnt = 0;
 		auto be = prefix.lower_bound(mi), ed = prefix.upper_bound(ma);
 		if (beg != L"")be = prefix.upper_bound(beg);
-		for (auto it = be;it != ed;++it)
+		if (noteng)
+			be = prefix.begin(), ed = prefix.end();
+		for (auto it = be; it != ed; ++it) {
 			if (regex_match(it->f, reg)) {
 				ve.push_back(it->f + L"-");
 				if (++cnt == 30)break;
 			}
+			else if (noteng&&regex_match(it->second, reg2)) {
+				ve.push_back(it->f + L"-");
+				if (++cnt == 30)break;
+			}
+		}
 		be = root.lower_bound(mi), ed = root.upper_bound(ma);
 		if (beg != L"")be = root.upper_bound(beg);
-		for (auto it = be;it != ed;++it)
+		if (noteng)
+			be = root.begin(), ed = root.end();
+		for (auto it = be; it != ed; ++it) {
 			if (regex_match(it->f, reg)) {
 				ve.push_back(L"-" + it->f + L"-");
 				if (++cnt == 60)break;
 			}
+			else if (noteng&&regex_match(it->second, reg2)) {
+				ve.push_back(L"-" + it->f + L"-");
+				if (++cnt == 60)break;
+			}
+		}
 		be = suffix.lower_bound(mi), ed = suffix.upper_bound(ma);
 		if (beg != L"")be = suffix.upper_bound(beg);
-		for (auto it = be;it != ed;++it)
+		if (noteng)
+			be = suffix.begin(), ed = suffix.end();
+		for (auto it = be; it != ed; ++it) {
 			if (regex_match(it->f, reg)) {
 				ve.push_back(L"-" + it->f);
 				if (++cnt == 90)break;
 			}
+			else if (noteng&&regex_match(it->second, reg2)) {
+				ve.push_back(L"-" + it->f);
+				if (++cnt == 90)break;
+			}
+		}
 		sort(ve.begin(), ve.end(), [](wstring a, wstring b) {
 			if (a[0] == '-'&&b[0] == '-')return a < b;
 			else if (a[0] == '-')return a.substr(1) < b;
