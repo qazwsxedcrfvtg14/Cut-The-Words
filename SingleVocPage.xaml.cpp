@@ -146,9 +146,10 @@ void SingleVocPage::Init(wstring data,bool first) {
 								else cn += x;
 							}
 						}
-						str += s2t(cn);
+						str += cn;
 						str += L"\n";
 				}
+				str = s2t(str);
 				str = html_decode(str);
 				str_replace(str, L"“", L"「");
 				str_replace(str, L"”", L"」");
@@ -986,10 +987,10 @@ void CutTheWords::Views::SingleVocPage::Button_Click(Platform::Object^ sender, W
 						else cn += x;
 					}
 				}
-				str += s2t(cn);
+				//str += s2t(cn);
 				str += L"\n";
 		}
-
+		str = s2t(str);
 		str = html_decode(str);
 		str_replace(str, L"“", L"「");
 		str_replace(str, L"”", L"」");
