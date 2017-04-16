@@ -1003,7 +1003,7 @@ void CutTheWords::Views::SingleVocPage::Button_Click(Platform::Object^ sender, W
 
 
 		StackPanel^ sentst = ref new StackPanel();
-		sentst->Margin = Thickness(20, 0, 10, 20);
+		sentst->Margin = Thickness(20, 0, 10);
 		wstringstream stream(str);
 		wstring tmp2;
 		while (getline(stream, tmp)) {
